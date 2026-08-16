@@ -228,7 +228,7 @@ export function IntroStage() {
           >
             <Image
               src={subtitle}
-              alt="Clearance Level 7 — Agents Only"
+              alt="Clearance Level 7 Agents Only"
               fill
               quality={95}
               sizes={PLATE_SIZES}

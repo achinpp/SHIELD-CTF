@@ -43,7 +43,7 @@ const CEIL = 0.985;
 const LAYERS = [
   { name: "crest", file: "cool-lock.png", outWidth: 3840 },
   { name: "title", file: "capture.png", outWidth: 1920 },
-  { name: "subtitle", file: "some-text.png", outWidth: 1920 },
+  { name: "subtitle", file: "some-texts.png", outWidth: 1920 },
 ];
 
 const readRGB = (file, w = W, h = H) =>
