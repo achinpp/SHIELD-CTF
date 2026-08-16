@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 
 import backdrop from "@/assets/background.png";
@@ -11,6 +10,7 @@ import backdrop from "@/assets/background.png";
 import crest from "@/assets/plates/crest.png";
 import title from "@/assets/plates/title.png";
 import subtitle from "@/assets/plates/subtitle.png";
+import { AccessPanel } from "@/components/access-panel";
 import { HudFrame } from "@/components/hud-frame";
 import {
   APPROACH,
@@ -33,6 +33,7 @@ export function IntroStage() {
   const [skipped, setSkipped] = useState(false);
   const [chromeCued, setChromeCued] = useState(false);
   const [sequenceDone, setSequenceDone] = useState(false);
+  const [accessOpen, setAccessOpen] = useState(false);
 
   /** Jump straight to the finished composition. */
   const instant = skipped || prefersReduced === true;
@@ -251,14 +252,17 @@ export function IntroStage() {
             : INSTANT
         }
       >
-        <Link
-          href="/briefing"
+        <button
+          type="button"
+          onClick={() => setAccessOpen(true)}
           onPointerDown={(e) => e.stopPropagation()}
+          aria-haspopup="dialog"
+          aria-expanded={accessOpen}
           className="group inline-flex items-center gap-3 border border-signal/40 bg-void/55 px-6 py-2.5 font-mono text-[11px] tracking-[0.3em] text-signal backdrop-blur-sm transition-colors hover:border-signal hover:bg-signal/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal sm:text-xs"
         >
-          INITIATE BRIEFING
+          BREACH THE VAULT
           <span className="transition-transform group-hover:translate-x-1">&rsaquo;</span>
-        </Link>
+        </button>
       </motion.div>
 
       {/* Screen treatment, above the art and below the chrome. */}
@@ -284,6 +288,8 @@ export function IntroStage() {
           SKIP TRANSMISSION
         </button>
       )}
+
+      <AccessPanel open={accessOpen} onClose={() => setAccessOpen(false)} />
     </main>
   );
 }
