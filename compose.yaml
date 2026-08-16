@@ -1,0 +1,38 @@
+# S.H.I.E.L.D. CTF — platform stack.
+#
+#   docker compose up --build     build and run    -> http://localhost:3000
+#   docker compose down           stop and remove
+#
+# Challenge boxes get added here as separate services on their own network,
+# so a player container can never reach the scoring service.
+
+services:
+  web:
+    build:
+      context: .
+      # Pin the build stage explicitly so a future `dev` stage cannot be
+      # selected by accident.
+      target: runner
+    image: shield-ctf-web:local
+    ports:
+      # Host port is overridable so the container can run alongside a
+      # `npm run dev` already holding 3000:  WEB_PORT=3001 docker compose up
+      - "${WEB_PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped
+    # The Dockerfile HEALTHCHECK is what `docker compose ps` reports on.
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--spider", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+    # Nothing in the app writes to disk at runtime; Next only needs a scratch
+    # cache. Locking the rest down keeps a compromised container inert.
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.next/cache
+    security_opt:
+      - no-new-privileges:true

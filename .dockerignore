@@ -1,0 +1,46 @@
+# Everything here is either rebuilt inside the image or has no business in it.
+# Keeping the build context small matters: src/assets alone is ~12 MB.
+
+# Installed fresh in the deps stage — host binaries are the wrong platform.
+node_modules
+.pnp
+.pnp.*
+
+# Rebuilt by `next build` in the builder stage.
+.next
+out
+build
+*.tsbuildinfo
+next-env.d.ts
+
+.git
+.gitignore
+.github
+
+# Source artwork. The plates the app imports live in src/assets; this is the
+# 2 MB flat original that only `npm run assets:prepare` reads.
+design
+
+# Coursework material, not application code.
+info.pdf
+
+# Docker's own files — changing them should not bust the build cache.
+Dockerfile
+.dockerignore
+compose.yaml
+docker-compose.yml
+
+# Secrets must arrive at runtime, never be baked into an image layer.
+.env
+.env.*
+!.env.example
+
+.vercel
+README.md
+LICENSE
+CLAUDE.md
+AGENTS.md
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store

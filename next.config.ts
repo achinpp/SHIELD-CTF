@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Emits `.next/standalone` with a self-contained server.js and only the
+  // traced node_modules, so the Docker runtime image carries no toolchain.
+  output: "standalone",
   images: {
     // Next 16 only honours qualities declared here. The artwork is the whole
     // page, so the plates are served well above the default 75.
