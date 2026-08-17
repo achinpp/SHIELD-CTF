@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+
+import { logout } from "@/app/actions/auth";
+import { requireUser } from "@/lib/auth/dal";
 
 export const metadata: Metadata = {
   title: "Briefing",
 };
 
 /**
- * Placeholder landing spot for the CTA on the intro page. Replace the body
- * with the real challenge board when the challenges are built out.
+ * The first page behind the gate.
+ *
+ * `requireUser()` is the real access check — it resolves the session against
+ * the database on every request. The proxy redirect is only a shortcut for
+ * visitors with no cookie at all.
  */
-export default function Briefing() {
+export default async function Briefing() {
+  const agent = await requireUser();
+
   return (
     <main className="relative grid h-dvh w-screen place-items-center overflow-hidden bg-void px-6">
       <div
@@ -25,17 +32,22 @@ export default function Briefing() {
         <h1 className="mt-6 text-2xl font-semibold tracking-[0.2em] text-signal sm:text-3xl">
           MISSION BRIEFING
         </h1>
+
         <p className="mt-5 text-sm leading-relaxed tracking-wide text-signal/60">
-          Challenge board is still being provisioned. Check back once the
-          operation goes live, agent.
+          Welcome back, agent{" "}
+          <span className="text-signal">{agent.codename}</span>. Challenge board
+          is still being provisioned &mdash; check back once the operation goes
+          live.
         </p>
 
-        <Link
-          href="/"
-          className="mt-10 inline-flex items-center gap-3 border border-signal/40 px-6 py-2.5 text-[11px] tracking-[0.3em] text-signal transition-colors hover:border-signal hover:bg-signal/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
-        >
-          <span>&lsaquo;</span> RETURN TO TERMINAL
-        </Link>
+        <form action={logout} className="mt-10">
+          <button
+            type="submit"
+            className="inline-flex items-center gap-3 border border-signal/40 px-6 py-2.5 text-[11px] tracking-[0.3em] text-signal transition-colors hover:border-signal hover:bg-signal/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signal"
+          >
+            <span>&lsaquo;</span> END SESSION
+          </button>
+        </form>
       </div>
     </main>
   );

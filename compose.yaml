@@ -2,9 +2,10 @@
 #
 #   docker compose up --build     build and run    -> http://localhost:3000
 #   docker compose down           stop and remove
+#   docker compose down -v        also drop the database (every account)
 #
 # Challenge boxes get added here as separate services on their own network,
-# so a player container can never reach the scoring service.
+# so a player container can never reach the scoring service or the database.
 
 services:
   web:
@@ -20,8 +21,13 @@ services:
       - "${WEB_PORT:-3000}:3000"
     environment:
       NODE_ENV: production
+      # Reaches Postgres over the internal network by service name. The
+      # database port is deliberately not published to the host.
+      DATABASE_URL: postgres://shield:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@db:5432/shield
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
-    # The Dockerfile HEALTHCHECK is what `docker compose ps` reports on.
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--spider", "http://127.0.0.1:3000/"]
       interval: 30s
@@ -36,3 +42,28 @@ services:
       - /app/.next/cache
     security_opt:
       - no-new-privileges:true
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: shield
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: shield
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      # Runs once, on an empty data directory.
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    # No `ports:` on purpose — the database is reachable only from the compose
+    # network, never from the host or the internet. To inspect it, use
+    # `docker compose exec db psql -U shield`.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shield -d shield"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  db-data:

@@ -1,12 +1,66 @@
+import * as z from "zod";
+
 /**
- * Credential rules for the access panel.
+ * Credential rules, shared by the browser and the server.
  *
- * Validation lives here rather than in the component so the real backend can
- * reuse the exact same rules server-side — client checks are a courtesy to the
- * user, never a security control.
+ * One definition on purpose: the panel uses it for instant feedback, the
+ * Server Action re-runs it before touching the database. The client copy is a
+ * courtesy to the user and nothing more — anything can POST to a Server
+ * Action, so the server-side parse is the one that counts.
  */
 
 export type Mode = "login" | "register";
+
+export const MIN_PASSPHRASE = 12;
+/** Bounds the work a single request can ask Argon2 to do. */
+export const MAX_PASSPHRASE = 128;
+
+export const CODENAME_PATTERN = /^[a-zA-Z0-9_-]+$/;
+
+const codename = z
+  .string()
+  .trim()
+  .min(3, "Codename must be at least 3 characters.")
+  .max(24, "Codename must be at most 24 characters.")
+  .regex(
+    CODENAME_PATTERN,
+    "Letters, numbers, underscore and hyphen only.",
+  );
+
+const email = z
+  .string()
+  .trim()
+  .min(1, "Enter an email for recovery.")
+  .max(254, "That email is too long.")
+  .pipe(z.email("That does not look like an email address."));
+
+const passphrase = z
+  .string()
+  .min(MIN_PASSPHRASE, `Passphrase must be at least ${MIN_PASSPHRASE} characters.`)
+  .max(MAX_PASSPHRASE, `Passphrase must be at most ${MAX_PASSPHRASE} characters.`);
+
+export const LoginSchema = z.object({
+  identifier: z.string().trim().min(1, "Enter your codename or email."),
+  passphrase: z.string().min(1, "Enter your passphrase."),
+});
+
+export const RegisterSchema = z
+  .object({
+    codename,
+    email,
+    passphrase,
+    confirm: z.string().min(1, "Repeat the passphrase."),
+  })
+  // Length beats composition rules, but a passphrase built out of the
+  // codename is guessable no matter how long it is.
+  .refine(
+    (v) => !v.passphrase.toLowerCase().includes(v.codename.toLowerCase()),
+    { path: ["passphrase"], error: "Your passphrase cannot contain your codename." },
+  )
+  .refine((v) => v.passphrase === v.confirm, {
+    path: ["confirm"],
+    error: "Passphrases do not match.",
+  });
 
 /** Every field the panel can render, across both modes. */
 export type AccessFields = {
@@ -25,109 +79,51 @@ export const EMPTY_FIELDS: AccessFields = {
   confirm: "",
 };
 
-/** Field name → message. A field is only listed when it failed. */
 export type FieldErrors = Partial<Record<keyof AccessFields, string>>;
 
-export type Validation =
-  | { ok: true }
-  | { ok: false; errors: FieldErrors; first: keyof AccessFields };
+/** What a Server Action hands back to `useActionState`. */
+export type AccessState = {
+  errors?: FieldErrors;
+  message?: string;
+} | null;
 
-export const CODENAME_PATTERN = /^[a-zA-Z0-9_-]{3,24}$/;
+/** Order decides which field gets focused when several fail at once. */
+const ORDER: Record<Mode, (keyof AccessFields)[]> = {
+  login: ["identifier", "passphrase"],
+  register: ["codename", "email", "passphrase", "confirm"],
+};
 
-/** Deliberately loose: a local-part, an @, and a dotted domain. */
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-export const MIN_PASSPHRASE = 10;
-
-/** Order matters — the first failure is what gets focused. */
-const LOGIN_ORDER: (keyof AccessFields)[] = ["identifier", "passphrase"];
-const REGISTER_ORDER: (keyof AccessFields)[] = [
-  "codename",
-  "email",
-  "passphrase",
-  "confirm",
-];
-
-function finish(
-  errors: FieldErrors,
-  order: (keyof AccessFields)[],
-): Validation {
-  const first = order.find((field) => errors[field]);
-  return first ? { ok: false, errors, first } : { ok: true };
-}
-
-export function validateLogin(fields: AccessFields): Validation {
-  const errors: FieldErrors = {};
-
-  if (!fields.identifier.trim()) {
-    errors.identifier = "Enter your codename or registered email.";
-  }
-  if (!fields.passphrase) {
-    errors.passphrase = "Enter your passphrase.";
-  }
-
-  return finish(errors, LOGIN_ORDER);
-}
-
-export function validateRegister(fields: AccessFields): Validation {
-  const errors: FieldErrors = {};
-  const codename = fields.codename.trim();
-
-  if (!codename) {
-    errors.codename = "Pick a codename.";
-  } else if (!CODENAME_PATTERN.test(codename)) {
-    errors.codename =
-      "3–24 characters, letters/numbers/underscore/hyphen only.";
-  }
-
-  if (!fields.email.trim()) {
-    errors.email = "Enter an email for recovery.";
-  } else if (!EMAIL_PATTERN.test(fields.email.trim())) {
-    errors.email = "That does not look like an email address.";
-  }
-
-  if (!fields.passphrase) {
-    errors.passphrase = "Choose a passphrase.";
-  } else if (fields.passphrase.length < MIN_PASSPHRASE) {
-    errors.passphrase = `At least ${MIN_PASSPHRASE} characters.`;
-  } else if (
-    codename &&
-    fields.passphrase.toLowerCase().includes(codename.toLowerCase())
-  ) {
-    errors.passphrase = "Your passphrase cannot contain your codename.";
-  }
-
-  if (!fields.confirm) {
-    errors.confirm = "Repeat the passphrase.";
-  } else if (fields.confirm !== fields.passphrase) {
-    errors.confirm = "Passphrases do not match.";
-  }
-
-  return finish(errors, REGISTER_ORDER);
-}
-
-export function validate(mode: Mode, fields: AccessFields): Validation {
-  return mode === "login" ? validateLogin(fields) : validateRegister(fields);
-}
-
-/**
- * ── BACKEND SEAM ────────────────────────────────────────────────────────────
- * There is no auth service yet, so this resolves without transmitting or
- * storing anything: the passphrase never leaves this function's arguments.
- *
- * Replace the body with the real call (a Server Action, or `fetch` to the auth
- * route) once accounts exist. Keep the shape — the panel already handles a
- * failed outcome with a message, so a real "invalid credentials" response
- * needs no UI changes.
- */
-/* eslint-disable @typescript-eslint/no-unused-vars -- the seam keeps the real
-   call's signature; both arguments are used once this talks to a backend. */
-export async function submitAccess(
+export function firstErrorField(
   mode: Mode,
-  fields: AccessFields,
-): Promise<{ ok: true } | { ok: false; message: string }> {
-  // Stands in for network latency so the pending state is visible.
-  await new Promise((resolve) => setTimeout(resolve, 700));
-  return { ok: true };
+  errors: FieldErrors,
+): keyof AccessFields | undefined {
+  return ORDER[mode].find((field) => errors[field]);
 }
-/* eslint-enable @typescript-eslint/no-unused-vars */
+
+/** Collapse a Zod failure into one message per field. */
+export function toFieldErrors(error: z.ZodError): FieldErrors {
+  const out: FieldErrors = {};
+  for (const issue of error.issues) {
+    const key = issue.path[0] as keyof AccessFields | undefined;
+    if (key && !out[key]) out[key] = issue.message;
+  }
+  return out;
+}
+
+/** Client-side pre-check. The server validates again regardless. */
+export function validate(mode: Mode, fields: AccessFields): FieldErrors {
+  const result =
+    mode === "login"
+      ? LoginSchema.safeParse({
+          identifier: fields.identifier,
+          passphrase: fields.passphrase,
+        })
+      : RegisterSchema.safeParse({
+          codename: fields.codename,
+          email: fields.email,
+          passphrase: fields.passphrase,
+          confirm: fields.confirm,
+        });
+
+  return result.success ? {} : toFieldErrors(result.error);
+}

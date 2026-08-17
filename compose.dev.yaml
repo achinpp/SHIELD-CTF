@@ -1,0 +1,15 @@
+# Development overlay. Must be requested explicitly:
+#
+#   docker compose -f compose.yaml -f compose.dev.yaml up -d db
+#
+# It publishes the database port so `npm run dev` on the host can reach it.
+# Kept out of compose.yaml on purpose — an override file named
+# `compose.override.yaml` is loaded automatically, which would quietly expose
+# the database in production too. Requiring the flag keeps the default closed.
+
+services:
+  db:
+    ports:
+      # Deliberately not 5432: avoids colliding with any Postgres already
+      # installed on the host, and makes it obvious this is the dev mapping.
+      - "127.0.0.1:55432:5432"

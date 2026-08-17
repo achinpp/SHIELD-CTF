@@ -1,15 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import {
+  useActionState,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
+import { login, register } from "@/app/actions/auth";
 import {
   EMPTY_FIELDS,
   MIN_PASSPHRASE,
-  submitAccess,
+  firstErrorField,
   validate,
   type AccessFields,
+  type AccessState,
   type FieldErrors,
   type Mode,
 } from "@/lib/access";
@@ -39,54 +47,59 @@ type Props = {
 };
 
 /**
- * Login / register modal for the landing CTA.
+ * Login / register modal.
  *
- * Built on a native `<dialog>` so focus trapping, Escape, and top-layer
- * stacking come from the platform — the surrounding stage is `overflow-hidden`,
- * which would otherwise clip a plain absolutely-positioned panel.
+ * Submission goes through Server Actions, so credentials are posted straight
+ * to the server and the passphrase never passes through client state or a
+ * fetch this component controls. Client-side validation here is only for
+ * instant feedback — the action re-validates everything.
+ *
+ * Built on a native `<dialog>`: the stage is `overflow-hidden`, which would
+ * clip an absolutely-positioned panel, and going native means focus trapping,
+ * Escape and top-layer stacking come from the platform.
  */
 export function AccessPanel({ open, onClose }: Props) {
-  const router = useRouter();
   const prefersReduced = useReducedMotion();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const ids = useId();
 
   const [mode, setMode] = useState<Mode>("login");
-  const [fields, setFields] = useState<AccessFields>(EMPTY_FIELDS);
-  const [errors, setErrors] = useState<FieldErrors>({});
-  const [formError, setFormError] = useState<string | null>(null);
-  const [pending, setPending] = useState(false);
   const [reveal, setReveal] = useState(false);
+  /** Mirrors the inputs for client-side checks only; never sent from here. */
+  const [fields, setFields] = useState<AccessFields>(EMPTY_FIELDS);
+  const [localErrors, setLocalErrors] = useState<FieldErrors>({});
+
+  const action = mode === "login" ? login : register;
+  const [state, formAction, pending] = useActionState<AccessState, FormData>(
+    action,
+    null,
+  );
+
+  // Server findings win: they are authoritative and arrive later.
+  const errors: FieldErrors = { ...localErrors, ...(state?.errors ?? {}) };
 
   const fieldId = (name: keyof AccessFields) => `${ids}-${name}`;
   const errorId = (name: keyof AccessFields) => `${ids}-${name}-error`;
 
   const set = (name: keyof AccessFields) => (value: string) => {
     setFields((prev) => ({ ...prev, [name]: value }));
-    // Clear the complaint as soon as the agent starts fixing it.
-    setErrors((prev) => (prev[name] ? { ...prev, [name]: undefined } : prev));
+    setLocalErrors((prev) =>
+      prev[name] ? { ...prev, [name]: undefined } : prev,
+    );
   };
 
-  /**
-   * Reset everything, including the passphrases, on the way out. Mode goes
-   * back to sign-in too, so the panel always reopens in a known state.
-   */
   const reset = useCallback(() => {
     setMode("login");
     setFields(EMPTY_FIELDS);
-    setErrors({});
-    setFormError(null);
-    setPending(false);
+    setLocalErrors({});
     setReveal(false);
   }, []);
 
   const switchMode = (next: Mode) => {
-    if (next === mode) return;
+    if (next === mode || pending) return;
     setMode(next);
-    setErrors({});
-    setFormError(null);
+    setLocalErrors({});
     setReveal(false);
-    // Carry nothing but the identifier across — passphrase rules differ.
     setFields((prev) => ({
       ...EMPTY_FIELDS,
       identifier: next === "login" ? prev.codename || prev.identifier : "",
@@ -94,70 +107,54 @@ export function AccessPanel({ open, onClose }: Props) {
     }));
   };
 
-  // Drive the native dialog from the `open` prop.
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
     if (open && !dialog.open) dialog.showModal();
   }, [open]);
 
-  // Focus the first field once the panel is up.
   useEffect(() => {
     if (!open) return;
     const first = mode === "login" ? "identifier" : "codename";
     const input = document.getElementById(fieldId(first));
-    // Wait a frame so focus lands after the dialog has been promoted.
     const raf = requestAnimationFrame(() => input?.focus());
     return () => cancelAnimationFrame(raf);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, mode]);
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  // Move focus to whatever the server rejected.
+  useEffect(() => {
+    if (!state?.errors) return;
+    const target = firstErrorField(mode, state.errors);
+    if (target) document.getElementById(fieldId(target))?.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
+
+  /** Stop the round trip when the browser can already see the problem. */
+  const guard = (event: React.FormEvent<HTMLFormElement>) => {
+    const found = validate(mode, fields);
+    if (Object.keys(found).length === 0) return;
     event.preventDefault();
-    if (pending) return;
-
-    setFormError(null);
-    const result = validate(mode, fields);
-
-    if (!result.ok) {
-      setErrors(result.errors);
-      document.getElementById(fieldId(result.first))?.focus();
-      return;
-    }
-
-    setErrors({});
-    setPending(true);
-    const outcome = await submitAccess(mode, fields);
-
-    if (!outcome.ok) {
-      setPending(false);
-      setFormError(outcome.message);
-      return;
-    }
-
-    reset();
-    onClose();
-    router.push("/briefing");
-  }
+    setLocalErrors(found);
+    const target = firstErrorField(mode, found);
+    if (target) document.getElementById(fieldId(target))?.focus();
+  };
 
   const isRegister = mode === "register";
 
   return (
     <dialog
       ref={dialogRef}
-      // Escape fires `cancel`; route it through the parent so the exit
-      // animation runs instead of the dialog vanishing outright.
       onCancel={(event) => {
         event.preventDefault();
         if (!pending) onClose();
       }}
       onClick={(event) => {
-        // Clicks on the dialog element itself are backdrop clicks.
         if (event.target === dialogRef.current && !pending) onClose();
       }}
       onPointerDown={(event) => event.stopPropagation()}
-      // `body` is `overflow: hidden`, so the panel has to do its own scrolling
-      // when the register form is taller than a short viewport.
+      // `body` is `overflow: hidden`, so the panel scrolls itself when the
+      // register form is taller than a short viewport.
       className="m-auto max-h-[calc(100dvh-2rem)] w-[min(26rem,calc(100vw-2rem))] overflow-y-auto bg-transparent p-0 text-signal backdrop:bg-void/80 backdrop:backdrop-blur-sm"
     >
       <AnimatePresence
@@ -172,9 +169,7 @@ export function AccessPanel({ open, onClose }: Props) {
             initial={prefersReduced ? false : { opacity: 0, y: 14, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={
-              prefersReduced
-                ? { opacity: 0 }
-                : { opacity: 0, y: 8, scale: 0.98 }
+              prefersReduced ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.98 }
             }
             transition={{ duration: prefersReduced ? 0 : 0.28, ease: "easeOut" }}
           >
@@ -211,7 +206,6 @@ export function AccessPanel({ open, onClose }: Props) {
                 </button>
               </div>
 
-              {/* Mode switch */}
               <div
                 role="tablist"
                 aria-label="Access mode"
@@ -236,7 +230,12 @@ export function AccessPanel({ open, onClose }: Props) {
                 ))}
               </div>
 
-              <form onSubmit={handleSubmit} noValidate className="mt-6 space-y-4">
+              <form
+                action={formAction}
+                onSubmit={guard}
+                noValidate
+                className="mt-6 space-y-4"
+              >
                 {isRegister ? (
                   <Field
                     id={fieldId("codename")}
@@ -340,7 +339,7 @@ export function AccessPanel({ open, onClose }: Props) {
                       aria-describedby={
                         errors.passphrase ? errorId("passphrase") : undefined
                       }
-                      placeholder="••••••••••"
+                      placeholder="••••••••••••"
                       className={`${FIELD_CLASS} pr-16`}
                     />
                     <button
@@ -374,16 +373,16 @@ export function AccessPanel({ open, onClose }: Props) {
                       aria-describedby={
                         errors.confirm ? errorId("confirm") : undefined
                       }
-                      placeholder="••••••••••"
+                      placeholder="••••••••••••"
                       className={FIELD_CLASS}
                     />
                   </Field>
                 )}
 
                 <p aria-live="polite" className="min-h-4">
-                  {formError && (
+                  {state?.message && (
                     <span className="font-mono text-[11px] tracking-wide text-alert-soft">
-                      {formError}
+                      {state.message}
                     </span>
                   )}
                 </p>
@@ -419,13 +418,6 @@ export function AccessPanel({ open, onClose }: Props) {
                 >
                   {isRegister ? "SIGN IN" : "ENLIST"}
                 </button>
-              </p>
-
-              {/* Honest about what this does today — remove once the auth
-                  service in `src/lib/access.ts` is wired up. */}
-              <p className="mt-4 border-t border-signal/15 pt-3 text-center font-mono text-[9px] leading-relaxed tracking-[0.15em] text-alert/50">
-                DEMO UPLINK — NO ACCOUNTS EXIST YET. NOTHING IS TRANSMITTED OR
-                STORED.
               </p>
             </div>
           </motion.div>

@@ -10,10 +10,14 @@
     "assets:prepare": "node scripts/prepare-plates.mjs"
   },
   "dependencies": {
+    "@node-rs/argon2": "^2.1.0",
     "motion": "^13.1.0",
     "next": "16.3.1",
+    "postgres": "^3.4.9",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
