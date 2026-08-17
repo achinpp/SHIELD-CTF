@@ -27,14 +27,23 @@
 
 html,
 body {
-  height: 100%;
+  /*
+   * `min-height`, not `height`. A fixed 100% caps the body at the viewport,
+   * so any page taller than one screen has its overflow clipped away.
+   */
+  min-height: 100%;
 }
 
 body {
   background: var(--color-void);
   color: color-mix(in oklab, var(--color-signal) 70%, white);
   font-family: var(--font-sans), system-ui, sans-serif;
-  overflow: hidden;
+  /*
+   * The document scrolls normally. The landing cinematic locks itself with
+   * `h-dvh overflow-hidden` on its own <main>, which is the page that needs
+   * it — doing it globally silently broke every page that is longer than the
+   * viewport, the challenge board included.
+   */
   overscroll-behavior: none;
 }
 

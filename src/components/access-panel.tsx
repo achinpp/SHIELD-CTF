@@ -153,8 +153,8 @@ export function AccessPanel({ open, onClose }: Props) {
         if (event.target === dialogRef.current && !pending) onClose();
       }}
       onPointerDown={(event) => event.stopPropagation()}
-      // `body` is `overflow: hidden`, so the panel scrolls itself when the
-      // register form is taller than a short viewport.
+      // The panel scrolls itself when the register form is taller than a
+      // short viewport, rather than relying on the page behind it.
       className="m-auto max-h-[calc(100dvh-2rem)] w-[min(26rem,calc(100vw-2rem))] overflow-y-auto bg-transparent p-0 text-signal backdrop:bg-void/80 backdrop:backdrop-blur-sm"
     >
       <AnimatePresence

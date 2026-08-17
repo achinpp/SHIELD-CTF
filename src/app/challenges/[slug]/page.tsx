@@ -41,7 +41,7 @@ export default async function ChallengePage({
   if (!challenge.unlocked) redirect("/challenges");
 
   return (
-    <main className="relative min-h-dvh w-full overflow-y-auto bg-void">
+    <main className="relative min-h-dvh w-full bg-void">
       <div
         aria-hidden
         className="scanlines pointer-events-none fixed inset-0 z-10 opacity-20"
