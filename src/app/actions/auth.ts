@@ -36,7 +36,7 @@ import {
 const GENERIC_FAILURE = "Invalid codename or passphrase.";
 
 /** Where an authenticated agent lands. */
-const HOME = "/briefing";
+const HOME = "/challenges";
 
 export async function register(
   _prev: AccessState,

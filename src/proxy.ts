@@ -16,7 +16,7 @@ import { SESSION_COOKIE } from "@/lib/auth/session";
  * enforcing access.
  */
 
-const PROTECTED = ["/briefing"];
+const PROTECTED = ["/challenges", "/briefing"];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
