@@ -35,6 +35,17 @@ import {
 
 const GENERIC_FAILURE = "Invalid codename or passphrase.";
 
+/**
+ * Shown when the database cannot be reached at all, as opposed to rejecting
+ * something. Worth its own message: "invalid credentials" for an outage sends
+ * you hunting for a typo, and the generic failure below is indistinguishable
+ * from a genuine one. Naming the cause is not a leak — an attacker can see the
+ * service is down anyway.
+ */
+const UNREACHABLE =
+  "Cannot reach the registry — the database is not responding. " +
+  "If you are running locally, start it with: npm run db";
+
 /** Where an authenticated agent lands. */
 const HOME = "/challenges";
 
@@ -71,8 +82,9 @@ export async function register(
         errors: { codename: "That codename or email is already registered." },
       };
     }
+    if (isUnreachable(error)) return { message: UNREACHABLE };
     console.error("register failed:", error);
-    return { message: "Could not reach the registry. Try again." };
+    return { message: "Registration failed. Try again." };
   }
 
   await createSession(userId);
@@ -94,34 +106,44 @@ export async function login(
   const { passphrase } = parsed.data;
   const ip = await clientIp();
 
-  if (await isRateLimited(identifier, ip)) {
-    return { message: RATE_LIMIT_MESSAGE };
+  // Every database call below is wrapped: an unreachable database used to
+  // throw straight out of the action, which Next renders as a 500 error page
+  // rather than something the panel can display.
+  try {
+    if (await isRateLimited(identifier, ip)) {
+      return { message: RATE_LIMIT_MESSAGE };
+    }
+
+    const [user] = await sql<{ id: string; password_hash: string }[]>`
+      SELECT id, password_hash FROM users
+      WHERE codename_ci = ${identifier} OR email_ci = ${identifier}
+    `;
+
+    // No early return for a missing account: hashing a decoy keeps the
+    // response time flat so the form cannot be used to discover which
+    // codenames exist.
+    const ok = user
+      ? await verifyPassword(user.password_hash, passphrase)
+      : await verifyDecoy(passphrase);
+
+    if (!ok || !user) {
+      await recordAttempt(identifier, ip, false);
+      return { message: GENERIC_FAILURE };
+    }
+
+    await recordAttempt(identifier, ip, true);
+    await clearAttempts(identifier);
+    await sql`UPDATE users SET last_login_at = now() WHERE id = ${user.id}`;
+
+    await createSession(user.id);
+
+    // Opportunistic housekeeping on a path that already touches the database.
+    await Promise.allSettled([pruneExpiredSessions(), pruneAttempts()]);
+  } catch (error) {
+    if (isUnreachable(error)) return { message: UNREACHABLE };
+    console.error("login failed:", error);
+    return { message: "Sign-in failed. Try again." };
   }
-
-  const [user] = await sql<{ id: string; password_hash: string }[]>`
-    SELECT id, password_hash FROM users
-    WHERE codename_ci = ${identifier} OR email_ci = ${identifier}
-  `;
-
-  // No early return for a missing account: hashing a decoy keeps the response
-  // time flat so the form cannot be used to discover which codenames exist.
-  const ok = user
-    ? await verifyPassword(user.password_hash, passphrase)
-    : await verifyDecoy(passphrase);
-
-  if (!ok || !user) {
-    await recordAttempt(identifier, ip, false);
-    return { message: GENERIC_FAILURE };
-  }
-
-  await recordAttempt(identifier, ip, true);
-  await clearAttempts(identifier);
-  await sql`UPDATE users SET last_login_at = now() WHERE id = ${user.id}`;
-
-  await createSession(user.id);
-
-  // Opportunistic housekeeping on a path that already touches the database.
-  await Promise.allSettled([pruneExpiredSessions(), pruneAttempts()]);
 
   redirect(HOME);
 }
@@ -139,6 +161,36 @@ export async function logoutEverywhere(): Promise<void> {
   }
   await destroySession();
   redirect("/");
+}
+
+/**
+ * True when the database could not be reached, as opposed to reaching it and
+ * being told no.
+ *
+ * `postgres` raises an AggregateError when every address for the host is
+ * refused — IPv6 and IPv4 both — so the individual causes have to be checked
+ * as well as the top-level error.
+ */
+const UNREACHABLE_CODES = new Set([
+  "ECONNREFUSED",
+  "ENOTFOUND",
+  "EHOSTUNREACH",
+  "ETIMEDOUT",
+  "ECONNRESET",
+  "EPIPE",
+  "CONNECT_TIMEOUT",
+  "CONNECTION_CLOSED",
+  "CONNECTION_ENDED",
+]);
+
+function isUnreachable(error: unknown): boolean {
+  if (typeof error !== "object" || error === null) return false;
+
+  const code = (error as { code?: unknown }).code;
+  if (typeof code === "string" && UNREACHABLE_CODES.has(code)) return true;
+
+  const causes = (error as { errors?: unknown }).errors;
+  return Array.isArray(causes) && causes.some(isUnreachable);
 }
 
 function isUniqueViolation(error: unknown): boolean {

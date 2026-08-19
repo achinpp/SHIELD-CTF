@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "db": "docker compose -f compose.yaml -f compose.dev.yaml up -d db",
+    "db:stop": "docker compose stop db",
+    "db:psql": "docker compose exec db psql -U shield -d shield",
     "assets:prepare": "node scripts/prepare-plates.mjs"
   },
   "dependencies": {
