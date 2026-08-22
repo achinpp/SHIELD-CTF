@@ -28,8 +28,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-# `public/` is empty, so git does not track it and a fresh clone has no such
-# directory — create it here so the runner's COPY cannot fail.
+# `public/` now carries challenge artifacts, but keep the mkdir: it costs
+# nothing and the runner's COPY still fails on a tree without the directory.
 RUN mkdir -p public && npm run build
 
 

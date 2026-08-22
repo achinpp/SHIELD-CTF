@@ -36,6 +36,25 @@ const STAGE_ART: Record<string, { src: StaticImageData; alt: string }> = {
   },
 };
 
+/**
+ * Downloadable evidence, by slug.
+ *
+ * The file is a plain static asset under `public/`, so it costs nothing to
+ * serve. It lives beneath `/challenges/` on purpose: that prefix is what
+ * `proxy.ts` gates, so a visitor with no session gets bounced to the door
+ * instead of walking off with the artifact.
+ */
+const STAGE_FILE: Record<
+  string,
+  { href: string; name: string; meta: string }
+> = {
+  "stage-03": {
+    href: "/challenges/stage-03/access.log",
+    name: "access.log",
+    meta: "4,678 requests · 986 KB · combined log format",
+  },
+};
+
 const DIFFICULTY_TONE: Record<Challenge["difficulty"], string> = {
   Easy: "border-signal/40 text-signal/70",
   Moderate: "border-amber-400/40 text-amber-300/80",
@@ -70,6 +89,7 @@ export default async function ChallengePage({
   if (!challenge.unlocked) redirect("/challenges");
 
   const art = STAGE_ART[challenge.slug];
+  const file = STAGE_FILE[challenge.slug];
 
   return (
     <main className="relative min-h-dvh w-full bg-void">
@@ -167,6 +187,34 @@ export default async function ChallengePage({
             </p>
           )}
         </section>
+
+        {file && (
+          <section className="mt-8">
+            <h2 className="font-mono text-[10px] tracking-[0.25em] text-signal/40">
+              EVIDENCE
+            </h2>
+            <a
+              href={file.href}
+              download={file.name}
+              className="mt-3 flex flex-wrap items-center justify-between gap-3 border border-signal/25 bg-signal/[0.04] px-4 py-3.5 transition-colors hover:border-signal/60 hover:bg-signal/[0.08] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
+            >
+              <span>
+                <span className="block font-mono text-[13px] tracking-wide text-signal">
+                  {file.name}
+                </span>
+                <span className="mt-1 block font-mono text-[10px] tracking-[0.15em] text-signal/40">
+                  {file.meta}
+                </span>
+              </span>
+              <span
+                aria-hidden
+                className="font-mono text-[10px] tracking-[0.25em] text-signal/60"
+              >
+                DOWNLOAD ↓
+              </span>
+            </a>
+          </section>
+        )}
 
         {challenge.intelNote && (
           <section className="mt-8">

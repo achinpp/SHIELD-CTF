@@ -1,0 +1,3 @@
+# Challenge artifacts ship exactly as generated: a Windows checkout must not
+# rewrite the log to CRLF, which would change its byte size and its hashes.
+public/challenges/** -text

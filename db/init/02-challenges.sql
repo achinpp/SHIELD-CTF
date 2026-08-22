@@ -101,18 +101,18 @@ VALUES
    digest('SHIELD{placeholder_two}', 'sha256'),
    'Placeholder hint.', 10, 1),
 
-  -- Stage 3 carries real copy. Two things are still provisional: the flag is
-  -- a placeholder because there is no access.log to solve yet, and the stage
-  -- is deliberately ungated (requires_stage NULL) so the card is reachable
-  -- from the board while stages 1-2 are empty. Restore the gate to 2 once
-  -- those stages are written.
+  -- Stage 3 is complete: the artifact lives at
+  -- `public/challenges/stage-03/access.log` and the hash below is the real
+  -- flag's. Still provisional: the stage is deliberately ungated
+  -- (requires_stage NULL) so the card stays reachable from the board while
+  -- stages 1-2 are empty. Restore the gate to 2 once those are written.
   (3, 'stage-03', 'Challenge 03', 'Scripting', 'Easy', 200,
    'A forgotten endpoint left an access.log behind. Thousands of requests, and one visitor who should not be there.',
    'Agent, your previous investigation has uncovered a critical lead.
 
 While investigating the SHIELD archival server, you discovered a forgotten endpoint containing an access.log. The file records network activity from shortly before the breach.
 
-SHIELD analysts believe the attacker identified as "XXXXXX" may have used the archive server as a staging point before accessing other SHIELD infrastructure.
+SHIELD analysts believe the attacker identified as "KRAKEN" may have used the archive server as a staging point before accessing other SHIELD infrastructure.
 
 Unfortunately, the log is too large to investigate manually. Thousands of legitimate requests have been recorded, mixed with the attacker''s activity.
 
@@ -122,7 +122,9 @@ Identify the suspicious IP address associated with the breach.
 Find the unusual requests made by the attacker.
 Extract the hidden flag from the attacker''s activity.',
    'The attacker didn''t erase everything. They simply assumed nobody would have the patience to look through it.',
-   digest('SHIELD{placeholder_three}', 'sha256'),
+   -- The digest itself rather than digest('...') over the plaintext: this
+   -- file is committed, and a flag spelled out here would be greppable.
+   decode('c87422591cee37f5aec64d95341738bed59ea04fa12c6c3a4838920c98661258', 'hex'),
    'Look for patterns that separate normal SHIELD archive traffic from the attacker''s requests. Pay particular attention to unusual endpoints, repeated requests, and abnormal HTTP responses.',
    25, NULL),
 
