@@ -29,7 +29,10 @@ export type Challenge = {
   summary: string;
   /** Full text, shown only on the challenge's own page. */
   scenario: string;
+  /** One objective per line; rendered as a list. */
   task: string;
+  /** Optional in-world aside, rendered as a pull quote. */
+  intelNote: string | null;
   hint: string | null;
   hintPenalty: number;
   requiresStage: number | null;

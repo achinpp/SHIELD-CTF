@@ -28,6 +28,7 @@ type Row = {
   summary: string;
   scenario: string;
   task: string;
+  intel_note: string | null;
   hint: string | null;
   hint_penalty: number;
   requires_stage: number | null;
@@ -36,7 +37,8 @@ type Row = {
 
 const SELECT_COLUMNS = sql`
   c.id, c.stage, c.slug, c.title, c.domain, c.difficulty, c.points,
-  c.summary, c.scenario, c.task, c.hint, c.hint_penalty, c.requires_stage,
+  c.summary, c.scenario, c.task, c.intel_note, c.hint, c.hint_penalty,
+  c.requires_stage,
   (s.user_id IS NOT NULL) AS solved
 `;
 
@@ -52,6 +54,7 @@ function toChallenge(row: Row, unlocked: boolean): Challenge {
     summary: row.summary,
     scenario: row.scenario,
     task: row.task,
+    intelNote: row.intel_note,
     hint: row.hint,
     hintPenalty: row.hint_penalty,
     requiresStage: row.requires_stage,

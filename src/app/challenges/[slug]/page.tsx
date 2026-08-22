@@ -1,11 +1,40 @@
 import type { Metadata } from "next";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
+import challengeThree from "@/assets/challenges/challenge-03.png";
 import { FlagForm } from "@/components/flag-form";
 import { requireUser } from "@/lib/auth/dal";
 import { getChallenge } from "@/lib/challenges";
 import type { Challenge } from "@/lib/challenge-format";
+
+/** Blank line separates paragraphs; single newlines are soft wraps. */
+function splitParagraphs(text: string): string[] {
+  return text
+    .split(/\r?\n\s*\r?\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
+/** One item per non-empty line. */
+function splitLines(text: string): string[] {
+  return text
+    .split(/\r?\n/)
+    .map((l) => l.trim())
+    .filter(Boolean);
+}
+
+/**
+ * Optional key art, by slug. A stage without an entry renders text only, so
+ * artwork can arrive one stage at a time without touching the layout.
+ */
+const STAGE_ART: Record<string, { src: StaticImageData; alt: string }> = {
+  "stage-03": {
+    src: challengeThree,
+    alt: "A hooded figure hunched over a keyboard, ringed by monitors scrolling with log output.",
+  },
+};
 
 const DIFFICULTY_TONE: Record<Challenge["difficulty"], string> = {
   Easy: "border-signal/40 text-signal/70",
@@ -39,6 +68,8 @@ export default async function ChallengePage({
   if (!challenge) notFound();
   // Send a locked stage back to the board rather than revealing its briefing.
   if (!challenge.unlocked) redirect("/challenges");
+
+  const art = STAGE_ART[challenge.slug];
 
   return (
     <main className="relative min-h-dvh w-full bg-void">
@@ -84,23 +115,69 @@ export default async function ChallengePage({
           </div>
         </header>
 
+        {art && (
+          // Square source, cropped to a wide plate so the briefing still sits
+          // above the fold on a phone.
+          <div className="mt-8 overflow-hidden border border-signal/15">
+            <Image
+              src={art.src}
+              alt={art.alt}
+              placeholder="blur"
+              sizes="(min-width: 768px) 42rem, 100vw"
+              className="aspect-[3/2] w-full object-cover object-center opacity-85"
+            />
+          </div>
+        )}
+
         <section className="mt-8">
           <h2 className="font-mono text-[10px] tracking-[0.25em] text-signal/40">
             BRIEFING
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-signal/60">
-            {challenge.scenario}
-          </p>
+          {/* Blank lines in the copy become paragraph breaks. */}
+          <div className="mt-3 space-y-3 text-sm leading-relaxed text-signal/60">
+            {splitParagraphs(challenge.scenario).map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
         </section>
 
         <section className="mt-8">
           <h2 className="font-mono text-[10px] tracking-[0.25em] text-signal/40">
-            OBJECTIVE
+            OBJECTIVES
           </h2>
-          <p className="mt-3 font-mono text-[13px] leading-relaxed tracking-wide text-signal/75">
-            {challenge.task}
-          </p>
+          {/* One objective per line in the data; a single line stays a
+              sentence rather than becoming a one-item list. */}
+          {splitLines(challenge.task).length > 1 ? (
+            <ul className="mt-3 space-y-2">
+              {splitLines(challenge.task).map((line, i) => (
+                <li
+                  key={i}
+                  className="flex gap-3 font-mono text-[13px] leading-relaxed tracking-wide text-signal/75"
+                >
+                  <span aria-hidden className="text-signal/30">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-3 font-mono text-[13px] leading-relaxed tracking-wide text-signal/75">
+              {challenge.task}
+            </p>
+          )}
         </section>
+
+        {challenge.intelNote && (
+          <section className="mt-8">
+            <h2 className="font-mono text-[10px] tracking-[0.25em] text-signal/40">
+              S.H.I.E.L.D. INTELLIGENCE NOTE
+            </h2>
+            <blockquote className="mt-3 border-l-2 border-alert/40 bg-alert/[0.03] py-3 pl-4 text-sm italic leading-relaxed text-signal/55">
+              &ldquo;{challenge.intelNote}&rdquo;
+            </blockquote>
+          </section>
+        )}
 
         <section className="mt-10 border-t border-signal/15 pt-8">
           {challenge.solved ? (

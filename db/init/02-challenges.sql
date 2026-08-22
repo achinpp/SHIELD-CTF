@@ -26,7 +26,10 @@ CREATE TABLE challenges (
   summary    text NOT NULL,
   -- The full text, shown only on the challenge's own page.
   scenario   text NOT NULL,
+  -- One objective per line; rendered as a list.
   task       text NOT NULL,
+  -- Optional in-world aside, rendered as a pull quote. Flavour, not a hint.
+  intel_note text,
 
   -- SHA-256 of the flag, never the flag itself. A dump of this table hands
   -- an attacker nothing usable: flags are high-entropy, so unlike passwords
@@ -80,12 +83,13 @@ CREATE INDEX flag_attempts_user_idx ON flag_attempts (user_id, attempted_at);
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 INSERT INTO challenges
-  (stage, slug, title, domain, difficulty, points, summary, scenario, task, flag_hash, hint, hint_penalty, requires_stage)
+  (stage, slug, title, domain, difficulty, points, summary, scenario, task, intel_note, flag_hash, hint, hint_penalty, requires_stage)
 VALUES
   (1, 'stage-01', 'Challenge 01', 'Domain TBC', 'Easy', 100,
    'Placeholder summary for stage one. Replace with a one-line teaser.',
    'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',
    'Placeholder objective. Describe here what the participant has to discover or achieve.',
+   NULL,
    digest('SHIELD{placeholder_one}', 'sha256'),
    'Placeholder hint.', 10, NULL),
 
@@ -93,20 +97,40 @@ VALUES
    'Placeholder summary for stage two. Replace with a one-line teaser.',
    'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',
    'Placeholder objective. Describe here what the participant has to discover or achieve.',
+   NULL,
    digest('SHIELD{placeholder_two}', 'sha256'),
    'Placeholder hint.', 10, 1),
 
-  (3, 'stage-03', 'Challenge 03', 'Domain TBC', 'Moderate', 200,
-   'Placeholder summary for stage three. Replace with a one-line teaser.',
-   'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',
-   'Placeholder objective. Describe here what the participant has to discover or achieve.',
+  -- Stage 3 carries real copy. Two things are still provisional: the flag is
+  -- a placeholder because there is no access.log to solve yet, and the stage
+  -- is deliberately ungated (requires_stage NULL) so the card is reachable
+  -- from the board while stages 1-2 are empty. Restore the gate to 2 once
+  -- those stages are written.
+  (3, 'stage-03', 'Challenge 03', 'Scripting', 'Easy', 200,
+   'A forgotten endpoint left an access.log behind. Thousands of requests, and one visitor who should not be there.',
+   'Agent, your previous investigation has uncovered a critical lead.
+
+While investigating the SHIELD archival server, you discovered a forgotten endpoint containing an access.log. The file records network activity from shortly before the breach.
+
+SHIELD analysts believe the attacker identified as "XXXXXX" may have used the archive server as a staging point before accessing other SHIELD infrastructure.
+
+Unfortunately, the log is too large to investigate manually. Thousands of legitimate requests have been recorded, mixed with the attacker''s activity.
+
+Your mission is to write a script that processes the log and identifies the attacker''s requests.',
+   'Analyze the access.log.
+Identify the suspicious IP address associated with the breach.
+Find the unusual requests made by the attacker.
+Extract the hidden flag from the attacker''s activity.',
+   'The attacker didn''t erase everything. They simply assumed nobody would have the patience to look through it.',
    digest('SHIELD{placeholder_three}', 'sha256'),
-   'Placeholder hint.', 25, 2),
+   'Look for patterns that separate normal SHIELD archive traffic from the attacker''s requests. Pay particular attention to unusual endpoints, repeated requests, and abnormal HTTP responses.',
+   25, NULL),
 
   (4, 'stage-04', 'Challenge 04', 'Domain TBC', 'Moderate', 200,
    'Placeholder summary for stage four. Replace with a one-line teaser.',
    'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',
    'Placeholder objective. Describe here what the participant has to discover or achieve.',
+   NULL,
    digest('SHIELD{placeholder_four}', 'sha256'),
    'Placeholder hint.', 25, 3),
 
@@ -114,6 +138,7 @@ VALUES
    'Placeholder summary for stage five. Replace with a one-line teaser.',
    'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',
    'Placeholder objective. Describe here what the participant has to discover or achieve.',
+   NULL,
    digest('SHIELD{placeholder_five}', 'sha256'),
    'Placeholder hint.', 40, 4),
 
@@ -121,5 +146,6 @@ VALUES
    'Placeholder summary for stage six. Replace with a one-line teaser.',
    'Placeholder briefing. The capstone scenario has not been written yet — this text exists so the page renders while the platform is built.',
    'Placeholder objective. Describe here what the participant has to discover or achieve.',
+   NULL,
    digest('SHIELD{placeholder_six}', 'sha256'),
    'Placeholder hint.', 50, 5);
