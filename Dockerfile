@@ -28,8 +28,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-# `public/` now carries challenge artifacts, but keep the mkdir: it costs
-# nothing and the runner's COPY still fails on a tree without the directory.
+# `public/` is empty again now that the stage-03 log has moved to `data/`,
+# and the runner's COPY fails on a tree without the directory. The artifacts
+# themselves reach `.next/standalone` through `outputFileTracingIncludes`.
 RUN mkdir -p public && npm run build
 
 

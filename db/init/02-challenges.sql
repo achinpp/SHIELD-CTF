@@ -102,10 +102,11 @@ VALUES
    'Placeholder hint.', 10, 1),
 
   -- Stage 3 is complete: the artifact lives at
-  -- `public/challenges/stage-03/access.log` and the hash below is the real
-  -- flag's. Still provisional: the stage is deliberately ungated
-  -- (requires_stage NULL) so the card stays reachable from the board while
-  -- stages 1-2 are empty. Restore the gate to 2 once those are written.
+  -- `data/challenges/stage-03/access.log` — off the web root, readable only
+  -- through the page's query terminal — and the hash below is the real flag's.
+  -- Still provisional: the stage is deliberately ungated (requires_stage NULL)
+  -- so the card stays reachable from the board while stages 1-2 are empty.
+  -- Restore the gate to 2 once those are written.
   (3, 'stage-03', 'Challenge 03', 'Scripting', 'Easy', 200,
    'A forgotten endpoint left an access.log behind. Thousands of requests, and one visitor who should not be there.',
    'Agent, your previous investigation has uncovered a critical lead.
@@ -114,10 +115,10 @@ While investigating the SHIELD archival server, you discovered a forgotten endpo
 
 SHIELD analysts believe the attacker identified as "KRAKEN" may have used the archive server as a staging point before accessing other SHIELD infrastructure.
 
-Unfortunately, the log is too large to investigate manually. Thousands of legitimate requests have been recorded, mixed with the attacker''s activity.
+The record never left the archive host and it is not going to. Analysts reach it through the read-only query terminal below, which answers filters and tallies over the traffic but releases only a handful of raw lines at a time.
 
-Your mission is to write a script that processes the log and identifies the attacker''s requests.',
-   'Analyze the access.log.
+Thousands of legitimate requests are mixed with the attacker''s. Volume alone will not get you there — reason your way down to the few lines that matter, then work out what they carried out of the building.',
+   'Profile the access.log through the archive query terminal.
 Identify the suspicious IP address associated with the breach.
 Find the unusual requests made by the attacker.
 Extract the hidden flag from the attacker''s activity.',

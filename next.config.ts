@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
   // The floating dev badge sits right on top of the HUD's bottom-left corner.
   // Dev-only either way, but it makes the intro hard to review.
   devIndicators: false,
+  // Challenge artifacts are read at runtime from `process.cwd()`, so nothing
+  // in the source imports them and file tracing has no way to discover them.
+  // Naming the route that reads them puts the files in `.next/standalone`,
+  // which is all the Docker runtime stage copies.
+  outputFileTracingIncludes: {
+    "/challenges/\\[slug\\]": ["data/challenges/**/*"],
+  },
 };
 
 export default nextConfig;
