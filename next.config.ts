@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
   // which is all the Docker runtime stage copies.
   outputFileTracingIncludes: {
     "/challenges/\\[slug\\]": ["data/challenges/**/*"],
+    "/challenges/\\[slug\\]/evidence": ["data/challenges/**/*"],
   },
 };
 

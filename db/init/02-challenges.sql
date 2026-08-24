@@ -1,12 +1,13 @@
 -- S.H.I.E.L.D. CTF — challenge board.
 --
 -- ─────────────────────────────────────────────────────────────────────────
---  THE SIX SEED ROWS ARE EMPTY PLACEHOLDERS, NOT CHALLENGES.
+--  STAGES 3 AND 5 ARE REAL. THE OTHER FOUR ROWS ARE EMPTY PLACEHOLDERS.
 --
---  They exist so the board and the per-challenge pages render and the solve
---  mechanics can be tested. Every text field says so on its face and every
---  flag is `SHIELD{placeholder_...}`, so nothing here can be mistaken for
---  real content. The group replaces all of it when the stages are designed.
+--  The placeholders exist so the board and the per-challenge pages render and
+--  the solve mechanics can be tested. Every text field says so on its face and
+--  every placeholder flag is `SHIELD{placeholder_...}`, so nothing there can be
+--  mistaken for real content. The group replaces each one as its stage is
+--  designed; a finished row carries a comment saying where its artifact lives.
 -- ─────────────────────────────────────────────────────────────────────────
 
 CREATE TABLE challenges (
@@ -137,13 +138,35 @@ Extract the hidden flag from the attacker''s activity.',
    digest('SHIELD{placeholder_four}', 'sha256'),
    'Placeholder hint.', 25, 3),
 
-  (5, 'stage-05', 'Challenge 05', 'Domain TBC', 'Hard', 300,
-   'Placeholder summary for stage five. Replace with a one-line teaser.',
-   'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',
-   'Placeholder objective. Describe here what the participant has to discover or achieve.',
-   NULL,
-   digest('SHIELD{placeholder_five}', 'sha256'),
-   'Placeholder hint.', 40, 4),
+  -- Stage 5 is complete: the artifact lives at
+  -- `data/challenges/stage-05/raven_recovered.png`. Off the web root like the
+  -- stage-03 log, but for a different reason — steganography *is* the file, so
+  -- it has to be handed over. The gated route at `/challenges/[slug]/evidence`
+  -- is what hands it over, after re-checking the session and the unlock.
+  -- Ungated for now (requires_stage NULL) so the card stays reachable while
+  -- stage 4 is still a placeholder. Restore the gate to 4 once it is written.
+  (5, 'stage-05', 'OPERATION RAVEN', 'Steganography', 'Moderate', 300,
+   'A photograph recovered minutes before the archive went dark. It opens cleanly — and that is the problem.',
+   'Forensics pulled a single image off SHIELD-WKS-006, written four minutes before the archive server stopped answering.
+
+As far as the file browser is concerned it is a photograph and nothing else. It opens, it renders, the metadata is unremarkable, and every checksum the recovery tool ran came back clean. Nothing is appended to it and nothing is embedded in it.
+
+What is not unremarkable is the access pattern. In the last hour of its life the file was opened, rewritten and reopened eleven times by the same process, and then deleted. Nobody edits a photograph eleven times and then destroys it.
+
+KRAKEN''s operators do not carry payloads out as attachments. They carry them inside things that are already allowed to leave the building.
+
+The picture is intact, agent. Look underneath it.',
+   'Recover the artifact from the evidence locker below.
+Rule out the obvious carriers first — metadata, trailing data, embedded archives.
+Read the image at the bit level: ask what is left when the photograph itself is thrown away.
+Recover the marker hidden in the pixel data and read what it carries.',
+   'Nothing was appended to that file and nothing was attached to it. Whatever they moved, they moved in plain sight — one bit at a time.',
+   -- The digest rather than digest('...') over the plaintext, for the same
+   -- reason as stage 3: this file is committed, and a flag spelled out here
+   -- would be greppable.
+   decode('0e13457eea2868d0b4cd521940da7ca8bb426db4c82f184f53975617cc296399', 'hex'),
+   'The photograph you can see is only the top six bits of every colour channel. Throw those away, keep the two lowest bits of each channel and rescale them — a bit-plane viewer, or four lines of Pillow, will show you what the low bits were really drawing.',
+   40, NULL),
 
   (6, 'stage-06', 'Challenge 06', 'Domain TBC', 'Hard', 400,
    'Placeholder summary for stage six. Replace with a one-line teaser.',

@@ -4,11 +4,13 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
 import challengeThree from "@/assets/challenges/challenge-03.png";
+import challengeFive from "@/assets/challenges/challenge-05.png";
 import { FlagForm } from "@/components/flag-form";
 import { LogConsole } from "@/components/log-console";
 import { requireUser } from "@/lib/auth/dal";
 import { getChallenge } from "@/lib/challenges";
 import type { Challenge } from "@/lib/challenge-format";
+import { artifactSize, getArtifact } from "@/lib/evidence";
 
 /** Blank line separates paragraphs; single newlines are soft wraps. */
 function splitParagraphs(text: string): string[] {
@@ -26,14 +28,46 @@ function splitLines(text: string): string[] {
     .filter(Boolean);
 }
 
+/** Bytes as the file browser would show them, for the download card. */
+function formatSize(bytes: number): string {
+  const mb = bytes / 1024 / 1024;
+  return mb >= 1 ? `${mb.toFixed(1)} MB` : `${Math.round(bytes / 1024)} KB`;
+}
+
 /**
  * Optional key art, by slug. A stage without an entry renders text only, so
  * artwork can arrive one stage at a time without touching the layout.
  */
-const STAGE_ART: Record<string, { src: StaticImageData; alt: string }> = {
+const STAGE_ART: Record<
+  string,
+  {
+    src: StaticImageData;
+    alt: string;
+    /**
+     * Present the source exactly as authored: original bytes, whole frame.
+     *
+     * Off by default, because the default is the better deal for a large
+     * square plate — stage 03 ships a 1587px, 2.5 MB PNG that the optimiser
+     * turns into a fraction of that in WebP, and cropping it to 3:2 keeps the
+     * briefing above the fold on a phone.
+     *
+     * Neither applies to a piece of key art that was drawn at its final size.
+     * Stage 05 is 456x645 portrait: the crop threw most of the raven away, and
+     * re-encoding a 540 KB PNG buys little. `unoptimized` skips `/_next/image`
+     * entirely, so the browser gets the PNG byte for byte instead of a WebP
+     * transcode.
+     */
+    verbatim?: boolean;
+  }
+> = {
   "stage-03": {
     src: challengeThree,
     alt: "A hooded figure hunched over a keyboard, ringed by monitors scrolling with log output.",
+  },
+  "stage-05": {
+    src: challengeFive,
+    alt: "A raven in flight, wings spread against a storm split by forks of lightning.",
+    verbatim: true,
   },
 };
 
@@ -89,6 +123,11 @@ export default async function ChallengePage({
 
   const art = STAGE_ART[challenge.slug];
   const evidence = STAGE_EVIDENCE[challenge.slug];
+  // Stage 05 hands its artifact over instead of querying it — the file is the
+  // puzzle there, so there is nothing to hold back. It is still served by a
+  // gated route rather than from `public/`; see `@/lib/evidence`.
+  const artifact = getArtifact(challenge.slug);
+  const artifactBytes = artifact ? await artifactSize(artifact) : null;
 
   return (
     <main className="relative min-h-dvh w-full bg-void">
@@ -135,15 +174,24 @@ export default async function ChallengePage({
         </header>
 
         {art && (
-          // Square source, cropped to a wide plate so the briefing still sits
-          // above the fold on a phone.
           <div className="mt-8 overflow-hidden border border-signal/15">
             <Image
               src={art.src}
               alt={art.alt}
               placeholder="blur"
+              // Skips `/_next/image`, so the file is served as authored rather
+              // than transcoded to WebP.
+              unoptimized={art.verbatim}
               sizes="(min-width: 768px) 42rem, 100vw"
-              className="aspect-[3/2] w-full object-cover object-center opacity-85"
+              className={
+                art.verbatim
+                  ? // Whole frame, letterboxed on the void. Capped at the
+                    // source's own width so it is never upscaled past it.
+                    "mx-auto h-auto w-full max-w-[456px]"
+                  : // Square source, cropped to a wide plate so the briefing
+                    // still sits above the fold on a phone.
+                    "aspect-[3/2] w-full object-cover object-center opacity-85"
+              }
             />
           </div>
         )}
@@ -196,6 +244,42 @@ export default async function ChallengePage({
               {evidence}
             </p>
             <LogConsole slug={challenge.slug} />
+          </section>
+        )}
+
+        {artifact && (
+          <section className="mt-8">
+            <h2 className="font-mono text-[10px] tracking-[0.25em] text-signal/40">
+              RECOVERED EVIDENCE
+            </h2>
+            <p className="mt-3 font-mono text-[10px] tracking-[0.15em] text-signal/40">
+              {artifact.note}
+            </p>
+            <div className="mt-3 flex flex-wrap items-center gap-4 border border-signal/25 bg-hull/60 p-5">
+              <span
+                aria-hidden
+                className="flex h-14 w-11 shrink-0 items-center justify-center border border-signal/35 font-mono text-[9px] tracking-[0.15em] text-signal/70"
+              >
+                {artifact.name.split(".").pop()?.toUpperCase()}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate font-mono text-[13px] tracking-wide text-signal">
+                  {artifact.name}
+                </p>
+                <p className="mt-1 font-mono text-[10px] tracking-[0.15em] text-signal/40">
+                  {artifact.label}
+                  {artifactBytes !== null && ` · ${formatSize(artifactBytes)}`}
+                </p>
+              </div>
+              {/* Served by the gated route handler, not from `public/`. */}
+              <a
+                href={`/challenges/${challenge.slug}/evidence`}
+                download={artifact.name}
+                className="border border-signal/40 px-4 py-2.5 font-mono text-[9px] tracking-[0.25em] text-signal transition-colors hover:border-signal hover:bg-signal/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
+              >
+                DOWNLOAD EVIDENCE
+              </a>
+            </div>
           </section>
         )}
 
