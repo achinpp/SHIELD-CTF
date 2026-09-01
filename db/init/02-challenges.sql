@@ -1,7 +1,7 @@
 -- S.H.I.E.L.D. CTF — challenge board.
 --
 -- ─────────────────────────────────────────────────────────────────────────
---  STAGES 3 AND 5 ARE REAL. THE OTHER FOUR ROWS ARE EMPTY PLACEHOLDERS.
+--  STAGES 3, 5 AND 6 ARE REAL. THE OTHER THREE ROWS ARE EMPTY PLACEHOLDERS.
 --
 --  The placeholders exist so the board and the per-challenge pages render and
 --  the solve mechanics can be tested. Every text field says so on its face and
@@ -168,10 +168,38 @@ Recover the marker hidden in the pixel data and read what it carries.',
    'The photograph you can see is only the top six bits of every colour channel. Throw those away, keep the two lowest bits of each channel and rescale them — a bit-plane viewer, or four lines of Pillow, will show you what the low bits were really drawing.',
    40, NULL),
 
-  (6, 'stage-06', 'Challenge 06', 'Domain TBC', 'Hard', 400,
-   'Placeholder summary for stage six. Replace with a one-line teaser.',
-   'Placeholder briefing. The capstone scenario has not been written yet — this text exists so the page renders while the platform is built.',
-   'Placeholder objective. Describe here what the participant has to discover or achieve.',
-   NULL,
-   digest('SHIELD{placeholder_six}', 'sha256'),
-   'Placeholder hint.', 50, 5);
+  -- Stage 6 is complete: the artifact lives at
+  -- `data/challenges/stage-06/lockstep_escrow.json`, handed over by the same
+  -- gated route as stage 05 — the ciphertext is the puzzle, so there is
+  -- nothing to withhold. Gated behind stage 5, which is real and solvable, so
+  -- unlike stages 3 and 5 this one keeps its `requires_stage`.
+  --
+  -- This row covers the CRYPTOGRAPHY half only. The misc half is still to be
+  -- written; when it lands, the directive at the bottom of the chain stops
+  -- carrying the flag and starts carrying the misc part's entry point. See
+  -- `challeng06.md` for the handoff.
+  (6, 'stage-06', 'OPERATION LOCKSTEP', 'Cryptography', 'Hard', 400,
+   'A whole relay mesh published its public keys. Publishing them was never the mistake.',
+   'This is the last thing KRAKEN sent before the archive went dark, agent, and it is the only piece of the operation that was never meant to be readable.
+
+Signals pulled INTERCEPT-4471 off the relay mesh four minutes into the blackout: a roster of forty-eight field relays broadcast in the clear, one escrow envelope addressed to a single relay in that roster, and a sealed vault the envelope was carrying the key to.
+
+Cryptanalysis has already told us what we are not going to do. The moduli are 2048-bit, the vault is AES-256-GCM, and the orders inside it are signed on secp256k1. Nothing here is a weak algorithm and nothing here is going to be brute-forced — not by us, not this decade.
+
+Which leaves how KRAKEN used it. Forty-eight relays minted their own keys in the field, on hardware that came out of the same crate, and every one of those keys was published to the roster the day it was made. Somewhere in the operation somebody generated a number twice that was only ever supposed to exist once.
+
+Find where. Then keep going, because the vault is not the bottom — the orders inside it were signed by an authority key that KRAKEN escrowed against exactly this, and whoever holds that key holds the successor channel.
+
+Take the whole thing apart.',
+   'Recover INTERCEPT-4471 from the evidence locker below.
+Look at the forty-eight published moduli as a set rather than one at a time, and factor the relay the envelope is addressed to.
+Open the envelope and the vault it unlocks.
+Read the signed order log the way a forger would: find the two signatures that were never independent, and recover the authority key from them.
+Unwrap the command directive that key was protecting.',
+   'Nothing in that intercept is broken. Every algorithm in it is one we would have chosen ourselves. They simply ran the same number out twice, in two different places, eleven days apart — and that is all it ever takes.',
+   -- The digest rather than digest('...') over the plaintext, for the same
+   -- reason as stages 3 and 5: this file is committed, and a flag spelled out
+   -- here would be greppable.
+   decode('12495343abf571982f5e781e0327e44fd4c8f6a703b7b55549e018d9d6e8ce33', 'hex'),
+   'Two separate failures of uniqueness, one nested inside the other. First: relay keys minted on identical hardware can share a prime, and a shared prime falls out of gcd() between two moduli — no factoring required. Second: an ECDSA signature leaks the private scalar the moment two signatures reuse the same nonce k, which you can spot without any curve arithmetic at all, because reusing k reproduces r exactly.',
+   50, 5);

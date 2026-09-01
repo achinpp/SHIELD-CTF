@@ -7,9 +7,9 @@ import path from "node:path";
  *
  * The opposite call to the stage-03 log, and deliberately so. That record is
  * queryable but never released, because handing over the file is what made
- * the stage skippable. Stage 05 is steganography: the work *is* the file, so
- * there is nothing to withhold — an agent who cannot open the image cannot
- * start.
+ * the stage skippable. Stages 05 and 06 are steganography and cryptanalysis:
+ * the work *is* the file, so there is nothing to withhold — an agent who
+ * cannot open the image, or read the ciphertext, cannot start.
  *
  * What is still worth defending is who gets it. The file sits under `data/`
  * rather than `public/`, so no static path serves it; the only way out is the
@@ -43,6 +43,19 @@ const ARTIFACTS_BY_SLUG: Record<string, Artifact> = {
     contentType: "image/png",
     label: "PNG IMAGE // RECOVERED ARTIFACT",
     note: "1254 × 1254 · lossless · recovered intact from SHIELD-WKS-006",
+  },
+  // Stage 06 is handed over for the same reason as stage 05: the ciphertext
+  // *is* the puzzle. Withholding it and answering queries over it, the way
+  // stage 03's log is served, would withhold the only thing there is to work
+  // on. Text/JSON rather than a binary, so nothing in the response path can
+  // damage it — but it is still `application/json` with `nosniff`, never
+  // something a browser would try to run.
+  "stage-06": {
+    file: "stage-06/lockstep_escrow.json",
+    name: "lockstep_escrow.json",
+    contentType: "application/json",
+    label: "JSON INTERCEPT // KRAKEN RELAY MESH",
+    note: "INTERCEPT-4471 · 48-relay roster, one escrow envelope, one sealed vault",
   },
 };
 
