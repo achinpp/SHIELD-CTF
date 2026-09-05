@@ -169,37 +169,34 @@ Recover the marker hidden in the pixel data and read what it carries.',
    40, NULL),
 
   -- Stage 6 is complete: the artifact lives at
-  -- `data/challenges/stage-06/lockstep_escrow.json`, handed over by the same
-  -- gated route as stage 05 — the ciphertext is the puzzle, so there is
-  -- nothing to withhold. Gated behind stage 5, which is real and solvable, so
-  -- unlike stages 3 and 5 this one keeps its `requires_stage`.
+  -- `data/challenges/stage-06/lockstep_intercept.json`, handed over by the same
+  -- gated route as stage 05 — the intercepted traffic is the puzzle, so there
+  -- is nothing to withhold. Ungated for now (requires_stage NULL), like stages
+  -- 3 and 5, so the stage is open to everyone while it is being played and
+  -- tested. Restore the gate to 5 before the event runs for real.
   --
-  -- This row covers the CRYPTOGRAPHY half only. The misc half is still to be
-  -- written; when it lands, the directive at the bottom of the chain stops
-  -- carrying the flag and starts carrying the misc part's entry point. See
-  -- `challeng06.md` for the handoff.
-  (6, 'stage-06', 'OPERATION LOCKSTEP', 'Cryptography', 'Hard', 400,
-   'A whole relay mesh published its public keys. Publishing them was never the mistake.',
-   'This is the last thing KRAKEN sent before the archive went dark, agent, and it is the only piece of the operation that was never meant to be readable.
+  -- Deliberately long rather than deep: 72 packed message bodies, six of which
+  -- are a shifted broadcast carrying one phrase in six pieces. Every step is a
+  -- beginner step; the cost is patience, not technique. See `challeng06.md`.
+  (6, 'stage-06', 'OPERATION LOCKSTEP', 'Cryptography', 'Moderate', 350,
+   'One night of radio traffic off KRAKEN''s relay mesh. Seventy-two messages, and six of them are not chatter.',
+   'Signals handed us INTERCEPT-4471 an hour ago, agent: everything KRAKEN''s relay mesh sent between 1800 and 0600 on the night the archive went dark.
 
-Signals pulled INTERCEPT-4471 off the relay mesh four minutes into the blackout: a roster of forty-eight field relays broadcast in the clear, one escrow envelope addressed to a single relay in that roster, and a sealed vault the envelope was carrying the key to.
+It is not encrypted. The mesh packs its message bodies up for transmission and that is all it does to them, so most of this opens the moment you unpack it — dock chatter, weather, complaints about batteries. Seventy-two messages of people talking about their night shift.
 
-Cryptanalysis has already told us what we are not going to do. The moduli are 2048-bit, the vault is AES-256-GCM, and the orders inside it are signed on secp256k1. Nothing here is a weak algorithm and nothing here is going to be brute-forced — not by us, not this decade.
+Six of them are not that. KRAKEN command sends over the same net as its stations and does not mark its own traffic in any way, so the only thing separating an order from a complaint about a generator is that the order still does not read as anything after you unpack it. Those six were shifted along the alphabet before they were sent — the oldest trick there is, and it falls over the moment you try every shift there is.
 
-Which leaves how KRAKEN used it. Forty-eight relays minted their own keys in the field, on hardware that came out of the same crate, and every one of those keys was published to the roster the day it was made. Somewhere in the operation somebody generated a number twice that was only ever supposed to exist once.
+What command sent that night was a single standing phrase, cut into six pieces and read out one piece at a time across eleven hours. No one message carries it. Collect all six, put them back together the way command tells its own stations to, and you are holding the phrase.
 
-Find where. Then keep going, because the vault is not the bottom — the orders inside it were signed by an authority key that KRAKEN escrowed against exactly this, and whoever holds that key holds the successor channel.
-
-Take the whole thing apart.',
+None of this is difficult, agent. It is just long. Sit with it.',
    'Recover INTERCEPT-4471 from the evidence locker below.
-Look at the forty-eight published moduli as a set rather than one at a time, and factor the relay the envelope is addressed to.
-Open the envelope and the vault it unlocks.
-Read the signed order log the way a forger would: find the two signatures that were never independent, and recover the authority key from them.
-Unwrap the command directive that key was protecting.',
-   'Nothing in that intercept is broken. Every algorithm in it is one we would have chosen ourselves. They simply ran the same number out twice, in two different places, eleven days apart — and that is all it ever takes.',
+Unpack every message body — all seventy-two of them — and read what comes out.
+Set aside the six that still do not read as anything, and break the shift they were sent under.
+Reassemble the six pieces in the order command gives, and submit the phrase they spell.',
+   'They did not hide it, agent. They cut it into six and read it out over eleven hours, and trusted that nobody would sit through the whole night.',
    -- The digest rather than digest('...') over the plaintext, for the same
    -- reason as stages 3 and 5: this file is committed, and a flag spelled out
    -- here would be greppable.
-   decode('12495343abf571982f5e781e0327e44fd4c8f6a703b7b55549e018d9d6e8ce33', 'hex'),
-   'Two separate failures of uniqueness, one nested inside the other. First: relay keys minted on identical hardware can share a prime, and a shared prime falls out of gcd() between two moduli — no factoring required. Second: an ECDSA signature leaks the private scalar the moment two signatures reuse the same nonce k, which you can spot without any curve arithmetic at all, because reusing k reproduces r exactly.',
-   50, 5);
+   decode('c1d2792feb5430b4ac85995c7baf904aef79b4c6b4009aa81d2948044a57d865', 'hex'),
+   'The bodies are Base64. Decode all seventy-two and sixty-six of them read as ordinary English. The other six are the same message shifted a fixed number of letters along the alphabet — try all twenty-five shifts on any one of them and the rest open with the same shift. Each one then spells its piece of the phrase in the NATO phonetic alphabet, so DELTA ALFA ROMEO KILO reads DARK. Six pieces, joined in number order with underscores between them.',
+   30, NULL);

@@ -44,18 +44,18 @@ const ARTIFACTS_BY_SLUG: Record<string, Artifact> = {
     label: "PNG IMAGE // RECOVERED ARTIFACT",
     note: "1254 × 1254 · lossless · recovered intact from SHIELD-WKS-006",
   },
-  // Stage 06 is handed over for the same reason as stage 05: the ciphertext
-  // *is* the puzzle. Withholding it and answering queries over it, the way
-  // stage 03's log is served, would withhold the only thing there is to work
-  // on. Text/JSON rather than a binary, so nothing in the response path can
-  // damage it — but it is still `application/json` with `nosniff`, never
+  // Stage 06 is handed over for the same reason as stage 05: the intercepted
+  // traffic *is* the puzzle. Withholding it and answering queries over it, the
+  // way stage 03's log is served, would withhold the only thing there is to
+  // work on. Text/JSON rather than a binary, so nothing in the response path
+  // can damage it — but it is still `application/json` with `nosniff`, never
   // something a browser would try to run.
   "stage-06": {
-    file: "stage-06/lockstep_escrow.json",
-    name: "lockstep_escrow.json",
+    file: "stage-06/lockstep_intercept.json",
+    name: "lockstep_intercept.json",
     contentType: "application/json",
     label: "JSON INTERCEPT // KRAKEN RELAY MESH",
-    note: "INTERCEPT-4471 · 48-relay roster, one escrow envelope, one sealed vault",
+    note: "INTERCEPT-4471 · 72 transmissions · 48 stations · 1800–0600",
   },
 };
 
