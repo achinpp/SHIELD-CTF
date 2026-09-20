@@ -7,6 +7,7 @@ import challengeThree from "@/assets/challenges/challenge-03.png";
 import challengeFive from "@/assets/challenges/challenge-05.png";
 import { FlagForm } from "@/components/flag-form";
 import { LogConsole } from "@/components/log-console";
+import { WorkstationConsole } from "@/components/workstation-console";
 import { requireUser } from "@/lib/auth/dal";
 import { getChallenge, getNextStage } from "@/lib/challenges";
 import type { Challenge } from "@/lib/challenge-format";
@@ -89,6 +90,20 @@ const STAGE_EVIDENCE: Record<string, string> = {
     "4,678 requests · combined log format · queryable, not exportable",
 };
 
+/**
+ * Standing line above a stage's mounted workstation image, by slug.
+ *
+ * The same opt-in shape as `STAGE_EVIDENCE`, and a separate record rather than
+ * a shared one because the two consoles are different tools: stage 03 queries
+ * a single large file it will not release, while stage 04 walks a whole disk
+ * that is meant to be read freely. Only the shell is simulated — see
+ * `@/lib/workstation`.
+ */
+const STAGE_WORKSTATION: Record<string, string> = {
+  "stage-04":
+    "SHIELD-WKS-006 · forensic image · read-only · nothing on it executes",
+};
+
 const DIFFICULTY_TONE: Record<Challenge["difficulty"], string> = {
   Easy: "border-signal/40 text-signal/70",
   Moderate: "border-amber-400/40 text-amber-300/80",
@@ -124,6 +139,7 @@ export default async function ChallengePage({
 
   const art = STAGE_ART[challenge.slug];
   const evidence = STAGE_EVIDENCE[challenge.slug];
+  const workstation = STAGE_WORKSTATION[challenge.slug];
   // Stage 05 hands its artifact over instead of querying it — the file is the
   // puzzle there, so there is nothing to hold back. It is still served by a
   // gated route rather than from `public/`; see `@/lib/evidence`.
@@ -292,6 +308,18 @@ export default async function ChallengePage({
               {evidence}
             </p>
             <LogConsole slug={challenge.slug} />
+          </section>
+        )}
+
+        {workstation && (
+          <section className="mt-8">
+            <h2 className="font-mono text-[10px] tracking-[0.25em] text-signal/40">
+              MOUNTED EVIDENCE
+            </h2>
+            <p className="mt-3 font-mono text-[10px] tracking-[0.15em] text-signal/40">
+              {workstation}
+            </p>
+            <WorkstationConsole slug={challenge.slug} />
           </section>
         )}
 

