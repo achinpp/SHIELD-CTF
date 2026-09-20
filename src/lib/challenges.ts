@@ -35,7 +35,20 @@ type Row = {
   solved: boolean;
 };
 
-const SELECT_COLUMNS = sql`
+/**
+ * The column list both reads share, as a fragment rather than a string — a
+ * `sql` fragment is still parameterised when it is interpolated, where a bare
+ * string would be concatenation.
+ *
+ * Built on call and not held in a module-level constant, which is the whole
+ * reason this is a function. Tagging `sql` runs it, and `@/lib/db` defers
+ * connecting until the first query precisely so that `next build` can import
+ * every module without a database present. A fragment evaluated at module
+ * scope is a query call at import time: it reaches the proxy, opens the pool
+ * and throws on a missing DATABASE_URL before any page is ever rendered — so
+ * the whole Docker image build fails on a variable only needed at runtime.
+ */
+const selectColumns = () => sql`
   c.id, c.stage, c.slug, c.title, c.domain, c.difficulty, c.points,
   c.summary, c.scenario, c.task, c.intel_note, c.hint, c.hint_penalty,
   c.requires_stage,
@@ -66,7 +79,7 @@ function toChallenge(row: Row, unlocked: boolean): Challenge {
 /** The board as one agent sees it, in stage order. */
 export const getBoard = cache(async (userId: string): Promise<Challenge[]> => {
   const rows = await sql<Row[]>`
-    SELECT ${SELECT_COLUMNS}
+    SELECT ${selectColumns()}
     FROM challenges c
     LEFT JOIN solves s ON s.challenge_id = c.id AND s.user_id = ${userId}
     WHERE c.published = true
@@ -88,7 +101,7 @@ export const getBoard = cache(async (userId: string): Promise<Challenge[]> => {
 export const getChallenge = cache(
   async (userId: string, slug: string): Promise<Challenge | null> => {
     const [row] = await sql<Row[]>`
-      SELECT ${SELECT_COLUMNS}
+      SELECT ${selectColumns()}
       FROM challenges c
       LEFT JOIN solves s ON s.challenge_id = c.id AND s.user_id = ${userId}
       WHERE c.slug = ${slug} AND c.published = true
@@ -106,6 +119,42 @@ export const getChallenge = cache(
     }
 
     return toChallenge(row, unlocked);
+  },
+);
+
+/** Just enough of a challenge to link to it. */
+export type NextStage = {
+  stage: number;
+  slug: string;
+  title: string;
+  domain: string;
+};
+
+/**
+ * The stage this one unlocks, if the agent has in fact unlocked it.
+ *
+ * Drives the onward link on a cleared stage, so it is deliberately a query
+ * rather than a table of slugs: a stage learns what follows it from the gate
+ * the next stage declares, and adding a stage wires the link on its own.
+ *
+ * The solve is checked here rather than assumed from the caller. A stage can
+ * be cleared and its successor still sealed — nothing says a gate has to name
+ * the stage immediately before it — and linking to a sealed stage would land
+ * the agent on a page that redirects straight back to the board.
+ */
+export const getNextStage = cache(
+  async (userId: string, stage: number): Promise<NextStage | null> => {
+    const [row] = await sql<NextStage[]>`
+      SELECT next.stage, next.slug, next.title, next.domain
+      FROM challenges next
+      JOIN solves s ON s.user_id = ${userId}
+      JOIN challenges done
+        ON done.id = s.challenge_id AND done.stage = next.requires_stage
+      WHERE next.requires_stage = ${stage} AND next.published = true
+      ORDER BY next.stage
+      LIMIT 1
+    `;
+    return row ?? null;
   },
 );
 

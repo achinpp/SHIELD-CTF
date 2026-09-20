@@ -1,7 +1,7 @@
 -- S.H.I.E.L.D. CTF — challenge board.
 --
 -- ─────────────────────────────────────────────────────────────────────────
---  STAGES 3, 5 AND 6 ARE REAL. THE OTHER THREE ROWS ARE EMPTY PLACEHOLDERS.
+--  STAGES 2, 3, 5, 6 AND 7 ARE REAL. THE OTHER TWO ROWS ARE PLACEHOLDERS.
 --
 --  The placeholders exist so the board and the per-challenge pages render and
 --  the solve mechanics can be tested. Every text field says so on its face and
@@ -76,9 +76,10 @@ CREATE INDEX flag_attempts_user_idx ON flag_attempts (user_id, attempted_at);
 
 
 -- ── Placeholder rows ────────────────────────────────────────────────────
--- Structure only: six stages, the brief's difficulty ramp (1-2 Easy,
--- 3-4 Moderate, 5-6 Hard) and a sequential unlock chain. Domain labels are
--- unassigned until the group picks them.
+-- Structure only: the brief's difficulty ramp (1-2 Easy, 3-4 Moderate,
+-- 5-6 Hard) and a sequential unlock chain. Domain labels are unassigned until
+-- the group picks them. Stage 7 is the operation's finale and sits past the
+-- brief's six: it is the only stage that is actually gated, on 6.
 --
 -- `digest(...,'sha256')` needs pgcrypto; it is only used here, at seed time.
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
@@ -94,20 +95,65 @@ VALUES
    digest('SHIELD{placeholder_one}', 'sha256'),
    'Placeholder hint.', 10, NULL),
 
-  (2, 'stage-02', 'Challenge 02', 'Domain TBC', 'Easy', 100,
-   'Placeholder summary for stage two. Replace with a one-line teaser.',
-   'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',
-   'Placeholder objective. Describe here what the participant has to discover or achieve.',
-   NULL,
-   digest('SHIELD{placeholder_two}', 'sha256'),
-   'Placeholder hint.', 10, 1),
+  -- Stage 2 is complete, and it is the one stage whose evidence is not a file.
+  -- The artifact is a live target: the archive node at `/archive`, served by
+  -- this application from `src/app/archive/`. The stage page prints its address
+  -- from `@/lib/targets`.
+  --
+  -- It was briefly a separate Flask container on port 8080. It is a route now
+  -- so the whole operation sits on one origin, in one palette, with one session
+  -- and nothing extra to deploy. The two files it hands out live in
+  -- `data/challenges/stage-02/`, off the web root like every other stage's
+  -- material, and the `X-Sync-Cluster` clue is attached in `next.config.ts`
+  -- because a Server Component cannot set a response header.
+  --
+  -- It feeds stage 3 directly. The "forgotten endpoint containing an
+  -- access.log" that stage 3 opens on is the trace subsystem an agent breaks
+  -- into here, so the two are meant to be played in order even though neither
+  -- gate is switched on yet.
+  --
+  -- Ungated (requires_stage NULL) for the same provisional reason as stages 3,
+  -- 5 and 6: the placeholder it used to sit behind — stage 1 — is still a
+  -- placeholder, and gating a real stage behind a fake one would make the board
+  -- unplayable. Restore the gate to 1 once stage 1 is written.
+  (2, 'stage-02', 'Challenge 02', 'Web', 'Easy', 100,
+   'A legacy archive server KRAKEN left running. Everything on it answers honestly — to anyone who knows what to ask.',
+   'The archive server is still up, agent.
+
+That is the first thing that should bother you. KRAKEN went through it four days before the facility breach and left it running — nothing wiped, nothing defaced, no note. Whoever did this wanted the box to keep answering, which means they got what they came for and saw no reason to burn it on the way out.
+
+The public face of it is clean. Monitoring has been over the gateway a dozen times: the front page is a front page, the status endpoints are honest, and every link on it goes where it says it goes.
+
+What is not linked is the problem. This host has been in service since the archive was stood up and it carries the whole sediment of it — synchronization subsystems retired without ever being removed, diagnostic partitions that still answer to parameters nobody has typed in years, and a quarantined incident report somebody meant to take off the disk and never did.
+
+KRAKEN read all of it. You are going to read it too.
+
+Nothing here needs an exploit. The archive will tell you everything it knows — it simply will not volunteer it, and what it does give up it gives up in pieces.',
+   'Map the archive at the address below, starting with what it asks crawlers not to index.
+Read the quarantined incident report in the markup and in the response headers both — neither half is the whole clue.
+Work out which synchronization node the incident points at, and ask the restricted trace subsystem for it the way it expects to be asked.
+Recover the fragments it releases, restore the order they were written in, and reconstruct what they spell.',
+   'Nobody decommissioned that subsystem. They stopped linking to it, and assumed that was the same thing.',
+   -- The digest rather than digest('...') over the plaintext, for the same
+   -- reason as stages 3, 5, 6 and 7: this file is committed, and a flag spelled
+   -- out here would be greppable. `data/challenges/stage-02/old.log` is
+   -- committed too, but it carries the flag only in encoded fragments — taking
+   -- it apart is the stage.
+   decode('2ace64fee96e9312e478ac12bce1add971c6eed6a790fae425d7db6123983312', 'hex'),
+   'Start at /robots.txt: a disallow list is a list of the things worth looking at, and this one names an incident page and a restricted trace path. The incident page carries half a sentence in an HTML comment and the other half in a response header — fetch the headers too (curl -I) — and both halves are Base32. Together they name a node number. Hand that number to the trace path as a query parameter, ?node=<n>, and the 403 becomes a 200. The log behind it holds seven fragments printed out of order, each tagged with its own sequence=. Sort by that, Base32-decode every payload, join them end to end, and Base64-decode the string you are left with.',
+   10, NULL),
 
   -- Stage 3 is complete: the artifact lives at
   -- `data/challenges/stage-03/access.log` — off the web root, readable only
   -- through the page's query terminal — and the hash below is the real flag's.
   -- Still provisional: the stage is deliberately ungated (requires_stage NULL)
-  -- so the card stays reachable from the board while stages 1-2 are empty.
-  -- Restore the gate to 2 once those are written.
+  -- so the card stays reachable from the board while stage 1 is empty.
+  --
+  -- Stage 2 is now written, and it is the stage this one continues from — the
+  -- forgotten endpoint below is the trace subsystem stage 2 breaks into. So
+  -- `requires_stage = 2` is ready to switch on whenever the board is gated for
+  -- real; it is left NULL only so every finished stage stays open while the
+  -- placeholders are filled in.
   (3, 'stage-03', 'Challenge 03', 'Scripting', 'Easy', 200,
    'A forgotten endpoint left an access.log behind. Thousands of requests, and one visitor who should not be there.',
    'Agent, your previous investigation has uncovered a critical lead.
@@ -199,4 +245,53 @@ Reassemble the six pieces in the order command gives, and submit the phrase they
    -- here would be greppable.
    decode('c1d2792feb5430b4ac85995c7baf904aef79b4c6b4009aa81d2948044a57d865', 'hex'),
    'The bodies are Base64. Decode all seventy-two and sixty-six of them read as ordinary English. The other six are the same message shifted a fixed number of letters along the alphabet — try all twenty-five shifts on any one of them and the rest open with the same shift. Each one then spells its piece of the phrase in the NATO phonetic alphabet, so DELTA ALFA ROMEO KILO reads DARK. Six pieces, joined in number order with underscores between them.',
-   30, NULL);
+   30, NULL),
+
+  -- Stage 7 is the operation's finale and its meta stage: OPERATION KEYSTONE.
+  --
+  -- It is the only stage with no artifact of its own. Its evidence is the six
+  -- clearance receipts the earlier stages hand back when their flags are
+  -- accepted — each carrying one fragment of the credential, shifted by its
+  -- desk number and timestamped out of stage order. Nothing here is served or
+  -- downloaded; an agent who has cleared the board already holds all of it.
+  --
+  -- ⚠ NOT YET SOLVABLE. The receipts do not exist. Until they are written and
+  -- rendered on solve, the six fragments have nowhere to live and this stage
+  -- cannot be finished by anyone. `published` stays true so the sealed card
+  -- keeps its place at the end of the board while the receipts are built —
+  -- flip it to false if the event runs before they land. The exact fragment /
+  -- desk / timestamp table each receipt must carry is in `challeng07.md`.
+  --
+  -- The one genuinely gated stage on the board, and the only one whose gate is
+  -- load-bearing rather than provisional: `requires_stage = 6` is what makes
+  -- the onward button appear on the stage-06 page the moment its flag lands,
+  -- and the finale is not meant to be reachable before then. Leave it at 6.
+  --
+  -- It depends on every other stage in substance, though, not just on 6 — a
+  -- fragment is planted in all six. Stages 1, 2 and 4 are still placeholders,
+  -- so three of the six receipts have no stage to be issued from yet. That is
+  -- the same blocker as the one above, from the other end.
+  (7, 'stage-07', 'OPERATION KEYSTONE', 'Misc', 'Hard', 500,
+   'Six stages, six clearance receipts, and a credential nobody at command ever noticed they were handing you a piece at a time.',
+   'One more thing, agent, and it has been in front of you since the first night.
+
+Every stage you have cleared, SHIELD command filed a clearance receipt against it — the short acknowledgement that comes back the moment a flag is accepted. You have read six of them by now. They look like paperwork. They are paperwork.
+
+They are also the only place KRAKEN''s root credential was ever written down.
+
+Command split it across the operation on purpose, back when this was still a three-desk investigation. No desk ever held more than a fragment. No fragment ever left a desk in the hand it was written in. And the receipts were filed in the order the desks got round to them rather than the order the stages were cleared, so even the sequence is wrong unless you look at when each one was logged. The reasoning was that losing an agent, or a desk, or a whole stage of the operation, would not lose the key.
+
+What nobody planned for is somebody clearing all six.
+
+You are the first. That makes you the first person who has ever held the whole thing at once. Go back through your receipts — every one of them tells you on its face what to do with what it carries. Do that, put them in the order they were logged, and read out what the six of them spell.',
+   'Go back to every stage you have cleared and take the clearance receipt off it — all six.
+Unwind each fragment the way its own receipt tells you to; the desk that issued it is the reason it looks like nonsense.
+Order the six by the time each receipt was logged. The stage numbers are not the order.
+Join the unwound fragments end to end, work out what the joined string is, and read the credential out of it.',
+   'Nobody at command ever thought of the receipts as secret. They are receipts. That is exactly why the key has sat in the open the whole time, in six pieces, on paperwork that everybody files and nobody reads twice.',
+   -- The digest rather than digest('...') over the plaintext, for the same
+   -- reason as stages 3, 5 and 6: this file is committed, and a flag spelled
+   -- out here would be greppable.
+   decode('59d16d814d73f0ef36e28776509e5c2dea21fb9e37b2e70819fc086a7d5dc222', 'hex'),
+   'Each receipt carries three things that matter: a FRAGMENT, an OPS-DESK number and a LOGGED time. The desk number is a shift — every character of that fragment was moved that many places forward through the alphabet the fragment is written in, which runs A to Z and then 2 to 7 and wraps around. Move them back by the desk number. Then sort the six receipts by LOGGED, not by stage, and join the unwound fragments end to end. Forty characters drawn from A-Z and 2-7, in a length that is a multiple of eight, is Base32. Decode it.',
+   60, 6);

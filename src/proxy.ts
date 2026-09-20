@@ -16,7 +16,11 @@ import { SESSION_COOKIE } from "@/lib/auth/session";
  * enforcing access.
  */
 
-const PROTECTED = ["/challenges", "/briefing"];
+// `/archive` is challenge 02's target. It is in-world a public legacy host,
+// but it is served from this origin, so it gets the same perimeter as the rest
+// of the platform rather than standing open on the scoring service's own
+// address. The stage is unaffected: agents working it are signed in.
+const PROTECTED = ["/challenges", "/briefing", "/archive"];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;

@@ -6,6 +6,11 @@
 #
 # Challenge boxes get added here as separate services on their own network,
 # so a player container can never reach the scoring service or the database.
+#
+# There are none at present. Challenge 02's archive is served by the app itself
+# at `/archive`, not by a box — see `src/app/archive/`. A stage only needs a
+# service here when it cannot be a route: a shell box, or something that has to
+# run code an agent supplies.
 
 services:
   web:
@@ -15,6 +20,8 @@ services:
       # selected by accident.
       target: runner
     image: shield-ctf-web:local
+    networks:
+      - platform
     ports:
       # Host port is overridable so the container can run alongside a
       # `npm run dev` already holding 3000:  WEB_PORT=3001 docker compose up
@@ -45,6 +52,8 @@ services:
 
   db:
     image: postgres:17-alpine
+    networks:
+      - platform
     environment:
       POSTGRES_USER: shield
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
@@ -64,6 +73,11 @@ services:
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
+
+networks:
+  # The scoring service and its database. A challenge box, when there is one,
+  # gets a network of its own and never joins this one.
+  platform:
 
 volumes:
   db-data:

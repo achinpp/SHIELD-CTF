@@ -57,6 +57,10 @@ const ARTIFACTS_BY_SLUG: Record<string, Artifact> = {
     label: "JSON INTERCEPT // KRAKEN RELAY MESH",
     note: "INTERCEPT-4471 · 72 transmissions · 48 stations · 1800–0600",
   },
+  // Stage 07 has no entry, and that is the design rather than an omission.
+  // OPERATION KEYSTONE is assembled from the clearance receipts the earlier
+  // stages hand back on solve, so there is no file to serve — an agent who has
+  // cleared the board is already holding everything the stage needs.
 };
 
 export function getArtifact(slug: string): Artifact | null {

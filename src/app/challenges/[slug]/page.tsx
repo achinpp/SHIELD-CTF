@@ -8,9 +8,10 @@ import challengeFive from "@/assets/challenges/challenge-05.png";
 import { FlagForm } from "@/components/flag-form";
 import { LogConsole } from "@/components/log-console";
 import { requireUser } from "@/lib/auth/dal";
-import { getChallenge } from "@/lib/challenges";
+import { getChallenge, getNextStage } from "@/lib/challenges";
 import type { Challenge } from "@/lib/challenge-format";
 import { artifactSize, getArtifact } from "@/lib/evidence";
+import { getTarget } from "@/lib/targets";
 
 /** Blank line separates paragraphs; single newlines are soft wraps. */
 function splitParagraphs(text: string): string[] {
@@ -128,6 +129,16 @@ export default async function ChallengePage({
   // gated route rather than from `public/`; see `@/lib/evidence`.
   const artifact = getArtifact(challenge.slug);
   const artifactBytes = artifact ? await artifactSize(artifact) : null;
+  // Stage 02 has neither: its evidence is a box that is still running, so all
+  // the page can do is say where it is. See `@/lib/targets`.
+  const target = getTarget(challenge.slug);
+
+  // What this stage unlocks, once it is cleared. Null while it is unsolved,
+  // and null when nothing is gated behind it — so the onward button below is
+  // simply absent rather than needing a case of its own.
+  const next = challenge.solved
+    ? await getNextStage(agent.id, challenge.stage)
+    : null;
 
   return (
     <main className="relative min-h-dvh w-full bg-void">
@@ -235,6 +246,43 @@ export default async function ChallengePage({
           )}
         </section>
 
+        {target && (
+          <section className="mt-8">
+            <h2 className="font-mono text-[10px] tracking-[0.25em] text-signal/40">
+              ASSIGNED TARGET
+            </h2>
+            <p className="mt-3 font-mono text-[10px] tracking-[0.15em] text-signal/40">
+              {target.note}
+            </p>
+            <div className="mt-3 flex flex-wrap items-center gap-4 border border-signal/25 bg-hull/60 p-5">
+              <span
+                aria-hidden
+                className="flex h-14 w-11 shrink-0 items-center justify-center border border-signal/35 font-mono text-[9px] tracking-[0.15em] text-signal/70"
+              >
+                WWW
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate font-mono text-[13px] tracking-wide text-signal">
+                  {target.path}
+                </p>
+                <p className="mt-1 font-mono text-[10px] tracking-[0.15em] text-signal/40">
+                  {target.label}
+                </p>
+              </div>
+              {/* Opens in its own tab: the archive is a place an agent leaves
+                  and comes back to repeatedly while working the stage, and
+                  losing the briefing behind it every time is a poor trade. */}
+              <Link
+                href={target.path}
+                target="_blank"
+                className="border border-signal/40 px-4 py-2.5 font-mono text-[9px] tracking-[0.25em] text-signal transition-colors hover:border-signal hover:bg-signal/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
+              >
+                OPEN TARGET
+              </Link>
+            </div>
+          </section>
+        )}
+
         {evidence && (
           <section className="mt-8">
             <h2 className="font-mono text-[10px] tracking-[0.25em] text-signal/40">
@@ -303,6 +351,28 @@ export default async function ChallengePage({
               <p className="mt-2 font-mono text-[11px] tracking-wide text-signal/45">
                 {challenge.points} points recorded.
               </p>
+
+              {/* The onward button. It belongs here rather than in the flag
+                  form: a correct submission revalidates this route, so the
+                  form is replaced by this panel the moment it succeeds and
+                  anything rendered from its own success state would flash and
+                  vanish. Here it survives the refresh — and is still waiting
+                  when the agent comes back to the page later. */}
+              {next && (
+                <div className="mt-6 border-t border-signal/20 pt-6">
+                  <p className="font-mono text-[10px] tracking-[0.25em] text-alert">
+                    SEAL BROKEN &mdash; STAGE{" "}
+                    {String(next.stage).padStart(2, "0")} RELEASED
+                  </p>
+                  <Link
+                    href={`/challenges/${next.slug}`}
+                    className="mt-4 inline-block border border-alert/50 bg-alert/[0.08] px-6 py-3 font-mono text-[10px] tracking-[0.25em] text-alert-soft transition-colors hover:border-alert hover:bg-alert/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-alert"
+                  >
+                    OPEN {next.title} &rsaquo;
+                  </Link>
+                </div>
+              )}
+
               <Link
                 href="/challenges"
                 className="mt-6 inline-block font-mono text-[10px] tracking-[0.25em] text-signal/60 underline underline-offset-4 transition-colors hover:text-signal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
