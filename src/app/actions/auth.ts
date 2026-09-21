@@ -8,7 +8,7 @@ import {
   toFieldErrors,
   type AccessState,
 } from "@/lib/access";
-import { sql } from "@/lib/db";
+import { DB_UNCONFIGURED, sql } from "@/lib/db";
 import { hashPassword, verifyDecoy, verifyPassword } from "@/lib/auth/password";
 import {
   RATE_LIMIT_MESSAGE,
@@ -46,6 +46,20 @@ const UNREACHABLE =
   "Cannot reach the registry — the database is not responding. " +
   "If you are running locally, start it with: npm run db";
 
+/**
+ * Shown when there is no database *configured*, as opposed to one that is
+ * configured and down. A fresh clone carries no `.env.local` — both env files
+ * are gitignored — so this is the first thing a new contributor hits, and it
+ * used to surface as the generic failure below. That sent people hunting for a
+ * bug in the sign-in form rather than at the one-line setup step they had not
+ * done yet. Naming it costs nothing: an unconfigured deployment has no secrets
+ * in it to leak.
+ */
+const UNCONFIGURED =
+  "This deployment has no database configured — DATABASE_URL is not set. " +
+  "Copy .env.example to .env.local, set DATABASE_URL, start the database " +
+  "with `npm run db`, then restart the dev server. See the README.";
+
 /** Where an authenticated agent lands. */
 const HOME = "/challenges";
 
@@ -82,6 +96,7 @@ export async function register(
         errors: { codename: "That codename or email is already registered." },
       };
     }
+    if (isUnconfigured(error)) return { message: UNCONFIGURED };
     if (isUnreachable(error)) return { message: UNREACHABLE };
     console.error("register failed:", error);
     return { message: "Registration failed. Try again." };
@@ -140,6 +155,7 @@ export async function login(
     // Opportunistic housekeeping on a path that already touches the database.
     await Promise.allSettled([pruneExpiredSessions(), pruneAttempts()]);
   } catch (error) {
+    if (isUnconfigured(error)) return { message: UNCONFIGURED };
     if (isUnreachable(error)) return { message: UNREACHABLE };
     console.error("login failed:", error);
     return { message: "Sign-in failed. Try again." };
@@ -182,6 +198,15 @@ const UNREACHABLE_CODES = new Set([
   "CONNECTION_CLOSED",
   "CONNECTION_ENDED",
 ]);
+
+/** True when no DATABASE_URL was ever set — a setup step, not an outage. */
+function isUnconfigured(error: unknown): boolean {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    (error as { code?: unknown }).code === DB_UNCONFIGURED
+  );
+}
 
 function isUnreachable(error: unknown): boolean {
   if (typeof error !== "object" || error === null) return false;

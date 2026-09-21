@@ -15,13 +15,31 @@ declare global {
   var __shieldSql: Sql | undefined;
 }
 
+/**
+ * Marks the "nobody has configured this yet" failure so callers can tell it
+ * apart from a database that is configured and merely down.
+ *
+ * It is carried as `code`, matching the shape the `postgres` driver gives its
+ * own errors, so a caller classifies both kinds the same way instead of
+ * needing a separate check for ours.
+ *
+ * Worth the distinction: a fresh clone has no `.env.local`, which makes this
+ * the first wall a new contributor hits. Reporting it as a generic failure
+ * sends them looking for a bug in the sign-in form, which is the one place the
+ * problem is not.
+ */
+export const DB_UNCONFIGURED = "DATABASE_URL_MISSING";
+
 function connect(): Sql {
   const connectionString = process.env.DATABASE_URL;
 
   if (!connectionString) {
-    throw new Error(
-      "DATABASE_URL is not set. Copy .env.example to .env.local for local " +
-        "development, or let compose.yaml provide it in Docker.",
+    throw Object.assign(
+      new Error(
+        "DATABASE_URL is not set. Copy .env.example to .env.local for local " +
+          "development, or let compose.yaml provide it in Docker.",
+      ),
+      { code: DB_UNCONFIGURED },
     );
   }
 
