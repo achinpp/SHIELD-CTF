@@ -7,7 +7,7 @@ import path from "node:path";
  *
  * The opposite call to the stage-03 log, and deliberately so. That record is
  * queryable but never released, because handing over the file is what made
- * the stage skippable. Stages 05 and 06 are steganography and cryptanalysis:
+ * the stage skippable. Stages 06 and 07 are steganography and cryptanalysis:
  * the work *is* the file, so there is nothing to withhold — an agent who
  * cannot open the image, or read the ciphertext, cannot start.
  *
@@ -37,27 +37,27 @@ export type Artifact = {
 
 /** A slug with no entry has no evidence download. */
 const ARTIFACTS_BY_SLUG: Record<string, Artifact> = {
-  "stage-05": {
-    file: "stage-05/raven_recovered.png",
+  "stage-06": {
+    file: "stage-06/raven_recovered.png",
     name: "raven_recovered.png",
     contentType: "image/png",
     label: "PNG IMAGE // RECOVERED ARTIFACT",
     note: "1254 × 1254 · lossless · recovered intact from SHIELD-WKS-006",
   },
-  // Stage 06 is handed over for the same reason as stage 05: the intercepted
+  // Stage 07 is handed over for the same reason as stage 06: the intercepted
   // traffic *is* the puzzle. Withholding it and answering queries over it, the
   // way stage 03's log is served, would withhold the only thing there is to
   // work on. Text/JSON rather than a binary, so nothing in the response path
   // can damage it — but it is still `application/json` with `nosniff`, never
   // something a browser would try to run.
-  "stage-06": {
-    file: "stage-06/lockstep_intercept.json",
+  "stage-07": {
+    file: "stage-07/lockstep_intercept.json",
     name: "lockstep_intercept.json",
     contentType: "application/json",
     label: "JSON INTERCEPT // KRAKEN RELAY MESH",
     note: "INTERCEPT-4471 · 72 transmissions · 48 stations · 1800–0600",
   },
-  // Stage 07 has no entry, and that is the design rather than an omission.
+  // Stage 08 has no entry, and that is the design rather than an omission.
   // OPERATION KEYSTONE is assembled from the clearance receipts the earlier
   // stages hand back on solve, so there is no file to serve — an agent who has
   // cleared the board is already holding everything the stage needs.

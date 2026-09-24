@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
 import challengeThree from "@/assets/challenges/challenge-03.png";
-import challengeFive from "@/assets/challenges/challenge-05.png";
+import challengeSix from "@/assets/challenges/challenge-06.png";
 import { FlagForm } from "@/components/flag-form";
 import { LogConsole } from "@/components/log-console";
 import { WorkstationConsole } from "@/components/workstation-console";
@@ -54,7 +54,7 @@ const STAGE_ART: Record<
      * briefing above the fold on a phone.
      *
      * Neither applies to a piece of key art that was drawn at its final size.
-     * Stage 05 is 456x645 portrait: the crop threw most of the raven away, and
+     * Stage 06 is 456x645 portrait: the crop threw most of the raven away, and
      * re-encoding a 540 KB PNG buys little. `unoptimized` skips `/_next/image`
      * entirely, so the browser gets the PNG byte for byte instead of a WebP
      * transcode.
@@ -66,8 +66,8 @@ const STAGE_ART: Record<
     src: challengeThree,
     alt: "A hooded figure hunched over a keyboard, ringed by monitors scrolling with log output.",
   },
-  "stage-05": {
-    src: challengeFive,
+  "stage-06": {
+    src: challengeSix,
     alt: "A raven in flight, wings spread against a storm split by forks of lightning.",
     verbatim: true,
   },
@@ -140,9 +140,9 @@ export default async function ChallengePage({
   const art = STAGE_ART[challenge.slug];
   const evidence = STAGE_EVIDENCE[challenge.slug];
   const workstation = STAGE_WORKSTATION[challenge.slug];
-  // Stage 05 hands its artifact over instead of querying it — the file is the
-  // puzzle there, so there is nothing to hold back. It is still served by a
-  // gated route rather than from `public/`; see `@/lib/evidence`.
+  // Stages 06 and 07 hand their artifact over instead of querying it — the
+  // file is the puzzle there, so there is nothing to hold back. It is still
+  // served by a gated route rather than from `public/`; see `@/lib/evidence`.
   const artifact = getArtifact(challenge.slug);
   const artifactBytes = artifact ? await artifactSize(artifact) : null;
   // Stage 02 has neither: its evidence is a box that is still running, so all

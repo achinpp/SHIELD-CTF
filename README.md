@@ -1,7 +1,7 @@
 # S.H.I.E.L.D. // Capture The Flag
 
 A self-hosted CTF platform with a S.H.I.E.L.D. house style: a cinematic landing
-terminal, self-hosted accounts, and a seven-stage challenge board where each
+terminal, self-hosted accounts, and an eight-stage challenge board where each
 stage delivers its evidence in whatever way suits the puzzle.
 
 ## Stack
@@ -83,22 +83,23 @@ scratch.
 
 ## The board
 
-Seven stages, ordered by a difficulty ramp. Stage 7 is the meta finale and is
-assembled from the other six.
+Eight stages, ordered by a difficulty ramp. Stage 8 is the meta finale and is
+assembled from the other seven.
 
 | # | Stage | Domain | Difficulty | Points |
 |---|---|---|---|---|
-| 1 | Challenge 01 | *unassigned* | Easy | 100 |
-| 2 | Challenge 02 | Web | Easy | 100 |
-| 3 | Challenge 03 | Scripting | Easy | 200 |
-| 4 | Challenge 04 | Linux | Moderate | 200 |
-| 5 | OPERATION RAVEN | Steganography | Moderate | 300 |
-| 6 | OPERATION LOCKSTEP | Cryptography | Moderate | 350 |
-| 7 | OPERATION KEYSTONE | Misc | Hard | 500 |
+| 1 | OPERATION GHOSTWATCH | OSINT / Reconnaissance | Easy | 100 |
+| 2 | SHIELD Secure Archive Node | Web Technologies / Web Security | Easy | 100 |
+| 3 | OPERATION ACCESS LOG | Programming / Scripting | Easy | 200 |
+| 4 | OPERATION DEAD END | Linux / System Security | Moderate | 200 |
+| 5 | OPERATION COLD STORAGE | Digital Forensics | Moderate | 250 |
+| 6 | OPERATION RAVEN | Steganography | Moderate | 300 |
+| 7 | OPERATION LOCKSTEP | Cryptography | Moderate | 350 |
+| 8 | OPERATION KEYSTONE | Miscellaneous / Capstone | Hard | 500 |
 
-**Stage 1 is still a placeholder** — its text says so on its face and its flag
-is a `SHIELD{placeholder_...}` that nothing can be mistaken for. Every other
-row is finished.
+**Stages 1 and 5 are still placeholders** — their text says so on its face,
+though their flag digests are already the real ones. **Stage 8 is being
+redesigned** and cannot be solved yet. Every other row is finished.
 
 Stages live in `db/init/02-challenges.sql`, one row each, carrying the
 briefing, objectives, hint and the **SHA-256 of the flag** — never the flag.
@@ -115,7 +116,7 @@ Four shapes, picked to suit the puzzle rather than for uniformity:
 | Shape | Used by | Why |
 |---|---|---|
 | **Query terminal** | 03 | The log is the haystack. It is queryable but never exportable, because handing over the file makes the stage skippable. |
-| **Gated download** | 05, 06 | The file *is* the puzzle, so it has to be handed over — through a route that re-checks the session, not from `public/`. |
+| **Gated download** | 06, 07 | The file *is* the puzzle, so it has to be handed over — through a route that re-checks the session, not from `public/`. |
 | **Live target** | 02 | A legacy archive node at `/archive`, served by this app. Reconnaissance against a running service. |
 | **Mounted image** | 04 | A read-only disk image of a workstation, walked through a simulated shell. Nothing executes. |
 
@@ -217,7 +218,7 @@ src/lib/auth/                sessions, Argon2id, rate limiting, the DAL
 src/lib/challenges.ts        board data access and flag checking (server-only)
 src/lib/log-console.ts       stage 03's query terminal
 src/lib/workstation.ts       stage 04's read-only disk image and shell
-src/lib/evidence.ts          stage 05/06 gated downloads
+src/lib/evidence.ts          stage 06/07 gated downloads
 src/lib/targets.ts           stage 02's live target
 src/lib/sequence.ts          cue times, durations, easing curves
 

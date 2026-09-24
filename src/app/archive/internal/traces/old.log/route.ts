@@ -7,7 +7,7 @@ import { requireUser } from "@/lib/auth/dal";
  * Served as `text/plain` so it opens in the browser rather than downloading,
  * which is what an agent poking at a legacy host expects of a `.log`. The
  * fragments inside are encoded and deliberately shuffled; handing the file
- * over whole is the point, exactly as with the stage-05 and stage-06
+ * over whole is the point, exactly as with the stage-06 and stage-07
  * artifacts. There is nothing to withhold here — decoding it *is* the work.
  *
  * `nosniff` because the body is attacker-adjacent fiction rather than anything

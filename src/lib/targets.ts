@@ -4,7 +4,7 @@ import "server-only";
  * Live challenge targets.
  *
  * The third shape a stage's evidence can take, alongside the stage-03 query
- * terminal and the stage-05/06 download. Stage 02 is neither: there is no file
+ * terminal and the stage-06/07 download. Stage 02 is neither: there is no file
  * to withhold or hand over, because the artifact is a running service the
  * agent has to go and interrogate.
  *
