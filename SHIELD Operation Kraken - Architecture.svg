@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="974" viewBox="0 0 1200 974">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#1f3a5f"/></marker></defs>
+<rect width="1200" height="974" fill="#ffffff"/>
+<rect x="64" y="40" width="366" height="84" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="247.0" y="79.0" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="600" fill="#1b2533" text-anchor="middle">Participant</text>
+<text x="247.0" y="104.0" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="400" fill="#5f6b7a" text-anchor="middle">browser · cURL · Burp · Autopsy</text>
+<rect x="856" y="40" width="300" height="84" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="1006.0" y="79.0" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="600" fill="#1b2533" text-anchor="middle">GitHub / X</text>
+<text x="1006.0" y="104.0" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="400" fill="#5f6b7a" text-anchor="middle">public · Stage 01 OSINT</text>
+<path d="M430,82.0 L851,82.0" fill="none" stroke="#1f3a5f" stroke-width="2.2" stroke-dasharray="7 6" marker-end="url(#ah)"/>
+<rect x="24" y="190" width="1152" height="760" rx="16" fill="#f6f8fa" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="1160" y="218" font-family="'Segoe UI', Arial, sans-serif" font-size="16" font-weight="600" fill="#5f6b7a" text-anchor="end" letter-spacing="0.8">DOCKER HOST · ISOLATED NETWORK</text>
+<rect x="44" y="232" width="792" height="694" rx="14" fill="#fff" stroke="#1f3a5f" stroke-width="1.8"/>
+<text x="816" y="262" font-family="'Segoe UI', Arial, sans-serif" font-size="16" font-weight="600" fill="#5f6b7a" text-anchor="end" letter-spacing="0.8">WEB · NEXT.JS 16</text>
+<text x="816" y="286" font-family="'Segoe UI', Arial, sans-serif" font-size="16" font-weight="400" fill="#5f6b7a" text-anchor="end">non-root · read-only filesystem</text>
+<rect x="856" y="232" width="300" height="694" rx="14" fill="#fff" stroke="#1f3a5f" stroke-width="1.8"/>
+<text x="876" y="262" font-family="'Segoe UI', Arial, sans-serif" font-size="16" font-weight="600" fill="#5f6b7a" text-anchor="start" letter-spacing="0.8">DB · POSTGRESQL 17</text>
+<text x="876" y="286" font-family="'Segoe UI', Arial, sans-serif" font-size="16" font-weight="400" fill="#5f6b7a" text-anchor="start">internal :5432 only</text>
+<rect x="64" y="304" width="366" height="80" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="247.0" y="341.0" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="600" fill="#1b2533" text-anchor="middle">Proxy</text>
+<text x="247.0" y="366.0" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="400" fill="#5f6b7a" text-anchor="middle">session gate</text>
+<rect x="450" y="304" width="366" height="80" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="633.0" y="341.0" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="600" fill="#1b2533" text-anchor="middle">Server Actions</text>
+<text x="633.0" y="366.0" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="400" fill="#5f6b7a" text-anchor="middle">login · flag check · scoring</text>
+<rect x="64" y="424" width="752" height="358" rx="12" fill="#f6f8fa" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="80" y="456" font-family="'Segoe UI', Arial, sans-serif" font-size="16" font-weight="600" fill="#5f6b7a" text-anchor="start" letter-spacing="0.8">CHALLENGES · UNLOCK IN ORDER</text>
+<rect x="520.0" y="438" width="36" height="24" rx="12" fill="#fdf1e4" stroke="#b45309" stroke-width="1.4"/>
+<text x="538" y="455.5" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">KS</text>
+<text x="800" y="456" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="600" fill="#b45309" text-anchor="end">hidden key share, needed for 08</text>
+<rect x="80.0" y="480" width="354.0" height="64" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="96.0" y="507" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2533" text-anchor="start">01 · GHOSTWATCH</text>
+<text x="96.0" y="530" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="400" fill="#5f6b7a" text-anchor="start">OSINT / Reconnaissance</text>
+<rect x="377.5" y="500.0" width="45" height="24" rx="12" fill="#fdf1e4" stroke="#b45309" stroke-width="1.4"/>
+<text x="400.0" y="517.5" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">KS1</text>
+<rect x="80.0" y="554" width="354.0" height="64" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="96.0" y="581" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2533" text-anchor="start">02 · ARCHIVE NODE</text>
+<text x="96.0" y="604" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="400" fill="#5f6b7a" text-anchor="start">Web Technologies / Web Security</text>
+<rect x="377.5" y="574.0" width="45" height="24" rx="12" fill="#fdf1e4" stroke="#b45309" stroke-width="1.4"/>
+<text x="400.0" y="591.5" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">KS2</text>
+<rect x="80.0" y="628" width="354.0" height="64" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="96.0" y="655" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2533" text-anchor="start">03 · ACCESS LOG</text>
+<text x="96.0" y="678" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="400" fill="#5f6b7a" text-anchor="start">Programming / Scripting</text>
+<rect x="377.5" y="648.0" width="45" height="24" rx="12" fill="#fdf1e4" stroke="#b45309" stroke-width="1.4"/>
+<text x="400.0" y="665.5" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">KS3</text>
+<rect x="80.0" y="702" width="354.0" height="64" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="96.0" y="729" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2533" text-anchor="start">04 · DEAD END</text>
+<text x="96.0" y="752" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="400" fill="#5f6b7a" text-anchor="start">Linux / System Security</text>
+<rect x="377.5" y="722.0" width="45" height="24" rx="12" fill="#fdf1e4" stroke="#b45309" stroke-width="1.4"/>
+<text x="400.0" y="739.5" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">KS4</text>
+<rect x="446.0" y="480" width="354.0" height="64" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="462.0" y="507" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2533" text-anchor="start">05 · COLD STORAGE</text>
+<text x="462.0" y="530" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="400" fill="#5f6b7a" text-anchor="start">Digital Forensics</text>
+<rect x="743.5" y="500.0" width="45" height="24" rx="12" fill="#fdf1e4" stroke="#b45309" stroke-width="1.4"/>
+<text x="766.0" y="517.5" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">KS5</text>
+<rect x="446.0" y="554" width="354.0" height="64" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="462.0" y="581" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2533" text-anchor="start">06 · RAVEN</text>
+<text x="462.0" y="604" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="400" fill="#5f6b7a" text-anchor="start">Steganography</text>
+<rect x="743.5" y="574.0" width="45" height="24" rx="12" fill="#fdf1e4" stroke="#b45309" stroke-width="1.4"/>
+<text x="766.0" y="591.5" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">KS6</text>
+<rect x="446.0" y="628" width="354.0" height="64" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="462.0" y="655" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#1b2533" text-anchor="start">07 · LOCKSTEP</text>
+<text x="462.0" y="678" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="400" fill="#5f6b7a" text-anchor="start">Cryptography</text>
+<rect x="743.5" y="648.0" width="45" height="24" rx="12" fill="#fdf1e4" stroke="#b45309" stroke-width="1.4"/>
+<text x="766.0" y="665.5" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="700" fill="#b45309" text-anchor="middle">KS7</text>
+<rect x="446.0" y="702" width="354.0" height="64" rx="10" fill="#b45309" stroke="#b45309" stroke-width="1.5"/>
+<text x="462.0" y="729" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#fff" text-anchor="start">08 · KEYSTONE</text>
+<text x="462.0" y="752" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="400" fill="#fde7cf" text-anchor="start">Miscellaneous / Capstone</text>
+<rect x="716.5" y="722.0" width="63" height="24" rx="12" fill="#b45309" stroke="#fff" stroke-width="1.4"/>
+<text x="748.0" y="739.5" font-family="'Segoe UI', Arial, sans-serif" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">KS1–7</text>
+<rect x="64" y="822" width="752" height="80" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="440.0" y="859.0" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="600" fill="#1b2533" text-anchor="middle">Challenge Files</text>
+<text x="440.0" y="884.0" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="400" fill="#5f6b7a" text-anchor="middle">read-only · outside the web root</text>
+<rect x="876" y="304.0" width="260" height="86.0" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="1006.0" y="344.0" font-family="'Segoe UI', Arial, sans-serif" font-size="19" font-weight="600" fill="#1b2533" text-anchor="middle">users</text>
+<text x="1006.0" y="369.0" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="400" fill="#5f6b7a" text-anchor="middle">accounts · Argon2id hashes</text>
+<rect x="876" y="402.0" width="260" height="86.0" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="1006.0" y="442.0" font-family="'Segoe UI', Arial, sans-serif" font-size="19" font-weight="600" fill="#1b2533" text-anchor="middle">sessions</text>
+<text x="1006.0" y="467.0" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="400" fill="#5f6b7a" text-anchor="middle">server-side sessions</text>
+<rect x="876" y="500.0" width="260" height="86.0" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="1006.0" y="540.0" font-family="'Segoe UI', Arial, sans-serif" font-size="19" font-weight="600" fill="#1b2533" text-anchor="middle">challenges</text>
+<text x="1006.0" y="565.0" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="400" fill="#5f6b7a" text-anchor="middle">stages · SHA-256 flag hashes</text>
+<rect x="876" y="598.0" width="260" height="86.0" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="1006.0" y="638.0" font-family="'Segoe UI', Arial, sans-serif" font-size="19" font-weight="600" fill="#1b2533" text-anchor="middle">solves</text>
+<text x="1006.0" y="663.0" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="400" fill="#5f6b7a" text-anchor="middle">one per agent per stage</text>
+<rect x="876" y="696.0" width="260" height="86.0" rx="10" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="1006.0" y="736.0" font-family="'Segoe UI', Arial, sans-serif" font-size="19" font-weight="600" fill="#1b2533" text-anchor="middle">flag_attempts</text>
+<text x="1006.0" y="761.0" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="400" fill="#5f6b7a" text-anchor="middle">rate-limit log</text>
+<rect x="876" y="822" width="260" height="80" rx="10" fill="#f6f8fa" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="1006.0" y="859.0" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="600" fill="#1b2533" text-anchor="middle">db-data volume</text>
+<text x="1006.0" y="884.0" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="400" fill="#5f6b7a" text-anchor="middle">persistent storage</text>
+<path d="M247.0,124 L247.0,299" fill="none" stroke="#1f3a5f" stroke-width="2.2" marker-end="url(#ah)"/>
+<rect x="188.0" y="141" width="118" height="32" rx="16" fill="#fff" stroke="#c3cad3" stroke-width="1.5"/>
+<text x="247.0" y="163" font-family="'Segoe UI', Arial, sans-serif" font-size="16" font-weight="600" fill="#1f3a5f" text-anchor="middle">HTTP :3000</text>
+<path d="M247.0,384 L247.0,419" fill="none" stroke="#1f3a5f" stroke-width="2.2" marker-end="url(#ah)"/>
+<path d="M633.0,424 L633.0,389" fill="none" stroke="#1f3a5f" stroke-width="2.2" marker-end="url(#ah)"/>
+<path d="M816,344.0 L852,344.0" fill="none" stroke="#1f3a5f" stroke-width="2.2" marker-end="url(#ah)"/>
+<path d="M247.0,782 L247.0,817" fill="none" stroke="#1f3a5f" stroke-width="2.2" marker-end="url(#ah)"/>
+</svg>
