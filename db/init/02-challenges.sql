@@ -80,9 +80,9 @@ CREATE INDEX flag_attempts_user_idx ON flag_attempts (user_id, attempted_at);
 -- sequential unlock chain. Stage 7 is the operation's finale and sits past the
 -- brief's six.
 --
--- Only stage 1 is still structure-only; its domain is unassigned and its flag
--- is a `SHIELD{placeholder_...}` that nothing can be mistaken for. Every other
--- row is a finished stage and says on its face where its artifact lives.
+-- Only stage 1 is still structure-only; its domain and text are unassigned,
+-- but its flag digest is already the real one from the master report. Every
+-- other row is a finished stage and says on its face where its artifact lives.
 --
 -- Gates: stages 4 and 7 are genuinely gated, on 3 and 6. The rest are NULL
 -- only because the stage each one would point at is still a placeholder — see
@@ -99,7 +99,9 @@ VALUES
    'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',
    'Placeholder objective. Describe here what the participant has to discover or achieve.',
    NULL,
-   digest('SHIELD{placeholder_one}', 'sha256'),
+   -- The flag from the master report, as a digest rather than digest('...')
+   -- over the plaintext so it is not greppable in this file.
+   decode('c5fee86c75ad576c237697f078c7b3a383f494187c5e41a0e2c5d2d28a5a1b65', 'hex'),
    'Placeholder hint.', 10, NULL),
 
   -- Stage 2 is complete, and it is the one stage whose evidence is not a file.
@@ -146,7 +148,7 @@ Recover the fragments it releases, restore the order they were written in, and r
    -- out here would be greppable. `data/challenges/stage-02/old.log` is
    -- committed too, but it carries the flag only in encoded fragments — taking
    -- it apart is the stage.
-   decode('2ace64fee96e9312e478ac12bce1add971c6eed6a790fae425d7db6123983312', 'hex'),
+   decode('623b505ff12b8e4bb27370cf44d47dbe0e76434967208503cd064bcb2315500b', 'hex'),
    'Start at /robots.txt: a disallow list is a list of the things worth looking at, and this one names an incident page and a restricted trace path. The incident page carries half a sentence in an HTML comment and the other half in a response header — fetch the headers too (curl -I) — and both halves are Base32. Together they name a node number. Hand that number to the trace path as a query parameter, ?node=<n>, and the 403 becomes a 200. The log behind it holds seven fragments printed out of order, each tagged with its own sequence=. Sort by that, Base32-decode every payload, join them end to end, and Base64-decode the string you are left with.',
    10, NULL),
 
@@ -255,7 +257,7 @@ Recover the marker hidden in the pixel data and read what it carries.',
    -- The digest rather than digest('...') over the plaintext, for the same
    -- reason as stage 3: this file is committed, and a flag spelled out here
    -- would be greppable.
-   decode('0e13457eea2868d0b4cd521940da7ca8bb426db4c82f184f53975617cc296399', 'hex'),
+   decode('36079f894e1c187f77af8aa99a6fd65f7bc813eb66389c4900046abfe8c9706e', 'hex'),
    'The photograph you can see is only the top six bits of every colour channel. Throw those away, keep the two lowest bits of each channel and rescale them — a bit-plane viewer, or four lines of Pillow, will show you what the low bits were really drawing.',
    40, NULL),
 
@@ -288,8 +290,8 @@ Reassemble the six pieces in the order command gives, and submit the phrase they
    -- The digest rather than digest('...') over the plaintext, for the same
    -- reason as stages 3 and 5: this file is committed, and a flag spelled out
    -- here would be greppable.
-   decode('c1d2792feb5430b4ac85995c7baf904aef79b4c6b4009aa81d2948044a57d865', 'hex'),
-   'The bodies are Base64. Decode all seventy-two and sixty-six of them read as ordinary English. The other six are the same message shifted a fixed number of letters along the alphabet — try all twenty-five shifts on any one of them and the rest open with the same shift. Each one then spells its piece of the phrase in the NATO phonetic alphabet, so DELTA ALFA ROMEO KILO reads DARK. Six pieces, joined in number order with underscores between them.',
+   decode('109e8a1811474b0ff0d74a5a976114771ec5114f16773fd8b6345f5001525043', 'hex'),
+   'The bodies are Base64. Decode all seventy-two and sixty-six of them read as ordinary English. The other six are the same message shifted a fixed number of letters along the alphabet — try all twenty-five shifts on any one of them and the rest open with the same shift. Each one then spells its piece of the phrase in the NATO phonetic alphabet, with digits read out as spoken numbers, so DELTA FOUR ROMEO KILO reads d4rk. Six pieces, joined in number order with underscores between them, all in lower case.',
    30, NULL),
 
   -- Stage 7 is the operation's finale and its meta stage: OPERATION KEYSTONE.
