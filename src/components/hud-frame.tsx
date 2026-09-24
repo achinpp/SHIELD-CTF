@@ -12,7 +12,7 @@ const CORNERS = [
 
 /** Rotating chatter. Flavour only — nothing here is a real hint. */
 const INTERCEPTS = [
-  "HYDRA CHATTER RISING",
+  "KRAKEN CHATTER RISING",
   "TRACE PROTOCOL ARMED",
   "FIREWALL INTEGRITY 68%",
   "DECRYPT KEY UNRESOLVED",
