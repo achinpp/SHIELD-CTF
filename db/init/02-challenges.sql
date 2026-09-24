@@ -1,14 +1,13 @@
 -- S.H.I.E.L.D. CTF — challenge board.
 --
 -- ─────────────────────────────────────────────────────────────────────────
---  EVERY STAGE IS REAL EXCEPT STAGES 1 AND 5, WHICH ARE STILL PLACEHOLDERS.
+--  EVERY STAGE IS REAL EXCEPT STAGE 5, WHICH IS STILL A PLACEHOLDER.
 --
---  The placeholders exist so the board and the per-challenge pages render and
---  the solve mechanics can be tested. Every text field says so on its face, so
---  nothing there can be mistaken for real content. Their flag digests are
---  already the real ones from the master report. The group replaces each one as
---  its stage is built; a finished row carries a comment saying where its
---  artifact lives.
+--  The placeholder exists so the board and its page render and the solve
+--  mechanics can be tested. Every text field says so on its face, so nothing
+--  there can be mistaken for real content. Its flag digest is already the real
+--  one from the master report. A finished row carries a comment saying where
+--  its artifact lives.
 -- ─────────────────────────────────────────────────────────────────────────
 
 CREATE TABLE challenges (
@@ -80,13 +79,13 @@ CREATE INDEX flag_attempts_user_idx ON flag_attempts (user_id, attempted_at);
 -- The master report's eight stages: 1-3 Easy, 4-7 Moderate, 8 Hard, and a
 -- sequential unlock chain. Stage 8 is the operation's finale.
 --
--- Stages 1 and 5 are still structure-only: each carries the report's title,
--- domain, points and flag digest, but its text is a placeholder. Every other
--- row is a finished stage and says on its face where its artifact lives.
+-- Stage 5 is still structure-only: it carries the report's title, domain,
+-- points and flag digest, but its text is a placeholder. Every other row is a
+-- finished stage and says on its face where its artifact lives.
 --
--- Gates: stages 4 and 8 are genuinely gated, on 3 and 7. The rest are NULL
--- only because the chain still runs through a placeholder — see the per-row
--- comments. Restore them once stages 1 and 5 land.
+-- Gates: stages 2, 3, 4 and 8 are gated on the stage before them. Stages 5, 6
+-- and 7 are NULL only because the chain still runs through the stage-5
+-- placeholder — see the per-row comments. Restore them once stage 5 lands.
 --
 -- `digest(...,'sha256')` needs pgcrypto; it is only used here, at seed time.
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
@@ -94,15 +93,37 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 INSERT INTO challenges
   (stage, slug, title, domain, difficulty, points, summary, scenario, task, intel_note, flag_hash, hint, hint_penalty, requires_stage)
 VALUES
+  -- Stage 1 is complete on the platform side: the case file lives at
+  -- `data/challenges/stage-01/KRAKEN-0017_case_file.zip`, handed over by the
+  -- gated evidence route like stages 6 and 7. It is the one stage whose trail
+  -- leaves the repository — the ZIP only opens it, and the rest runs across
+  -- public GitHub and X accounts (nighthawk1011 → nighthawk_1011 →
+  -- stormsignal_ny → stormsignalny). Those accounts, and the flag planted at
+  -- the end of them, are not in this repository and must be re-checked before
+  -- every event. See `challenge01.md`.
+  --
+  -- The first stage, so it is never gated.
   (1, 'stage-01', 'OPERATION GHOSTWATCH', 'OSINT / Reconnaissance', 'Easy', 100,
-   'Placeholder summary for stage one. Replace with a one-line teaser.',
-   'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',
-   'Placeholder objective. Describe here what the participant has to discover or achieve.',
-   NULL,
+   'One handle, one photograph, one line of text. Somebody is behind nighthawk1011, and they have been careless before.',
+   'Case KRAKEN-0017 is open, agent.
+
+At 02:17 a restricted SHIELD network was breached. The intruder was through several layers of authentication before anybody noticed and gone before anybody arrived. No face, no fingerprints, no name.
+
+What they left behind is a handful of fragments pulled off the compromised system, and one identifier that keeps turning up in all of them: nighthawk1011. It matches no SHIELD employee, no contractor and no known KRAKEN operative on file.
+
+Analysts think the person behind it lives a fairly ordinary life online — side projects, interests, the odd post — and that they are not as careful about it as they are about breaking into networks. Handles get reused. Pictures get reposted. Phrases get repeated. Some of the accounts have been left to go quiet, but quiet is not the same as gone.
+
+The case file is below. Everything you need to start is in it, and nothing you need to finish is. Follow the handle out into the open and do not name anybody until the evidence agrees with itself.',
+   'Open the case file below and read everything in it — including what the photograph says about itself.
+Take the handle out onto the open internet and find where it has been used.
+Follow the links between accounts, and confirm each hop against something from the case file before trusting it.
+Identify the person behind nighthawk1011. The flag is waiting where the trail ends.',
+   'People hide their real names well enough. What gives them away is everything they could not be bothered to change.',
    -- The flag from the master report, as a digest rather than digest('...')
    -- over the plaintext so it is not greppable in this file.
    decode('c5fee86c75ad576c237697f078c7b3a383f494187c5e41a0e2c5d2d28a5a1b65', 'hex'),
-   'Placeholder hint.', 10, NULL),
+   'Don''t stop at the first account you find. The suspect reused something from the case file on another profile.',
+   10, NULL),
 
   -- Stage 2 is complete, and it is the one stage whose evidence is not a file.
   -- The artifact is a live target: the archive node at `/archive`, served by
@@ -118,13 +139,9 @@ VALUES
   --
   -- It feeds stage 3 directly. The "forgotten endpoint containing an
   -- access.log" that stage 3 opens on is the trace subsystem an agent breaks
-  -- into here, so the two are meant to be played in order even though neither
-  -- gate is switched on yet.
+  -- into here, so the two are played in order.
   --
-  -- Ungated (requires_stage NULL) for the same provisional reason as stages 3,
-  -- 6 and 7: the stage it sits behind — stage 1 — is still a placeholder, and
-  -- gating a real stage behind a fake one would make the board unplayable.
-  -- Restore the gate to 1 once stage 1 is written.
+  -- Gated on stage 1, which follows the breach to this node.
   (2, 'stage-02', 'SHIELD Secure Archive Node', 'Web Technologies / Web Security', 'Easy', 100,
    'A legacy archive server KRAKEN left running. Everything on it answers honestly — to anyone who knows what to ask.',
    'The archive server is still up, agent.
@@ -150,19 +167,14 @@ Recover the fragments it releases, restore the order they were written in, and r
    -- taking it apart is the stage.
    decode('623b505ff12b8e4bb27370cf44d47dbe0e76434967208503cd064bcb2315500b', 'hex'),
    'Start at /robots.txt: a disallow list is a list of the things worth looking at, and this one names an incident page and a restricted trace path. The incident page carries half a sentence in an HTML comment and the other half in a response header — fetch the headers too (curl -I) — and both halves are Base32. Together they name a node number. Hand that number to the trace path as a query parameter, ?node=<n>, and the 403 becomes a 200. The log behind it holds seven fragments printed out of order, each tagged with its own sequence=. Sort by that, Base32-decode every payload, join them end to end, and Base64-decode the string you are left with.',
-   10, NULL),
+   10, 1),
 
   -- Stage 3 is complete: the artifact lives at
   -- `data/challenges/stage-03/access.log` — off the web root, readable only
   -- through the page's query terminal — and the hash below is the real flag's.
-  -- Still provisional: the stage is deliberately ungated (requires_stage NULL)
-  -- so the card stays reachable from the board while stage 1 is empty.
   --
-  -- Stage 2 is now written, and it is the stage this one continues from — the
-  -- forgotten endpoint below is the trace subsystem stage 2 breaks into. So
-  -- `requires_stage = 2` is ready to switch on whenever the board is gated for
-  -- real; it is left NULL only so every finished stage stays open while the
-  -- placeholders are filled in.
+  -- Gated on stage 2, the stage this one continues from — the forgotten
+  -- endpoint below is the trace subsystem stage 2 breaks into.
   (3, 'stage-03', 'OPERATION ACCESS LOG', 'Programming / Scripting', 'Easy', 200,
    'A forgotten endpoint left an access.log behind. Thousands of requests, and one visitor who should not be there.',
    'Agent, your previous investigation has uncovered a critical lead.
@@ -183,7 +195,7 @@ Extract the hidden flag from the attacker''s activity.',
    -- file is committed, and a flag spelled out here would be greppable.
    decode('c87422591cee37f5aec64d95341738bed59ea04fa12c6c3a4838920c98661258', 'hex'),
    'Look for patterns that separate normal SHIELD archive traffic from the attacker''s requests. Pay particular attention to unusual endpoints, repeated requests, and abnormal HTTP responses.',
-   25, NULL),
+   25, 2),
 
   -- Stage 4 is complete. Its evidence is a mounted disk image rather than a
   -- file or a live target: `data/challenges/stage-04/workstation.json`, walked
@@ -203,9 +215,8 @@ Extract the hidden flag from the attacker''s activity.',
   -- to check a digest: as shipped it compared against the literal flag, so
   -- `cat /usr/local/bin/submit_flag` skipped the entire investigation.
   --
-  -- One of two stages whose gate was never provisional. Stages 2, 3, 6 and 7
-  -- are ungated only because the chain still runs through a placeholder;
-  -- stage 3 is real, so `requires_stage = 3` is left standing.
+  -- One of the stages whose gate was never provisional: stage 3 has always
+  -- been real, so `requires_stage = 3` has always stood.
   (4, 'stage-04', 'OPERATION DEAD END', 'Linux / System Security', 'Moderate', 200,
    'Your own workstation launched the attack. One night, one disk image, and your name on the incident report.',
    'Read this before anybody else does, agent.
@@ -234,7 +245,7 @@ Work out which account held the standing permission to act as you, and recover w
   -- Stage 5 is the master report's new forensics stage and is not built yet:
   -- the `safehouse.img` it hands over does not exist, so it has no evidence
   -- entry and its text is a placeholder. The title, domain, points, hint
-  -- penalty and flag digest are the report's. Ungated, like stage 1.
+  -- penalty and flag digest are the report's. Ungated until it is built.
   (5, 'stage-05', 'OPERATION COLD STORAGE', 'Digital Forensics', 'Moderate', 250,
    'Placeholder summary for stage five. Replace with a one-line teaser.',
    'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',

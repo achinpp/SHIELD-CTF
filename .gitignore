@@ -46,6 +46,7 @@ next-env.d.ts
 /info.pdf
 
 # challenge solutions — spoilers. Never commit these.
+/challenge01.md
 /challenge02.md
 /challenge04.md
 /challeng03.md

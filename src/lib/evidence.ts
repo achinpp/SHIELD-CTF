@@ -37,6 +37,17 @@ export type Artifact = {
 
 /** A slug with no entry has no evidence download. */
 const ARTIFACTS_BY_SLUG: Record<string, Artifact> = {
+  // Stage 01's case file is three pieces — the case record, a photograph and a
+  // recovered note — handed over as one ZIP, the way the report describes it.
+  // The ZIP is only the starting point: the trail it opens runs out onto
+  // public GitHub and X accounts, which this repository cannot hold.
+  "stage-01": {
+    file: "stage-01/KRAKEN-0017_case_file.zip",
+    name: "KRAKEN-0017_case_file.zip",
+    contentType: "application/zip",
+    label: "ZIP ARCHIVE // CASE FILE KRAKEN-0017",
+    note: "case record · recovered photograph · recovered note",
+  },
   "stage-06": {
     file: "stage-06/raven_recovered.png",
     name: "raven_recovered.png",

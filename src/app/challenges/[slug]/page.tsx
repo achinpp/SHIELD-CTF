@@ -140,7 +140,7 @@ export default async function ChallengePage({
   const art = STAGE_ART[challenge.slug];
   const evidence = STAGE_EVIDENCE[challenge.slug];
   const workstation = STAGE_WORKSTATION[challenge.slug];
-  // Stages 06 and 07 hand their artifact over instead of querying it — the
+  // Stages 01, 06 and 07 hand their artifact over instead of querying it — the
   // file is the puzzle there, so there is nothing to hold back. It is still
   // served by a gated route rather than from `public/`; see `@/lib/evidence`.
   const artifact = getArtifact(challenge.slug);
