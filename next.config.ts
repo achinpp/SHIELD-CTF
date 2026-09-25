@@ -29,6 +29,29 @@ const nextConfig: NextConfig = {
         source: "/archive/incident.html",
         headers: [{ key: "X-Sync-Cluster", value: "JZHUIRJNGE3Q====" }],
       },
+      {
+        // Stage 02's KEYSTONE share, Base32 like everything else on this
+        // node. Only the authorized trace response carries it: `has` values
+        // are anchored regexes, so `?node=170` or `?node=1` never match. The
+        // 403 for any other node stays silent, as the traces page intends.
+        //
+        // Config headers are applied before the proxy runs, so they also
+        // land on its sign-in redirect. The cookie condition keeps the share
+        // off that redirect for anonymous requests. It is the same optimistic
+        // check as `src/proxy.ts` (presence, not validity), which is as far
+        // as a config header can go. The cookie name is `SESSION_COOKIE`.
+        source: "/archive/internal/traces",
+        has: [
+          { type: "query", key: "node", value: "17" },
+          { type: "cookie", key: "shield_session" },
+        ],
+        headers: [
+          {
+            key: "X-Keystone",
+            value: "JNJTELJRG42DON3CMM2GCOJRHEZWGMRZHAYGMZJZMRSDMODEGRSWGYZZMI======",
+          },
+        ],
+      },
     ];
   },
   // Challenge artifacts are read at runtime from `process.cwd()`, so nothing

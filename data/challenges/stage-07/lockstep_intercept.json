@@ -14,504 +14,576 @@
         "relay": "KR-33",
         "station": "Singapore anchorage E",
         "sent": "2026-08-10T18:08:52Z",
-        "body": "VGhlIGhhcmJvdXJtYXN0ZXIgYXNrZWQgYWJvdXQgdGhlIHNlY29uZCBjb250YWluZXIuIEhlIHdhcyB0b2xkIGl0IGlzIGVtcHR5Lg=="
+        "body": "VGhlIGhhcmJvdXJtYXN0ZXIgYXNrZWQgYWJvdXQgdGhlIHNlY29uZCBjb250YWluZXIuIEhlIHdhcyB0b2xkIGl0IGlzIGVtcHR5Lg==",
+        "trailer": "QUNLTk9XTEVER0UgTkVYVCBXSU5ET1cu"
       },
       {
         "seq": 1002,
         "relay": "KR-04",
         "station": "Gdansk container yard",
         "sent": "2026-08-10T18:23:10Z",
-        "body": "Q3VzdG9tcyB3YWxrZWQgdGhlIHlhcmQgdHdpY2UgdG9kYXkuIFNhbWUgdHdvIG9mZmljZXJzLCBzYW1lIHJvdXRlLCBubyBpbnRlcmVzdCBpbiB1cy4="
+        "body": "Q3VzdG9tcyB3YWxrZWQgdGhlIHlhcmQgdHdpY2UgdG9kYXkuIFNhbWUgdHdvIG9mZmljZXJzLCBzYW1lIHJvdXRlLCBubyBpbnRlcmVzdCBpbiB1cy4=",
+        "trailer": "RU5EUy4gS1ItMDQgT1VULg=="
       },
       {
         "seq": 1003,
         "relay": "KR-37",
         "station": "Auckland hardstand",
         "sent": "2026-08-10T18:36:09Z",
-        "body": "VGhlIHJvc3RlciBzYXlzIHdlIGhvbGQgdW50aWwgdGhlIG1lc2ggcm90YXRlcy4gTm9ib2R5IGhhcyB0b2xkIHVzIHdoZW4gdGhhdCBpcy4="
+        "body": "VGhlIHJvc3RlciBzYXlzIHdlIGhvbGQgdW50aWwgdGhlIG1lc2ggcm90YXRlcy4gTm9ib2R5IGhhcyB0b2xkIHVzIHdoZW4gdGhhdCBpcy4=",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTM3IE9VVC4="
       },
       {
         "seq": 1004,
         "relay": "KR-28",
         "station": "Karachi lighter dock",
         "sent": "2026-08-10T18:39:58Z",
-        "body": "V2UgaGFkIGEgdmlzaXRvciBhc2tpbmcgYWZ0ZXIgd29yay4gSGUgZ2F2ZSBhIG5hbWUuIFRoZSBuYW1lIGlzIG5vdCByZWFsLg=="
+        "body": "V2UgaGFkIGEgdmlzaXRvciBhc2tpbmcgYWZ0ZXIgd29yay4gSGUgZ2F2ZSBhIG5hbWUuIFRoZSBuYW1lIGlzIG5vdCByZWFsLg==",
+        "trailer": "S1ItMjggT1VULg=="
       },
       {
         "seq": 1005,
         "relay": "KR-42",
         "station": "Vladivostok ice pier",
         "sent": "2026-08-10T18:49:07Z",
-        "body": "VGhlIGZlcnJ5IGNyZXcgY2hhbmdlZC4gVGhlIG5ldyBtYXRlIGlzIGN1cmlvdXMuIEtlZXAgdGhlIGNyYXRlcyBiZWxvdyBkZWNrLg=="
+        "body": "VGhlIGZlcnJ5IGNyZXcgY2hhbmdlZC4gVGhlIG5ldyBtYXRlIGlzIGN1cmlvdXMuIEtlZXAgdGhlIGNyYXRlcyBiZWxvdyBkZWNrLg==",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTQyIE9VVC4="
       },
       {
         "seq": 1006,
         "relay": "KR-17",
         "station": "Walvis Bay salt pan",
         "sent": "2026-08-10T18:52:45Z",
-        "body": "UG93ZXIgZmxpY2tlcmVkIHR3aWNlIGF0IDAxMDAuIE5vdGhpbmcgb24gdGhlIG1lc2ggZHJvcHBlZC4gTm8gZGFtYWdlLg=="
+        "body": "UG93ZXIgZmxpY2tlcmVkIHR3aWNlIGF0IDAxMDAuIE5vdGhpbmcgb24gdGhlIG1lc2ggZHJvcHBlZC4gTm8gZGFtYWdlLg==",
+        "trailer": "RU5EUy4gS1ItMTcgT1VULg=="
       },
       {
         "seq": 1007,
         "relay": "KR-10",
         "station": "Newark bonded shed",
         "sent": "2026-08-10T18:55:37Z",
-        "body": "V2UgYXJlIGhlYXJpbmcgUmV5a2phdmlrIG9uIG91ciBjaGFubmVsIGF0IG5pZ2h0LiBUaGVpciBzZXQgaXMgZHJpZnRpbmcu"
+        "body": "V2UgYXJlIGhlYXJpbmcgUmV5a2phdmlrIG9uIG91ciBjaGFubmVsIGF0IG5pZ2h0LiBUaGVpciBzZXQgaXMgZHJpZnRpbmcu",
+        "trailer": "TUVTU0FHRSBFTkRTLiBLUi0xMCBTVEFORElORyBCWS4="
       },
       {
         "seq": 1008,
         "relay": "KR-14",
         "station": "Callao fish market",
         "sent": "2026-08-10T18:59:49Z",
-        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDQgWlEgNi4gQVNaWVBFVE46IE9QV0VMIFFaRkMgQ1pYUFogVlRXWi4gRVNQIEFUUE5QRCBPWiBZWkUgTENDVEdQIFRZIFpDT1BDLiBDUExPIEVTUCBZRlhNUEMsIFlaRSBFU1AgTldaTlYu"
+        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDQgWlEgNi4gQVNaWVBFVE46IE9QV0VMIFFaRkMgQ1pYUFogVlRXWi4gRVNQIEFUUE5QRCBPWiBZWkUgTENDVEdQIFRZIFpDT1BDLiBDUExPIEVTUCBZRlhNUEMsIFlaRSBFU1AgTldaTlYu",
+        "trailer": "VlRXWiBEVFBDQ0wgRFBHUFkgT0xEUyBEUEdQWSBRVEdQ"
       },
       {
         "seq": 1009,
         "relay": "KR-02",
         "station": "Sevastopol dry dock",
         "sent": "2026-08-10T19:13:58Z",
-        "body": "V2UgYXJlIG1vdmluZyB0aGUgYW50ZW5uYSBlaWdodCBtZXRyZXMgZWFzdC4gU2lnbmFsIHdhcyBmaWdodGluZyB0aGUgY3JhbmUu"
+        "body": "V2UgYXJlIG1vdmluZyB0aGUgYW50ZW5uYSBlaWdodCBtZXRyZXMgZWFzdC4gU2lnbmFsIHdhcyBmaWdodGluZyB0aGUgY3JhbmUu",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTAyIE9VVC4="
       },
       {
         "seq": 1010,
         "relay": "KR-46",
         "station": "Prince Rupert log boom",
         "sent": "2026-08-10T19:27:00Z",
-        "body": "U29tZWJvZHkgbGVmdCB0aGUgc2FmZSBvcGVuIG92ZXJuaWdodC4gTm90aGluZyBtaXNzaW5nLiBFdmVyeW9uZSBrbm93cyBub3cu"
+        "body": "U29tZWJvZHkgbGVmdCB0aGUgc2FmZSBvcGVuIG92ZXJuaWdodC4gTm90aGluZyBtaXNzaW5nLiBFdmVyeW9uZSBrbm93cyBub3cu",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTQ2IE9VVC4="
       },
       {
         "seq": 1011,
         "relay": "KR-30",
         "station": "Colombo transfer buoy",
         "sent": "2026-08-10T19:39:04Z",
-        "body": "VHdvIGNyYXRlcyB3ZXJlIG9wZW5lZCBpbiB0cmFuc2l0IGFuZCB0YXBlZCBzaHV0IGJhZGx5LiBDb250ZW50cyBsb29rIGNvbXBsZXRlLg=="
+        "body": "VHdvIGNyYXRlcyB3ZXJlIG9wZW5lZCBpbiB0cmFuc2l0IGFuZCB0YXBlZCBzaHV0IGJhZGx5LiBDb250ZW50cyBsb29rIGNvbXBsZXRlLg==",
+        "trailer": "UkVBRCBCQUNLIE9OIFRIRSBMT1cgU0VULiBLUi0zMCBPVVQu"
       },
       {
         "seq": 1012,
         "relay": "KR-19",
         "station": "Tangier ferry ramp",
         "sent": "2026-08-10T19:49:33Z",
-        "body": "R2VuZXJhdG9yIHJhbiBkcnkgYXQgMDQwMC4gQmFjayB1cCBub3cuIFdlIGxvc3QgYWJvdXQgZm9ydHkgbWludXRlcyBvZiB3YXRjaC4="
+        "body": "R2VuZXJhdG9yIHJhbiBkcnkgYXQgMDQwMC4gQmFjayB1cCBub3cuIFdlIGxvc3QgYWJvdXQgZm9ydHkgbWludXRlcyBvZiB3YXRjaC4=",
+        "trailer": "UkVBRCBCQUNLIE9OIFRIRSBMT1cgU0VULiBLUi0xOSBPVVQu"
       },
       {
         "seq": 1013,
         "relay": "KR-26",
         "station": "Istanbul strait post",
         "sent": "2026-08-10T19:52:19Z",
-        "body": "VHdvIHRydWNrcyBvbiB0aGUgYWNjZXNzIHJvYWQgYXQgMDIzMCwgbm8gbGlnaHRzLiBUaGV5IHR1cm5lZCBhcm91bmQgYXQgdGhlIGZlbmNlLg=="
+        "body": "VHdvIHRydWNrcyBvbiB0aGUgYWNjZXNzIHJvYWQgYXQgMDIzMCwgbm8gbGlnaHRzLiBUaGV5IHR1cm5lZCBhcm91bmQgYXQgdGhlIGZlbmNlLg==",
+        "trailer": "RU5EUy4gS1ItMjYgT1VULg=="
       },
       {
         "seq": 1014,
         "relay": "KR-29",
         "station": "Mumbai cotton green",
         "sent": "2026-08-10T19:55:01Z",
-        "body": "UmVwZWF0IHlvdXIgbGFzdC4gU3Rvcm0gbm9pc2UgdG9vayB0aGUgbWlkZGxlIG9mIGl0IG91dC4="
+        "body": "UmVwZWF0IHlvdXIgbGFzdC4gU3Rvcm0gbm9pc2UgdG9vayB0aGUgbWlkZGxlIG9mIGl0IG91dC4=",
+        "trailer": "QUNLTk9XTEVER0UgTkVYVCBXSU5ET1cu"
       },
       {
         "seq": 1015,
         "relay": "KR-06",
         "station": "Aberdeen supply pier",
         "sent": "2026-08-10T20:07:44Z",
-        "body": "Q29hbCBkdXN0IGhhcyBnb3QgaW50byB0aGUgY29ubmVjdG9ycyBhZ2Fpbi4gQ2xlYW5pbmcgdGhlbSBpcyBhIHR3byBob3VyIGpvYi4="
+        "body": "Q29hbCBkdXN0IGhhcyBnb3QgaW50byB0aGUgY29ubmVjdG9ycyBhZ2Fpbi4gQ2xlYW5pbmcgdGhlbSBpcyBhIHR3byBob3VyIGpvYi4=",
+        "trailer": "QUNLTk9XTEVER0UgTkVYVCBXSU5ET1cu"
       },
       {
         "seq": 1016,
         "relay": "KR-44",
         "station": "Dutch Harbor cannery",
         "sent": "2026-08-10T20:12:35Z",
-        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDYgWlEgNi4gQVNaWVBFVE46IFhUVlAgWllQIE9QV0VMIFlaR1BYTVBDIFpZUCBSWldRIFNaRVBXIEVMWVJaLiBFU0xFIFREIEVTUCBXTERFIEFUUE5QLiBPUERFQ1pKIExXVyBEVEkgTFFFUEMgQ1BMT1RZUi4="
+        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDYgWlEgNi4gQVNaWVBFVE46IFhUVlAgWllQIE9QV0VMIFlaR1BYTVBDIFpZUCBSWldRIFNaRVBXIEVMWVJaLiBFU0xFIFREIEVTUCBXTERFIEFUUE5QLiBPUERFQ1pKIExXVyBEVEkgTFFFUEMgQ1BMT1RZUi4=",
+        "trailer": "TFdRTCBMV1FMIFBOU1ogRUhaIFBOU1ogTUNMR1o="
       },
       {
         "seq": 1017,
         "relay": "KR-27",
         "station": "Baku derrick 11",
         "sent": "2026-08-10T20:24:23Z",
-        "body": "U29tZWJvZHkgcGhvdG9ncmFwaGVkIHRoZSBvbGQgbWFyay4gVHJlYXQgdGhhdCBkcm9wIGFzIGJ1cm5lZCBmcm9tIHRvbmlnaHQu"
+        "body": "U29tZWJvZHkgcGhvdG9ncmFwaGVkIHRoZSBvbGQgbWFyay4gVHJlYXQgdGhhdCBkcm9wIGFzIGJ1cm5lZCBmcm9tIHRvbmlnaHQu",
+        "trailer": "Tk9USElORyBGT0xMT1dTLg=="
       },
       {
         "seq": 1018,
         "relay": "KR-08",
         "station": "Nuuk weather mast",
         "sent": "2026-08-10T20:27:40Z",
-        "body": "Tm90aGluZyB0byByZXBvcnQuIFRpZGUgaXMgaGlnaCwgeWFyZCBpcyBlbXB0eSwgbm9ib2R5IGhhcyBjb21lIG5lYXIgdXMu"
+        "body": "Tm90aGluZyB0byByZXBvcnQuIFRpZGUgaXMgaGlnaCwgeWFyZCBpcyBlbXB0eSwgbm9ib2R5IGhhcyBjb21lIG5lYXIgdXMu",
+        "trailer": "RU5EUy4gS1ItMDggT1VULg=="
       },
       {
         "seq": 1019,
         "relay": "KR-11",
         "station": "Norfolk grain elevator",
         "sent": "2026-08-10T20:31:33Z",
-        "body": "T25lIG1hbiBzaG9ydCB0b25pZ2h0LiBTZWNvbmQgd2F0Y2ggd2lsbCBiZSBsYXRlLiBEbyBub3QgcmVwb3J0IGl0Lg=="
+        "body": "T25lIG1hbiBzaG9ydCB0b25pZ2h0LiBTZWNvbmQgd2F0Y2ggd2lsbCBiZSBsYXRlLiBEbyBub3QgcmVwb3J0IGl0Lg==",
+        "trailer": "S1ItMTEgQ0xFQVIu"
       },
       {
         "seq": 1020,
         "relay": "KR-25",
         "station": "Constanta rail spur",
         "sent": "2026-08-10T20:41:57Z",
-        "body": "Q29tbWFuZCB0cmFmZmljIGRvZXMgbm90IGNvbWUgdGhyb3VnaCBpbiB0aGUgY2xlYXIuIFBhc3MgaXQgYWxvbmcgYW5kIGZvcmdldCBpdC4="
+        "body": "Q29tbWFuZCB0cmFmZmljIGRvZXMgbm90IGNvbWUgdGhyb3VnaCBpbiB0aGUgY2xlYXIuIFBhc3MgaXQgYWxvbmcgYW5kIGZvcmdldCBpdC4=",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTI1IE9VVC4="
       },
       {
         "seq": 1021,
         "relay": "KR-21",
         "station": "Alexandria mole",
         "sent": "2026-08-10T20:56:28Z",
-        "body": "VGhhdCBjb3VyaWVyIHR1cm5lZCB1cCB0d2ljZSB0aGlzIHdlZWsuIEhlIHdhcyBvbmx5IGV2ZXIgYXNrZWQgdG8gY29tZSBvbmNlLg=="
+        "body": "VGhhdCBjb3VyaWVyIHR1cm5lZCB1cCB0d2ljZSB0aGlzIHdlZWsuIEhlIHdhcyBvbmx5IGV2ZXIgYXNrZWQgdG8gY29tZSBvbmNlLg==",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTIxIE9VVC4="
       },
       {
         "seq": 1022,
         "relay": "KR-03",
         "station": "Trieste customs annex",
         "sent": "2026-08-10T21:06:51Z",
-        "body": "U2V0IHlvdXIgY2xvY2tzLiBIYWxmIHRoZSBzdGF0aW9ucyBvbiB0aGlzIG5ldCBhcmUgcnVubmluZyBmb3VyIG1pbnV0ZXMgZmFzdC4="
+        "body": "U2V0IHlvdXIgY2xvY2tzLiBIYWxmIHRoZSBzdGF0aW9ucyBvbiB0aGlzIG5ldCBhcmUgcnVubmluZyBmb3VyIG1pbnV0ZXMgZmFzdC4=",
+        "trailer": "TUVTU0FHRSBFTkRTLiBLUi0wMyBTVEFORElORyBCWS4="
       },
       {
         "seq": 1023,
         "relay": "KR-32",
         "station": "Yangon river mark",
         "sent": "2026-08-10T21:11:17Z",
-        "body": "TG9nIGJvb2sgaXMgZnVsbC4gU3RhcnRpbmcgYSBuZXcgb25lLiBUaGUgb2xkIG9uZSBnb2VzIGluIHRoZSBzdG92ZSwgbm90IHRoZSBiaW4u"
+        "body": "TG9nIGJvb2sgaXMgZnVsbC4gU3RhcnRpbmcgYSBuZXcgb25lLiBUaGUgb2xkIG9uZSBnb2VzIGluIHRoZSBzdG92ZSwgbm90IHRoZSBiaW4u",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTMyIE9VVC4="
       },
       {
         "seq": 1024,
         "relay": "KR-13",
         "station": "Colon transit shed",
         "sent": "2026-08-10T21:22:30Z",
-        "body": "Q29uZmlybSB0aGUgbWVldGluZyBpcyBzdGlsbCB0aGUgc2l4dGVlbnRoLiBOb2JvZHkgaGFzIHNhaWQgb3RoZXJ3aXNlLg=="
+        "body": "Q29uZmlybSB0aGUgbWVldGluZyBpcyBzdGlsbCB0aGUgc2l4dGVlbnRoLiBOb2JvZHkgaGFzIHNhaWQgb3RoZXJ3aXNlLg==",
+        "trailer": "S1ItMTMgT1VULg=="
       },
       {
         "seq": 1025,
         "relay": "KR-47",
         "station": "Long Beach box stack",
         "sent": "2026-08-10T21:24:40Z",
-        "body": "VHdvIG9mIHRoZSBvbGQga2V5c2V0cyBhcmUgdW5hY2NvdW50ZWQgZm9yLiBBc3N1bWUgdGhleSBhcmUgb24gdGhlIHdyb25nIHNoZWxmLg=="
+        "body": "VHdvIG9mIHRoZSBvbGQga2V5c2V0cyBhcmUgdW5hY2NvdW50ZWQgZm9yLiBBc3N1bWUgdGhleSBhcmUgb24gdGhlIHdyb25nIHNoZWxmLg==",
+        "trailer": "TUVTU0FHRSBFTkRTLiBLUi00NyBTVEFORElORyBCWS4="
       },
       {
         "seq": 1026,
         "relay": "KR-15",
         "station": "Valparaiso crane 9",
         "sent": "2026-08-10T21:38:46Z",
-        "body": "TmV2ZXIgYWN0IG9uIG9uZSBwaWVjZSBvbiBpdHMgb3duLiBXYWl0IHVudGlsIHlvdSBhcmUgaG9sZGluZyB0aGUgd2hvbGUgc2V0Lg=="
+        "body": "TmV2ZXIgYWN0IG9uIG9uZSBwaWVjZSBvbiBpdHMgb3duLiBXYWl0IHVudGlsIHlvdSBhcmUgaG9sZGluZyB0aGUgd2hvbGUgc2V0Lg==",
+        "trailer": "RU5EUy4gS1ItMTUgT1VULg=="
       },
       {
         "seq": 1027,
         "relay": "KR-35",
         "station": "Darwin patrol shed",
         "sent": "2026-08-10T21:43:49Z",
-        "body": "VGhlIHJhaWwgc3B1ciBpcyBzaHV0IGZvciB0cmFjayB3b3JrIHVudGlsIHRoZSBlbmQgb2YgdGhlIG1vbnRoLiBSb3V0ZSBhcm91bmQgaXQu"
+        "body": "VGhlIHJhaWwgc3B1ciBpcyBzaHV0IGZvciB0cmFjayB3b3JrIHVudGlsIHRoZSBlbmQgb2YgdGhlIG1vbnRoLiBSb3V0ZSBhcm91bmQgaXQu",
+        "trailer": "RU5EUy4gS1ItMzUgT1VULg=="
       },
       {
         "seq": 1028,
         "relay": "KR-48",
         "station": "Ensenada slipway",
         "sent": "2026-08-10T21:57:56Z",
-        "body": "VGhlIGRydW1zIGFyZSBzdGFja2VkIHRocmVlIGhpZ2ggbm93LiBBbnkgaGlnaGVyIGFuZCBzb21lYm9keSB3aWxsIG5vdGljZS4="
+        "body": "VGhlIGRydW1zIGFyZSBzdGFja2VkIHRocmVlIGhpZ2ggbm93LiBBbnkgaGlnaGVyIGFuZCBzb21lYm9keSB3aWxsIG5vdGljZS4=",
+        "trailer": "S1ItNDggT1VULg=="
       },
       {
         "seq": 1029,
         "relay": "KR-12",
         "station": "Charleston reefer bay",
         "sent": "2026-08-10T22:03:03Z",
-        "body": "Q29uZmlybSB5b3UgZ290IHRoZSBuZXcgcm9zdGVyLiBPdXJzIGNhbWUgdGhyb3VnaCB3aXRoIHBhZ2UgdGhyZWUgbWlzc2luZy4="
+        "body": "Q29uZmlybSB5b3UgZ290IHRoZSBuZXcgcm9zdGVyLiBPdXJzIGNhbWUgdGhyb3VnaCB3aXRoIHBhZ2UgdGhyZWUgbWlzc2luZy4=",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTEyIE9VVC4="
       },
       {
         "seq": 1030,
         "relay": "KR-41",
         "station": "Busan gantry 6",
         "sent": "2026-08-10T22:08:54Z",
-        "body": "UmVxdWlzaXRpb24gdGhyZWUgbW9yZSBiYXR0ZXJpZXMuIFRoZSBjb2xkIGlzIGVhdGluZyB0aGVtIGZhc3RlciB0aGFuIHdlIGJ1ZGdldGVkLg=="
+        "body": "UmVxdWlzaXRpb24gdGhyZWUgbW9yZSBiYXR0ZXJpZXMuIFRoZSBjb2xkIGlzIGVhdGluZyB0aGVtIGZhc3RlciB0aGFuIHdlIGJ1ZGdldGVkLg==",
+        "trailer": "S1ItNDEgT1VULg=="
       },
       {
         "seq": 1031,
         "relay": "KR-43",
         "station": "Petropavlovsk mast",
         "sent": "2026-08-10T22:12:25Z",
-        "body": "VGhlIHNjcmFwIGxpY2VuY2UgY2FtZSB0aHJvdWdoLiBFdmVyeXRoaW5nIG1vdmVzIHVuZGVyIGl0IGZyb20gTW9uZGF5Lg=="
+        "body": "VGhlIHNjcmFwIGxpY2VuY2UgY2FtZSB0aHJvdWdoLiBFdmVyeXRoaW5nIG1vdmVzIHVuZGVyIGl0IGZyb20gTW9uZGF5Lg==",
+        "trailer": "RU5EUy4gS1ItNDMgT1VULg=="
       },
       {
         "seq": 1032,
         "relay": "KR-16",
         "station": "Ushuaia fuel float",
         "sent": "2026-08-10T22:15:02Z",
-        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDEgWlEgNi4gQVNaWVBFVE46IEVMWVJaIFNaRVBXIEVTQ1BQLiBTWldPIEVTVEQgQVRQTlAgRllFVFcgSlpGIExDUCBTWldPVFlSIExXVyBEVEku"
+        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDEgWlEgNi4gQVNaWVBFVE46IEVMWVJaIFNaRVBXIEVTQ1BQLiBTWldPIEVTVEQgQVRQTlAgRllFVFcgSlpGIExDUCBTWldPVFlSIExXVyBEVEku",
+        "trailer": "T1BXRUwgRFRJIE5TTENXVFAgTlNMQ1dUUCBFSFogUVRHUA=="
       },
       {
         "seq": 1033,
         "relay": "KR-09",
         "station": "Halifax cable head",
         "sent": "2026-08-10T22:22:18Z",
-        "body": "SGFuZHNldCBmb3VyIGhhcyBhIGRlYWQgYmF0dGVyeSBjb250YWN0LiBEbyBub3Qgc2lnbiBpdCBvdXQgYW5kIHRoZW4gY29tcGxhaW4u"
+        "body": "SGFuZHNldCBmb3VyIGhhcyBhIGRlYWQgYmF0dGVyeSBjb250YWN0LiBEbyBub3Qgc2lnbiBpdCBvdXQgYW5kIHRoZW4gY29tcGxhaW4u",
+        "trailer": "Tk9USElORyBGT0xMT1dTLg=="
       },
       {
         "seq": 1034,
         "relay": "KR-07",
         "station": "Reykjavik relay hut",
         "sent": "2026-08-10T22:29:01Z",
-        "body": "VGhlIHN0b3JtIHRvb2sgdGhlIG1hc3QgbGlnaHQgb3V0LiBJdCBpcyBkYXJrIHVwIHRoZXJlIHVudGlsIHdlIGdldCBhIGxhZGRlci4="
+        "body": "VGhlIHN0b3JtIHRvb2sgdGhlIG1hc3QgbGlnaHQgb3V0LiBJdCBpcyBkYXJrIHVwIHRoZXJlIHVudGlsIHdlIGdldCBhIGxhZGRlci4=",
+        "trailer": "S1ItMDcgQ0xFQVIu"
       },
       {
         "seq": 1035,
         "relay": "KR-05",
         "station": "Rotterdam lock 4",
         "sent": "2026-08-10T22:32:32Z",
-        "body": "U2lnbmFsIGZyb20gdGhlIHNoZWxmIGlzIGJldHRlciBhdCBuaWdodC4gTW92ZSB0aGUgbG9uZyB0cmFmZmljIGFmdGVyIGRhcmsu"
+        "body": "U2lnbmFsIGZyb20gdGhlIHNoZWxmIGlzIGJldHRlciBhdCBuaWdodC4gTW92ZSB0aGUgbG9uZyB0cmFmZmljIGFmdGVyIGRhcmsu",
+        "trailer": "RU5EUy4gS1ItMDUgT1VULg=="
       },
       {
         "seq": 1036,
         "relay": "KR-23",
         "station": "Piraeus scrap quay",
         "sent": "2026-08-10T22:34:55Z",
-        "body": "VGhlIG5pZ2h0IG1hbiBvbiB0aGUgZ2F0ZSBoYXMgc3RhcnRlZCBhc2tpbmcgd2hvIHdlIHdvcmsgZm9yLiBSb3RhdGUgaGltIG91dC4="
+        "body": "VGhlIG5pZ2h0IG1hbiBvbiB0aGUgZ2F0ZSBoYXMgc3RhcnRlZCBhc2tpbmcgd2hvIHdlIHdvcmsgZm9yLiBSb3RhdGUgaGltIG91dC4=",
+        "trailer": "QUNLTk9XTEVER0UgTkVYVCBXSU5ET1cu"
       },
       {
         "seq": 1037,
         "relay": "KR-38",
         "station": "Suva copra store",
         "sent": "2026-08-10T22:38:05Z",
-        "body": "Q2FzaCBydW4gaXMgVGh1cnNkYXkuIFNtYWxsIG5vdGVzIG9ubHksIGFuZCBub3QgZnJvbSB0aGUgc2FtZSB3aW5kb3cgdHdpY2Uu"
+        "body": "Q2FzaCBydW4gaXMgVGh1cnNkYXkuIFNtYWxsIG5vdGVzIG9ubHksIGFuZCBub3QgZnJvbSB0aGUgc2FtZSB3aW5kb3cgdHdpY2Uu",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTM4IE9VVC4="
       },
       {
         "seq": 1038,
         "relay": "KR-34",
         "station": "Jakarta coal pier",
         "sent": "2026-08-10T22:41:47Z",
-        "body": "V2F0ZXIgaW4gdGhlIGNhYmxlIHRyZW5jaCBhZ2Fpbi4gVGhlIHNwbGljZSBoZWxkLiBXZSB3aWxsIGxpZnQgaXQgaW4gdGhlIHNwcmluZy4="
+        "body": "V2F0ZXIgaW4gdGhlIGNhYmxlIHRyZW5jaCBhZ2Fpbi4gVGhlIHNwbGljZSBoZWxkLiBXZSB3aWxsIGxpZnQgaXQgaW4gdGhlIHNwcmluZy4=",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTM0IE9VVC4="
       },
       {
         "seq": 1039,
         "relay": "KR-39",
         "station": "Manila breakwater",
         "sent": "2026-08-10T22:44:42Z",
-        "body": "V2hvZXZlciBpcyBrZXlpbmcgdXAgd2l0aG91dCBzcGVha2luZywgc3RvcC4gWW91IGFyZSBzdGVwcGluZyBvbiByZWFsIHRyYWZmaWMu"
+        "body": "V2hvZXZlciBpcyBrZXlpbmcgdXAgd2l0aG91dCBzcGVha2luZywgc3RvcC4gWW91IGFyZSBzdGVwcGluZyBvbiByZWFsIHRyYWZmaWMu",
+        "trailer": "QUNLTk9XTEVER0UgTkVYVCBXSU5ET1cu"
       },
       {
         "seq": 1040,
         "relay": "KR-18",
         "station": "Lagos tank farm",
         "sent": "2026-08-10T22:57:20Z",
-        "body": "VGhlIHBvc3Qgb2ZmaWNlIGJveCBpcyBiZWluZyB3YXRjaGVkLiBVc2UgdGhlIHNoaXBwaW5nIGFnZW50IGZyb20gbm93IG9uLg=="
+        "body": "VGhlIHBvc3Qgb2ZmaWNlIGJveCBpcyBiZWluZyB3YXRjaGVkLiBVc2UgdGhlIHNoaXBwaW5nIGFnZW50IGZyb20gbm93IG9uLg==",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTE4IE9VVC4="
       },
       {
         "seq": 1041,
         "relay": "KR-40",
         "station": "Kaohsiung dry berth",
         "sent": "2026-08-10T23:11:54Z",
-        "body": "SWNlIGlzIGNsb3NpbmcgdGhlIHBpZXIgZWFybGllciB0aGFuIGxhc3QgeWVhci4gUGxhbiB0aGUgbGFzdCBydW4gZm9yIHRoZSB0ZW50aC4="
+        "body": "SWNlIGlzIGNsb3NpbmcgdGhlIHBpZXIgZWFybGllciB0aGFuIGxhc3QgeWVhci4gUGxhbiB0aGUgbGFzdCBydW4gZm9yIHRoZSB0ZW50aC4=",
+        "trailer": "S1ItNDAgT1VULg=="
       },
       {
         "seq": 1042,
         "relay": "KR-20",
         "station": "Algiers bunker line",
         "sent": "2026-08-10T23:20:19Z",
-        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDUgWlEgNi4gQVNaWVBFVE46IFFaRkMgRUxZUlouIEVTUCBBU0NMRFAgVEQgSENURUVQWSBUWSBXWkhQQyBOTERQLiBEQVpWUFkgWUZYTVBDRCBMQ1AgT1RSVEVELCBZWkUgSFpDT0Qu"
+        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDUgWlEgNi4gQVNaWVBFVE46IFFaRkMgRUxZUlouIEVTUCBBU0NMRFAgVEQgSENURUVQWSBUWSBXWkhQQyBOTERQLiBEQVpWUFkgWUZYTVBDRCBMQ1AgT1RSVEVELCBZWkUgSFpDT0Qu",
+        "trailer": "RUhaIEVIWiBRWkZDIE5TTENXVFAgS1BDWiBPUFdFTA=="
       },
       {
         "seq": 1043,
         "relay": "KR-22",
         "station": "Haifa quarantine berth",
         "sent": "2026-08-10T23:23:00Z",
-        "body": "Tm90aGluZyBvdmVybmlnaHQuIFR3byBzaGlwcyBpbiwgYm90aCBsZWdpdGltYXRlLCBib3RoIGdvbmUgYnkgZGF3bi4="
+        "body": "Tm90aGluZyBvdmVybmlnaHQuIFR3byBzaGlwcyBpbiwgYm90aCBsZWdpdGltYXRlLCBib3RoIGdvbmUgYnkgZGF3bi4=",
+        "trailer": "S1ItMjIgT1VULg=="
       },
       {
         "seq": 1044,
         "relay": "KR-01",
         "station": "Murmansk shelf",
         "sent": "2026-08-10T23:25:03Z",
-        "body": "UmFkaW8gY2hlY2suIFlvdSBhcmUgd2VhayBidXQgcmVhZGFibGUuIFRyeSBhZ2FpbiBvbiB0aGUgbG93IHNldC4="
+        "body": "UmFkaW8gY2hlY2suIFlvdSBhcmUgd2VhayBidXQgcmVhZGFibGUuIFRyeSBhZ2FpbiBvbiB0aGUgbG93IHNldC4=",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTAxIE9VVC4="
       },
       {
         "seq": 1045,
         "relay": "KR-45",
         "station": "Anchorage freight ramp",
         "sent": "2026-08-10T23:39:32Z",
-        "body": "RG8gbm90IHVzZSB0aGUgbm9ydGggZ2F0ZSB0aGlzIHdlZWsuIFRoZSBsb2NrIHdhcyBjaGFuZ2VkIGFuZCB3ZSBkaWQgbm90IGNoYW5nZSBpdC4="
+        "body": "RG8gbm90IHVzZSB0aGUgbm9ydGggZ2F0ZSB0aGlzIHdlZWsuIFRoZSBsb2NrIHdhcyBjaGFuZ2VkIGFuZCB3ZSBkaWQgbm90IGNoYW5nZSBpdC4=",
+        "trailer": "RU5EUy4gS1ItNDUgT1VULg=="
       },
       {
         "seq": 1046,
         "relay": "KR-24",
         "station": "Odesa silo 2",
         "sent": "2026-08-10T23:43:36Z",
-        "body": "QW55dGhpbmcgZnJvbSBjb21tYW5kIGFycml2ZXMgaW4gcGllY2VzLiBMb2cgZXZlcnkgcGllY2UgYXMgaXQgY29tZXMgaW4gYW5kIGhvbGQgaXQu"
+        "body": "QW55dGhpbmcgZnJvbSBjb21tYW5kIGFycml2ZXMgaW4gcGllY2VzLiBMb2cgZXZlcnkgcGllY2UgYXMgaXQgY29tZXMgaW4gYW5kIGhvbGQgaXQu",
+        "trailer": "UkVBRCBCQUNLIE9OIFRIRSBMT1cgU0VULiBLUi0yNCBPVVQu"
       },
       {
         "seq": 1047,
         "relay": "KR-31",
         "station": "Chittagong beach lot",
         "sent": "2026-08-10T23:56:13Z",
-        "body": "V2F0Y2ggaGFuZG92ZXIgY29tcGxldGUuIE5vdGhpbmcgb24gdGhlIHdpcmUgc2luY2UgMTkwMC4gU3RhbmRpbmcgYnku"
+        "body": "V2F0Y2ggaGFuZG92ZXIgY29tcGxldGUuIE5vdGhpbmcgb24gdGhlIHdpcmUgc2luY2UgMTkwMC4gU3RhbmRpbmcgYnku",
+        "trailer": "UkVBRCBCQUNLIE9OIFRIRSBMT1cgU0VULiBLUi0zMSBPVVQu"
       },
       {
         "seq": 1048,
         "relay": "KR-36",
         "station": "Cairns dive locker",
         "sent": "2026-08-11T00:09:09Z",
-        "body": "UmFtcCBpcyBjbG9zZWQgZm9yIHdlbGRpbmcuIEV2ZXJ5dGhpbmcgd2Fsa3MgdGhlIGxvbmcgd2F5IGFyb3VuZCB1bnRpbCBGcmlkYXku"
+        "body": "UmFtcCBpcyBjbG9zZWQgZm9yIHdlbGRpbmcuIEV2ZXJ5dGhpbmcgd2Fsa3MgdGhlIGxvbmcgd2F5IGFyb3VuZCB1bnRpbCBGcmlkYXku",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTM2IE9VVC4="
       },
       {
         "seq": 1049,
         "relay": "KR-33",
         "station": "Singapore anchorage E",
         "sent": "2026-08-11T00:13:05Z",
-        "body": "RG8gbm90IHJlcGx5IHRvIGFueXRoaW5nIHRoYXQgZG9lcyBub3QgY29tZSBmcm9tIG5ldCBjb250cm9sLiBOb3QgZXZlbiBvbmNlLg=="
+        "body": "RG8gbm90IHJlcGx5IHRvIGFueXRoaW5nIHRoYXQgZG9lcyBub3QgY29tZSBmcm9tIG5ldCBjb250cm9sLiBOb3QgZXZlbiBvbmNlLg==",
+        "trailer": "S1ItMzMgQ0xFQVIu"
       },
       {
         "seq": 1050,
         "relay": "KR-04",
         "station": "Gdansk container yard",
         "sent": "2026-08-11T00:18:04Z",
-        "body": "U3BhcmUgc2V0IGlzIHBhY2tlZCBhbmQgYnVyaWVkIHdoZXJlIHdlIGFncmVlZC4gRG8gbm90IGRpZyBpdCB1cCBmb3IgcHJhY3RpY2Uu"
+        "body": "U3BhcmUgc2V0IGlzIHBhY2tlZCBhbmQgYnVyaWVkIHdoZXJlIHdlIGFncmVlZC4gRG8gbm90IGRpZyBpdCB1cCBmb3IgcHJhY3RpY2Uu",
+        "trailer": "TUVTU0FHRSBFTkRTLiBLUi0wNCBTVEFORElORyBCWS4="
       },
       {
         "seq": 1051,
         "relay": "KR-37",
         "station": "Auckland hardstand",
         "sent": "2026-08-11T00:31:47Z",
-        "body": "QSBuZXcgbWFuIHN0YXJ0cyBvbiB0aGUgY3JhbmUgVHVlc2RheS4gSGUga25vd3Mgbm90aGluZyBhbmQgc2hvdWxkIHN0YXkgdGhhdCB3YXku"
+        "body": "QSBuZXcgbWFuIHN0YXJ0cyBvbiB0aGUgY3JhbmUgVHVlc2RheS4gSGUga25vd3Mgbm90aGluZyBhbmQgc2hvdWxkIHN0YXkgdGhhdCB3YXku",
+        "trailer": "QUNLTk9XTEVER0UgTkVYVCBXSU5ET1cu"
       },
       {
         "seq": 1052,
         "relay": "KR-28",
         "station": "Karachi lighter dock",
         "sent": "2026-08-11T00:35:54Z",
-        "body": "VGhlIHdpbnRlciByb3N0ZXIgaXMgbGF0ZS4gU29tZWJvZHkgYXQgY29tbWFuZCBpcyBzaXR0aW5nIG9uIGl0Lg=="
+        "body": "VGhlIHdpbnRlciByb3N0ZXIgaXMgbGF0ZS4gU29tZWJvZHkgYXQgY29tbWFuZCBpcyBzaXR0aW5nIG9uIGl0Lg==",
+        "trailer": "QUNLTk9XTEVER0UgTkVYVCBXSU5ET1cu"
       },
       {
         "seq": 1053,
         "relay": "KR-42",
         "station": "Vladivostok ice pier",
         "sent": "2026-08-11T00:38:51Z",
-        "body": "T3VyIG51bWJlcnMgZm9yIGxhc3QgbW9udGggd2VyZSB3cm9uZyBieSBvbmUgY3JhdGUuIEEgY29ycmVjdGVkIGNvcHkgZm9sbG93cy4="
+        "body": "T3VyIG51bWJlcnMgZm9yIGxhc3QgbW9udGggd2VyZSB3cm9uZyBieSBvbmUgY3JhdGUuIEEgY29ycmVjdGVkIGNvcHkgZm9sbG93cy4=",
+        "trailer": "RU5EUy4gS1ItNDIgT1VULg=="
       },
       {
         "seq": 1054,
         "relay": "KR-17",
         "station": "Walvis Bay salt pan",
         "sent": "2026-08-11T00:44:58Z",
-        "body": "VGVsbCBjb21tYW5kIHRoZSBlc2Nyb3cgY29weSBpcyB3aGVyZSB0aGV5IGxlZnQgaXQgYW5kIG5vYm9keSBoYXMgdG91Y2hlZCBpdC4="
+        "body": "VGVsbCBjb21tYW5kIHRoZSBlc2Nyb3cgY29weSBpcyB3aGVyZSB0aGV5IGxlZnQgaXQgYW5kIG5vYm9keSBoYXMgdG91Y2hlZCBpdC4=",
+        "trailer": "TUVTU0FHRSBFTkRTLiBLUi0xNyBTVEFORElORyBCWS4="
       },
       {
         "seq": 1055,
         "relay": "KR-10",
         "station": "Newark bonded shed",
         "sent": "2026-08-11T00:49:59Z",
-        "body": "VGhlIGN1c3RvbXMgY2xlcmsgdGFrZXMgbGVhdmUgb24gdGhlIHR3ZW50aWV0aC4gQnJpbmcgZXZlcnl0aGluZyBpbiBiZWZvcmUgdGhhdC4="
+        "body": "VGhlIGN1c3RvbXMgY2xlcmsgdGFrZXMgbGVhdmUgb24gdGhlIHR3ZW50aWV0aC4gQnJpbmcgZXZlcnl0aGluZyBpbiBiZWZvcmUgdGhhdC4=",
+        "trailer": "S1ItMTAgT1VULg=="
       },
       {
         "seq": 1056,
         "relay": "KR-14",
         "station": "Callao fish market",
         "sent": "2026-08-11T00:54:38Z",
-        "body": "VGhlIHlhcmQgZG9nIGhhcyB0YWtlbiB0byBiYXJraW5nIGF0IHRoZSBzaGVkLiBNb3ZlIHRoZSBzaGVkLCBub3QgdGhlIGRvZy4="
+        "body": "VGhlIHlhcmQgZG9nIGhhcyB0YWtlbiB0byBiYXJraW5nIGF0IHRoZSBzaGVkLiBNb3ZlIHRoZSBzaGVkLCBub3QgdGhlIGRvZy4=",
+        "trailer": "TUVTU0FHRSBFTkRTLiBLUi0xNCBTVEFORElORyBCWS4="
       },
       {
         "seq": 1057,
         "relay": "KR-02",
         "station": "Sevastopol dry dock",
         "sent": "2026-08-11T01:00:28Z",
-        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDMgWlEgNi4gQVNaWVBFVE46IFJaV1EgS1BDWiBFU0NQUCBEVFBDQ0wuIE9aIFlaRSBMTkUgWlkgTCBEVFlSV1AgQVRQTlAuIEVTUCBBU0NMRFAgWllXSiBIWkNWRCBIU1pXUC4="
+        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDMgWlEgNi4gQVNaWVBFVE46IFJaV1EgS1BDWiBFU0NQUCBEVFBDQ0wuIE9aIFlaRSBMTkUgWlkgTCBEVFlSV1AgQVRQTlAuIEVTUCBBU0NMRFAgWllXSiBIWkNWRCBIU1pXUC4=",
+        "trailer": "UE5TWiBMV1FMIFlUWVAgRFBHUFkgUVpGQyBZVFlQ"
       },
       {
         "seq": 1058,
         "relay": "KR-46",
         "station": "Prince Rupert log boom",
         "sent": "2026-08-11T01:11:35Z",
-        "body": "TWFuaWZlc3Qgc2F5cyBtYWNoaW5lIHBhcnRzLiBJdCBoYXMgc2FpZCBtYWNoaW5lIHBhcnRzIGZvciBmb3VyIHllYXJzIHJ1bm5pbmcu"
+        "body": "TWFuaWZlc3Qgc2F5cyBtYWNoaW5lIHBhcnRzLiBJdCBoYXMgc2FpZCBtYWNoaW5lIHBhcnRzIGZvciBmb3VyIHllYXJzIHJ1bm5pbmcu",
+        "trailer": "TUVTU0FHRSBFTkRTLiBLUi00NiBTVEFORElORyBCWS4="
       },
       {
         "seq": 1059,
         "relay": "KR-30",
         "station": "Colombo transfer buoy",
         "sent": "2026-08-11T01:18:56Z",
-        "body": "UmVtaW5kZXI6IG5vdGhpbmcgb24gdGhpcyBtZXNoIGlzIHByb3RlY3RlZC4gSXQgaXMgcGFja2VkIGZvciB0aGUgYWlyLCB0aGF0IGlzIGFsbC4="
+        "body": "UmVtaW5kZXI6IG5vdGhpbmcgb24gdGhpcyBtZXNoIGlzIHByb3RlY3RlZC4gSXQgaXMgcGFja2VkIGZvciB0aGUgYWlyLCB0aGF0IGlzIGFsbC4=",
+        "trailer": "S1ItMzAgQ0xFQVIu"
       },
       {
         "seq": 1060,
         "relay": "KR-19",
         "station": "Tangier ferry ramp",
         "sent": "2026-08-11T01:25:33Z",
-        "body": "VGhlIGJ1b3kgaGFzIGRyaWZ0ZWQgYWJvdXQgdHdvIGh1bmRyZWQgbWV0cmVzLiBDb29yZGluYXRlcyBpbiB0aGUgbmV4dCBwb3VjaC4="
+        "body": "VGhlIGJ1b3kgaGFzIGRyaWZ0ZWQgYWJvdXQgdHdvIGh1bmRyZWQgbWV0cmVzLiBDb29yZGluYXRlcyBpbiB0aGUgbmV4dCBwb3VjaC4=",
+        "trailer": "Tk9USElORyBGT0xMT1dTLg=="
       },
       {
         "seq": 1061,
         "relay": "KR-26",
         "station": "Istanbul strait post",
         "sent": "2026-08-11T01:36:20Z",
-        "body": "VGhlIGJvbmRlZCBzaGVkIGlzIGJlaW5nIGludmVudG9yaWVkIE1vbmRheS4gTm90aGluZyBvZiBvdXJzIHdpbGwgYmUgaW4gaXQu"
+        "body": "VGhlIGJvbmRlZCBzaGVkIGlzIGJlaW5nIGludmVudG9yaWVkIE1vbmRheS4gTm90aGluZyBvZiBvdXJzIHdpbGwgYmUgaW4gaXQu",
+        "trailer": "QUNLTk9XTEVER0UgTkVYVCBXSU5ET1cu"
       },
       {
         "seq": 1062,
         "relay": "KR-29",
         "station": "Mumbai cotton green",
         "sent": "2026-08-11T01:44:27Z",
-        "body": "RnVlbCBiYXJnZSBpcyB0d28gZGF5cyBsYXRlIGFnYWluLiBUZWxsIHRoZSBhY2NvdW50YW50IGJlZm9yZSBoZSBhc2tzLg=="
+        "body": "RnVlbCBiYXJnZSBpcyB0d28gZGF5cyBsYXRlIGFnYWluLiBUZWxsIHRoZSBhY2NvdW50YW50IGJlZm9yZSBoZSBhc2tzLg==",
+        "trailer": "S1ItMjkgQ0xFQVIu"
       },
       {
         "seq": 1063,
         "relay": "KR-06",
         "station": "Aberdeen supply pier",
         "sent": "2026-08-11T01:53:36Z",
-        "body": "Q3JhbmUgZm91ciBpcyBkb3duIGZvciB0aGUgbmlnaHQuIE5vIG1vdmVtZW50IGhlcmUgdW50aWwgMDYwMCBhdCB0aGUgZWFybGllc3Qu"
+        "body": "Q3JhbmUgZm91ciBpcyBkb3duIGZvciB0aGUgbmlnaHQuIE5vIG1vdmVtZW50IGhlcmUgdW50aWwgMDYwMCBhdCB0aGUgZWFybGllc3Qu",
+        "trailer": "S1ItMDYgQ0xFQVIu"
       },
       {
         "seq": 1064,
         "relay": "KR-44",
         "station": "Dutch Harbor cannery",
         "sent": "2026-08-11T02:01:22Z",
-        "body": "V2UgYXJlIGRvd24gdG8gb25lIHdvcmtpbmcgaGFuZHNldC4gVGhlIG90aGVyIG9uZSB3ZW50IGluIHRoZSB3YXRlci4="
+        "body": "V2UgYXJlIGRvd24gdG8gb25lIHdvcmtpbmcgaGFuZHNldC4gVGhlIG90aGVyIG9uZSB3ZW50IGluIHRoZSB3YXRlci4=",
+        "trailer": "S1ItNDQgT1VULg=="
       },
       {
         "seq": 1065,
         "relay": "KR-27",
         "station": "Baku derrick 11",
         "sent": "2026-08-11T02:13:42Z",
-        "body": "UGFwZXJ3b3JrIGZvciB0aGUgY29wcmEgbG9hZCBjbGVhcmVkLiBOb2JvZHkgbG9va2VkIGluc2lkZSB0aGUgZHJ1bXMu"
+        "body": "UGFwZXJ3b3JrIGZvciB0aGUgY29wcmEgbG9hZCBjbGVhcmVkLiBOb2JvZHkgbG9va2VkIGluc2lkZSB0aGUgZHJ1bXMu",
+        "trailer": "UkVBRCBCQUNLIE9OIFRIRSBMT1cgU0VULiBLUi0yNyBPVVQu"
       },
       {
         "seq": 1066,
         "relay": "KR-08",
         "station": "Nuuk weather mast",
         "sent": "2026-08-11T02:17:29Z",
-        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDIgWlEgNi4gQVNaWVBFVE46IFhUVlAgRVNDUFAgUVRHUCBTWkVQVy4gVVpUWSBFU1AgRFRJIEFUUE5QRCBUWSBZRlhNUEMgWkNPUEMgSFRFUyBaWVAgRllPUENETlpDUCBNUEVIUFBZIEVTUFgu"
+        "body": "VkNMVlBZIE5aWFhMWU8gRVogTFdXIERFTEVUWllELiBERUxZT1RZUiBBU0NMRFAsIEFUUE5QIDIgWlEgNi4gQVNaWVBFVE46IFhUVlAgRVNDUFAgUVRHUCBTWkVQVy4gVVpUWSBFU1AgRFRJIEFUUE5QRCBUWSBZRlhNUEMgWkNPUEMgSFRFUyBaWVAgRllPUENETlpDUCBNUEVIUFBZIEVTUFgu",
+        "trailer": "UE5TWiBEVEkgRUhaIEtQQ1ogT1BXRUwgUVRHUA=="
       },
       {
         "seq": 1067,
         "relay": "KR-11",
         "station": "Norfolk grain elevator",
         "sent": "2026-08-11T02:25:38Z",
-        "body": "T3VyIGNvbnRhY3QgYXQgdGhlIGZpc2ggbWFya2V0IHdhbnRzIG1vcmUgbW9uZXkuIEhlIGlzIHdvcnRoIGFib3V0IGhhbGYgb2YgaXQu"
+        "body": "T3VyIGNvbnRhY3QgYXQgdGhlIGZpc2ggbWFya2V0IHdhbnRzIG1vcmUgbW9uZXkuIEhlIGlzIHdvcnRoIGFib3V0IGhhbGYgb2YgaXQu",
+        "trailer": "QUNLTk9XTEVER0UgTkVYVCBXSU5ET1cu"
       },
       {
         "seq": 1068,
         "relay": "KR-25",
         "station": "Constanta rail spur",
         "sent": "2026-08-11T02:28:48Z",
-        "body": "VGVsbCBOZXdhcmsgdGhlaXIgYWNrbm93bGVkZ2VtZW50IG5ldmVyIHJlYWNoZWQgdXMuIFRoaXJkIHRpbWUgdGhpcyBtb250aC4="
+        "body": "VGVsbCBOZXdhcmsgdGhlaXIgYWNrbm93bGVkZ2VtZW50IG5ldmVyIHJlYWNoZWQgdXMuIFRoaXJkIHRpbWUgdGhpcyBtb250aC4=",
+        "trailer": "UkVBRCBCQUNLIE9OIFRIRSBMT1cgU0VULiBLUi0yNSBPVVQu"
       },
       {
         "seq": 1069,
         "relay": "KR-21",
         "station": "Alexandria mole",
         "sent": "2026-08-11T02:42:30Z",
-        "body": "TG9jYWwgcG9saWNlIGRpZCBhIHdhbGsgcGFzdCBhdCAyMjAwLiBSb3V0aW5lLiBUaGV5IGRpZCBub3Qgc3RvcC4="
+        "body": "TG9jYWwgcG9saWNlIGRpZCBhIHdhbGsgcGFzdCBhdCAyMjAwLiBSb3V0aW5lLiBUaGV5IGRpZCBub3Qgc3RvcC4=",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTIxIE9VVC4="
       },
       {
         "seq": 1070,
         "relay": "KR-03",
         "station": "Trieste customs annex",
         "sent": "2026-08-11T02:57:02Z",
-        "body": "V2VhdGhlciBjb21pbmcgaW4gaGFyZC4gRXhwZWN0IHVzIHRvIGRyb3Agb2ZmIHRoZSBuZXQgZm9yIGFuIGhvdXIgb3IgdHdvLg=="
+        "body": "V2VhdGhlciBjb21pbmcgaW4gaGFyZC4gRXhwZWN0IHVzIHRvIGRyb3Agb2ZmIHRoZSBuZXQgZm9yIGFuIGhvdXIgb3IgdHdvLg==",
+        "trailer": "Tk8gUkVQTFkgUkVRVUlSRUQuIEtSLTAzIE9VVC4="
       },
       {
         "seq": 1071,
         "relay": "KR-32",
         "station": "Yangon river mark",
         "sent": "2026-08-11T03:02:37Z",
-        "body": "VGhlIG9sZCBtYW4gYXQgdGhlIHNsaXB3YXkgcmVtZW1iZXJzIHRoZSBib2F0IGZyb20gbGFzdCB5ZWFyLiBDaGFuZ2UgdGhlIGJvYXQu"
+        "body": "VGhlIG9sZCBtYW4gYXQgdGhlIHNsaXB3YXkgcmVtZW1iZXJzIHRoZSBib2F0IGZyb20gbGFzdCB5ZWFyLiBDaGFuZ2UgdGhlIGJvYXQu",
+        "trailer": "RU5EUy4gS1ItMzIgT1VULg=="
       },
       {
         "seq": 1072,
         "relay": "KR-13",
         "station": "Colon transit shed",
         "sent": "2026-08-11T03:15:49Z",
-        "body": "VGhlIHF1YXJhbnRpbmUgYmVydGggaXMgZnVsbCB1bnRpbCB0aGUgdHdlbGZ0aC4gTm90aGluZyBjYW4gY29tZSBhbG9uZ3NpZGUu"
+        "body": "VGhlIHF1YXJhbnRpbmUgYmVydGggaXMgZnVsbCB1bnRpbCB0aGUgdHdlbGZ0aC4gTm90aGluZyBjYW4gY29tZSBhbG9uZ3NpZGUu",
+        "trailer": "S1ItMTMgQ0xFQVIu"
       }
     ]
   }

@@ -285,7 +285,7 @@ Recover whatever can still be recovered, and establish where he was going. The f
    'A photograph recovered minutes before the archive went dark. It opens cleanly — and that is the problem.',
    'Forensics pulled a single image off SHIELD-WKS-006, written four minutes before the archive server stopped answering.
 
-As far as the file browser is concerned it is a photograph and nothing else. It opens, it renders, the metadata is unremarkable, and every checksum the recovery tool ran came back clean. Nothing is appended to it and nothing is embedded in it.
+As far as the file browser is concerned it is a photograph and nothing else. It opens, it renders, the metadata is unremarkable, and every checksum the recovery tool ran came back clean. No archive is hidden inside it and no second file is riding along with it.
 
 What is not unremarkable is the access pattern. In the last hour of its life the file was opened, rewritten and reopened eleven times by the same process, and then deleted. Nobody edits a photograph eleven times and then destroys it.
 
@@ -296,7 +296,7 @@ The picture is intact, agent. Look underneath it.',
 Rule out the obvious carriers first — metadata, trailing data, embedded archives.
 Read the image at the bit level: ask what is left when the photograph itself is thrown away.
 Recover the marker hidden in the pixel data and read what it carries.',
-   'Nothing was appended to that file and nothing was attached to it. Whatever they moved, they moved in plain sight — one bit at a time.',
+   'The flag was never tacked onto that file or packed inside it. Whatever they moved, they moved in plain sight — one bit at a time.',
    -- The digest rather than digest('...') over the plaintext, for the same
    -- reason as stage 3: this file is committed, and a flag spelled out here
    -- would be greppable.

@@ -218,6 +218,15 @@
       "size": 239,
       "content": "/opt/shield/scripts/sync_archive.sh --source node-17 --target /var/archive/data\ncrontab -l\nsudo -u agent006 /usr/bin/id\nsudo -u agent006 bash -c 'cat >> /home/agent006/.ssh/authorized_keys' < /tmp/.key_staging\nrm -f /tmp/.key_staging\nexit\n"
     },
+    "/home/svc_archive/.cell": {
+      "type": "file",
+      "mode": "-rw-r--r--",
+      "owner": "svc_archive",
+      "group": "svc_archive",
+      "mtime": "Oct 24 23:41",
+      "size": 37,
+      "content": "KS4-215ebc9d9fef9ff845e71d831f7be214\n"
+    },
     "/home/svc_archive/.doorway": {
       "type": "file",
       "mode": "-rw-r--r--",
