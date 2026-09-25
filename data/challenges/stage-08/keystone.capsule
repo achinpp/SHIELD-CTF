@@ -1,0 +1,11 @@
+{
+  "typ": "KRAKEN-CAPSULE",
+  "cells": 7,
+  "field": "p = 2^127 - 1",
+  "kdf": "SHA-256(secret, 16 bytes big-endian)",
+  "enc": "A256GCM",
+  "aad": "KRAKEN/KEYSTONE/v1",
+  "iv": "rEktPJcVwsHTY5-1",
+  "ciphertext": "vKzQm4P45FoI6mDtLOgUO1YgtKtBpCDDtcRZLkC_bcJzTcWCuMoCM0k30FTpKCkJZS9Myl0buoQsQ7DIKOZJIaeuQwY1ReFPqTHvMAvM5e363b3d84f-Fy6pT1-t2WqGfRI20KKuOVEa6pBMmGIzN7zGdt2eY0_1kkTC5brWu90FQqu8tr8F3gZK70Ft8MMUs3SzQCaJpNKkY1fSqeyQS0eyCWHNo64zEdSvKXh-wFT7QBkzMk2KTRqbTLCmwjQsPL6OvVstMYHeSjTfIKjUduqvTeGcjer3NcO0oST3_bZiyVAUxt7-t8GwWKJOFQP14cGTPb08fFqXcq4wUTver9udHWn48u6g3N1jz5L4gschbxATtnAKIUf51_yhz0cmlGuWKAJuZVMCO6bD-rz3a7iZ7MyFwBMjcAKc6g",
+  "tag": "dTciKJIXyMccccFOlXNF2A"
+}

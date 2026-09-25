@@ -1,9 +1,9 @@
 -- S.H.I.E.L.D. CTF — challenge board.
 --
 -- ─────────────────────────────────────────────────────────────────────────
---  EVERY STAGE IS REAL. Stage 8 is still the old design and is being
---  replaced — see its row. Each row carries a comment saying where its
---  artifact lives.
+--  EVERY STAGE IS REAL. Stage 8 is built, but only solvable once every
+--  earlier stage carries its KEYSTONE share — see its row. Each row carries a
+--  comment saying where its artifact lives.
 -- ─────────────────────────────────────────────────────────────────────────
 
 CREATE TABLE challenges (
@@ -337,41 +337,46 @@ Reassemble the six pieces in the order command gives, and submit the phrase they
 
   -- Stage 8 is the operation's finale and its meta stage: OPERATION KEYSTONE.
   --
-  -- ⚠ NOT YET SOLVABLE, AND BEING REDESIGNED. The master report replaces this
-  -- row's design with a 7-of-7 Shamir split: one share hidden in each earlier
-  -- stage, and an encrypted `keystone.capsule` served as this stage's evidence.
-  -- Until that is built, the text, hint and digest below are still the old
-  -- design, which rebuilt a credential from clearance receipts the earlier
-  -- stages were meant to hand back on solve. The receipts were never written,
-  -- so nobody can finish the stage either way. `published` stays true so the
-  -- sealed card keeps its place at the end of the board; flip it to false if
-  -- the event runs before the redesign lands. See `challeng08.md`.
+  -- The artifact lives at `data/challenges/stage-08/keystone.capsule`, handed
+  -- over by the gated evidence route: KRAKEN's kill-switch order, AES-256-GCM
+  -- under SHA-256 of a secret split 7-of-7 (Shamir over GF(2^127 - 1)) across
+  -- the earlier stages, one share beside each stage's flag. The capsule gives
+  -- nothing away on its own, so it is safe to hand over; the stage is
+  -- collecting the shares. The flag is the stand-down phrase at the end of the
+  -- decrypted order.
+  --
+  -- ⚠ Solvable only once every share is planted. At the time of writing only
+  -- stage 5's (EXIF in `safehouse.img`) is; the other six are listed in
+  -- `future project work.md`. `npm run keystone:verify` is the reference
+  -- solver: it checks the shares against the capsule and this row's digest,
+  -- and must pass before the event runs. See `challeng08.md`.
   --
   -- One of two stages whose gate is load-bearing rather than provisional:
   -- `requires_stage = 7` is what makes the onward button appear on the stage-07
   -- page the moment its flag lands, and the finale is not meant to be reachable
   -- before then. Leave it at 7.
   (8, 'stage-08', 'OPERATION KEYSTONE', 'Miscellaneous / Capstone', 'Hard', 500,
-   'Six stages, six clearance receipts, and a credential nobody at command ever noticed they were handing you a piece at a time.',
-   'One more thing, agent, and it has been in front of you since the first night.
+   'Seven cells, seven shares, one sealed order. The mesh goes dark at midnight, and you have been carrying the key since the first night.',
+   'The capsule came off NODE-17 an hour ago, agent, and the clock on the wall says the rest of this is measured in hours.
 
-Every stage you have cleared, SHIELD command filed a clearance receipt against it — the short acknowledgement that comes back the moment a flag is accepted. You have read six of them by now. They look like paperwork. They are paperwork.
+Storm is on his way to New York to hold the relay. RAVEN has warned the cell. And at 00:00 KRAKEN''s relay mesh goes dark — whatever it is carrying goes with it, and so does every chance of reading it.
 
-They are also the only place KRAKEN''s root credential was ever written down.
+What we seized is KEYSTONE: the kill-switch order that holds the whole operation together, sealed under a key that no single cell was ever trusted with. KRAKEN cut that key into seven shares and gave one to each of its cells, so that no one cell could fire the order, stop it or sell it. Every share has to be present. Six is as good as none.
 
-Command split it across the operation on purpose, back when this was still a three-desk investigation. No desk ever held more than a fragment. No fragment ever left a desk in the hand it was written in. And the receipts were filed in the order the desks got round to them rather than the order the stages were cleared, so even the sequence is wrong unless you look at when each one was logged. The reasoning was that losing an agent, or a desk, or a whole stage of the operation, would not lose the key.
+You have spent this investigation taking those cells apart one at a time. Each of them gave up its flag. What nobody has noticed until now is that each of them also gave up something else — a short value, hidden beside the flag, in whatever way that cell hid everything else.
 
-What nobody planned for is somebody clearing all six.
+Seven stages. Seven shares. You have walked past every one of them.
 
-You are the first. That makes you the first person who has ever held the whole thing at once. Go back through your receipts — every one of them tells you on its face what to do with what it carries. Do that, put them in the order they were logged, and read out what the six of them spell.',
-   'Go back to every stage you have cleared and take the clearance receipt off it — all six.
-Unwind each fragment the way its own receipt tells you to; the desk that issued it is the reason it looks like nonsense.
-Order the six by the time each receipt was logged. The stage numbers are not the order.
-Join the unwound fragments end to end, work out what the joined string is, and read the credential out of it.',
-   'Nobody at command ever thought of the receipts as secret. They are receipts. That is exactly why the key has sat in the open the whole time, in six pieces, on paperwork that everybody files and nobody reads twice.',
+Go back and collect them. The capsule tells you what to do with them once you have them, if you read it the way its own cells would. Open it, find out who opened the doorway, and stand the operation down before midnight.',
+   'Recover keystone.capsule from the evidence locker below and read its header closely — it names the method without spelling it out.
+Go back through all seven stages you have cleared and recover the share each one hid beside its flag.
+Rebuild the secret the seven shares were cut from; with even one share wrong or missing, nothing comes out.
+Derive the key the capsule describes, open it, and submit the stand-down phrase at the end of the order.',
+   'No cell was ever trusted with the whole key. That was the point. It never occurred to anybody that one agent might take all seven cells apart.',
    -- The digest rather than digest('...') over the plaintext, for the same
    -- reason as the other finished stages: this file is committed, and a flag
-   -- spelled out here would be greppable.
-   decode('59d16d814d73f0ef36e28776509e5c2dea21fb9e37b2e70819fc086a7d5dc222', 'hex'),
-   'Each receipt carries three things that matter: a FRAGMENT, an OPS-DESK number and a LOGGED time. The desk number is a shift — every character of that fragment was moved that many places forward through the alphabet the fragment is written in, which runs A to Z and then 2 to 7 and wraps around. Move them back by the desk number. Then sort the six receipts by LOGGED, not by stage, and join the unwound fragments end to end. Forty characters drawn from A-Z and 2-7, in a length that is a multiple of eight, is Base32. Decode it.',
+   -- spelled out here would be greppable. The capsule carries the plaintext
+   -- only under AES-256-GCM.
+   decode('91aac0ec6e6c3b60bb3d930a275ad7bde53614f3a975e1e552895dadbf71b33a', 'hex'),
+   'The capsule is only half of this stage. Every stage you cleared also hid a second value beside its flag.',
    60, 7);

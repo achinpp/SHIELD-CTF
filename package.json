@@ -10,7 +10,8 @@
     "db": "docker compose -f compose.yaml -f compose.dev.yaml up -d db",
     "db:stop": "docker compose stop db",
     "db:psql": "docker compose exec db psql -U shield -d shield",
-    "assets:prepare": "node scripts/prepare-plates.mjs"
+    "assets:prepare": "node scripts/prepare-plates.mjs",
+    "keystone:verify": "node scripts/verify-keystone.mjs"
   },
   "dependencies": {
     "@node-rs/argon2": "^2.1.0",

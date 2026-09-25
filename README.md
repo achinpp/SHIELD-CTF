@@ -97,8 +97,10 @@ assembled from the other seven.
 | 7 | OPERATION LOCKSTEP | Cryptography | Moderate | 350 |
 | 8 | OPERATION KEYSTONE | Miscellaneous / Capstone | Hard | 500 |
 
-**Stage 8 is being redesigned** and cannot be solved yet. Every other row is
-finished.
+Stage 8 opens `keystone.capsule` with a key split 7-of-7 across the other
+stages, one share hidden beside each flag. **It cannot be solved until every
+share is planted**; `npm run keystone:verify` checks the shares against the
+capsule and must pass before an event.
 
 Stages live in `db/init/02-challenges.sql`, one row each, carrying the
 briefing, objectives, hint and the **SHA-256 of the flag** — never the flag.
@@ -115,7 +117,7 @@ Four shapes, picked to suit the puzzle rather than for uniformity:
 | Shape | Used by | Why |
 |---|---|---|
 | **Query terminal** | 03 | The log is the haystack. It is queryable but never exportable, because handing over the file makes the stage skippable. |
-| **Gated download** | 01, 05, 06, 07 | The file *is* the puzzle, so it has to be handed over — through a route that re-checks the session, not from `public/`. |
+| **Gated download** | 01, 05, 06, 07, 08 | The file *is* the puzzle, so it has to be handed over — through a route that re-checks the session, not from `public/`. |
 | **Live target** | 02 | A legacy archive node at `/archive`, served by this app. Reconnaissance against a running service. |
 | **Mounted image** | 04 | A read-only disk image of a workstation, walked through a simulated shell. Nothing executes. |
 
@@ -217,7 +219,7 @@ src/lib/auth/                sessions, Argon2id, rate limiting, the DAL
 src/lib/challenges.ts        board data access and flag checking (server-only)
 src/lib/log-console.ts       stage 03's query terminal
 src/lib/workstation.ts       stage 04's read-only disk image and shell
-src/lib/evidence.ts          stage 01/05/06/07 gated downloads
+src/lib/evidence.ts          stage 01/05/06/07/08 gated downloads
 src/lib/targets.ts           stage 02's live target
 src/lib/sequence.ts          cue times, durations, easing curves
 

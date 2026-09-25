@@ -7,9 +7,10 @@ import path from "node:path";
  *
  * The opposite call to the stage-03 log, and deliberately so. That record is
  * queryable but never released, because handing over the file is what made
- * the stage skippable. Stages 06 and 07 are steganography and cryptanalysis:
- * the work *is* the file, so there is nothing to withhold — an agent who
- * cannot open the image, or read the ciphertext, cannot start.
+ * the stage skippable. The stages here — the case file, the disk image, the
+ * photograph, the intercept and the capsule — are ones where the work *is*
+ * the file, so there is nothing to withhold: an agent who cannot open it
+ * cannot start.
  *
  * What is still worth defending is who gets it. The file sits under `data/`
  * rather than `public/`, so no static path serves it; the only way out is the
@@ -81,10 +82,17 @@ const ARTIFACTS_BY_SLUG: Record<string, Artifact> = {
     label: "JSON INTERCEPT // KRAKEN RELAY MESH",
     note: "INTERCEPT-4471 · 72 transmissions · 48 stations · 1800–0600",
   },
-  // Stage 08 has no entry, and that is the design rather than an omission.
-  // OPERATION KEYSTONE is assembled from the clearance receipts the earlier
-  // stages hand back on solve, so there is no file to serve — an agent who has
-  // cleared the board is already holding everything the stage needs.
+  // Stage 08's capsule is only half the stage: it is encrypted under a key
+  // split 7-of-7 across stages 01-07, so handing it over gives nothing away
+  // to an agent who has not collected every share. Served as JSON with
+  // `nosniff`, like stage 07.
+  "stage-08": {
+    file: "stage-08/keystone.capsule",
+    name: "keystone.capsule",
+    contentType: "application/json",
+    label: "SEALED CAPSULE // SEIZED FROM NODE-17",
+    note: "KRAKEN-CAPSULE · 7 cells · A256GCM · opens at full strength or not at all",
+  },
 };
 
 export function getArtifact(slug: string): Artifact | null {
