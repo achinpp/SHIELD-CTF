@@ -54,6 +54,7 @@ next-env.d.ts
 /challeng06.md
 /challeng07.md
 /challeng08.md
+/stage1-keystone.md
 # Retired: the VM crackme the finale used to be. Kept because its generator
 # rebuilds the artifact byte for byte if the design is ever wanted back.
 /challeng08-deadhand-retired.md
