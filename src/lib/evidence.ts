@@ -66,8 +66,8 @@ const ARTIFACTS_BY_SLUG: Record<string, Artifact> = {
     file: "stage-06/raven_recovered.png",
     name: "raven_recovered.png",
     contentType: "image/png",
-    label: "PNG IMAGE // RECOVERED ARTIFACT",
-    note: "1254 × 1254 · lossless · recovered intact from SHIELD-WKS-006",
+    label: "PNG IMAGE // KRAKEN RELAY MESH",
+    note: "1254 × 1254 · lossless · intercepted intact, tagged RAVEN",
   },
   // Stage 07 is handed over for the same reason as stage 06: the intercepted
   // traffic *is* the puzzle. Withholding it and answering queries over it, the

@@ -84,6 +84,32 @@ export default async function Challenges() {
           </div>
         </header>
 
+        {/*
+         * The operation in one paragraph, for an agent arriving cold. It must
+         * not spend any stage's answer: no names (Storm is stage 01's, RAVEN
+         * is stage 05's), no deadline (midnight is stage 07's) and no word of
+         * the KEYSTONE shares, which stage 08's hint is paid for.
+         */}
+        <section
+          aria-labelledby="operation-brief"
+          className="mt-10 border-l-2 border-alert/50 pl-5"
+        >
+          <h2
+            id="operation-brief"
+            className="font-mono text-[10px] tracking-[0.3em] text-alert"
+          >
+            CASE KRAKEN-0017 &mdash; OPERATION BRIEF
+          </h2>
+          <p className="mt-3 max-w-3xl font-mono text-[12px] leading-relaxed tracking-wide text-signal/60">
+            KRAKEN is built in cells: seven of them, none trusted with more than
+            its own part. Over two nights it went through a retired SHIELD
+            archive node, turned an agent&rsquo;s own workstation into a
+            doorway, and moved what it took across a covert relay mesh. Behind
+            all of it is a single order the cells hold between them, and it is
+            set to run. Each stage takes one cell apart. Clear them in order.
+          </p>
+        </section>
+
         {board.length === 0 ? (
           <p className="mt-12 font-mono text-sm tracking-wide text-signal/50">
             No stages provisioned yet.

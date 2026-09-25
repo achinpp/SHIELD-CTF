@@ -1,9 +1,9 @@
 -- S.H.I.E.L.D. CTF — challenge board.
 --
 -- ─────────────────────────────────────────────────────────────────────────
---  EVERY STAGE IS REAL. Stage 8 is built, but only solvable once every
---  earlier stage carries its KEYSTONE share — see its row. Each row carries a
---  comment saying where its artifact lives.
+--  EVERY STAGE IS REAL. Each of stages 1-7 also hides one KEYSTONE share
+--  for the stage 8 finale — see its row. Each row carries a comment saying
+--  where its artifact lives.
 -- ─────────────────────────────────────────────────────────────────────────
 
 CREATE TABLE challenges (
@@ -138,7 +138,7 @@ Identify the person behind nighthawk1011. The flag is waiting where the trail en
    'A legacy archive server KRAKEN left running. Everything on it answers honestly — to anyone who knows what to ask.',
    'The archive server is still up, agent.
 
-That is the first thing that should bother you. KRAKEN went through it four days before the facility breach and left it running — nothing wiped, nothing defaced, no note. Whoever did this wanted the box to keep answering, which means they got what they came for and saw no reason to burn it on the way out.
+That is the first thing that should bother you. It is where the breach began: KRAKEN went through this box before it touched anything else of ours, and left it running — nothing wiped, nothing defaced, no note. Whoever did this wanted the box to keep answering, which means they got what they came for and saw no reason to burn it on the way out.
 
 The public face of it is clean. Monitoring has been over the gateway a dozen times: the front page is a front page, the status endpoints are honest, and every link on it goes where it says it goes.
 
@@ -169,9 +169,9 @@ Recover the fragments it releases, restore the order they were written in, and r
   -- endpoint below is the trace subsystem stage 2 breaks into.
   (3, 'stage-03', 'OPERATION ACCESS LOG', 'Programming / Scripting', 'Easy', 200,
    'A forgotten endpoint left an access.log behind. Thousands of requests, and one visitor who should not be there.',
-   'Agent, your previous investigation has uncovered a critical lead.
+   'NODE-17''s trace subsystem gave up more than its recovery log, agent.
 
-While investigating the SHIELD archival server, you discovered a forgotten endpoint containing an access.log. The file records network activity from shortly before the breach.
+The same forgotten endpoint kept an access.log: five hours of traffic against the SHIELD archive server, recorded on the night of the breach.
 
 SHIELD analysts believe the attacker identified as "KRAKEN" may have used the archive server as a staging point before accessing other SHIELD infrastructure.
 
@@ -215,7 +215,7 @@ Extract the hidden flag from the attacker''s activity.',
 
 Security traced the breach back to SHIELD-WKS-006. That is your desk, your machine and your credentials, which as far as the incident report is concerned makes you the one who did it. Nobody has said the word yet. They will.
 
-Somebody who would rather not be named left an envelope where you would find it. Inside was a USB: a forensic image of your own workstation, pulled before the machine was sealed and carrying everything the disk still had — the authentication record, the shell histories, the hidden files. It is mounted below, read-only.
+Somebody inside SHIELD who goes only by NEVAR, an ally as far as you can tell and the only one you have right now, left an envelope where you would find it. Inside was a USB: a forensic image of your own workstation, pulled before the machine was sealed and carrying everything the disk still had — the authentication record, the shell histories, the hidden files. It is mounted below, read-only.
 
 The account that logged in that night was yours. The key that let it in was not. Something on this machine wrote that key into your profile a few minutes before the intruder arrived, and whatever did it already had standing permission to act as you.
 
@@ -282,14 +282,14 @@ Recover whatever can still be recovered, and establish where he was going. The f
   --
   -- Gated on stage 5, whose recovered notes name RAVEN for the first time.
   (6, 'stage-06', 'OPERATION RAVEN', 'Steganography', 'Moderate', 300,
-   'A photograph recovered minutes before the archive went dark. It opens cleanly — and that is the problem.',
-   'Forensics pulled a single image off SHIELD-WKS-006, written four minutes before the archive server stopped answering.
+   'A photograph caught on KRAKEN''s relay mesh minutes before an archival node went dark. It opens cleanly — and that is the problem.',
+   'Hours after the safehouse, KRAKEN''s relay mesh carried a single photograph, agent, tagged RAVEN, the name from Storm''s notes. SHIELD''s listening posts caught it minutes before an archival node went dark.
 
-As far as the file browser is concerned it is a photograph and nothing else. It opens, it renders, the metadata is unremarkable, and every checksum the recovery tool ran came back clean. No archive is hidden inside it and no second file is riding along with it.
+As far as any viewer is concerned it is a photograph and nothing else. It opens, it renders, the metadata is unremarkable, and every checksum the recovery tool ran came back clean. No archive is hidden inside it and no second file is riding along with it.
 
-What is not unremarkable is the access pattern. In the last hour of its life the file was opened, rewritten and reopened eleven times by the same process, and then deleted. Nobody edits a photograph eleven times and then destroys it.
+What is not unremarkable is how it moved. The same image crossed the mesh eleven times in an hour, rewritten a little at every relay, and then the node that sent it stopped answering. Nobody forwards a photograph eleven times for the view.
 
-KRAKEN''s operators do not carry payloads out as attachments. They carry them inside things that are already allowed to leave the building.
+KRAKEN''s operators do not carry payloads out as attachments. They carry them inside things that are already allowed to travel.
 
 The picture is intact, agent. Look underneath it.',
    'Recover the artifact from the evidence locker below.
@@ -314,7 +314,7 @@ Recover the marker hidden in the pixel data and read what it carries.',
   -- beginner step; the cost is patience, not technique. See `challeng07.md`.
   (7, 'stage-07', 'OPERATION LOCKSTEP', 'Cryptography', 'Moderate', 350,
    'One night of radio traffic off KRAKEN''s relay mesh. Seventy-two messages, and six of them are not chatter.',
-   'Signals handed us INTERCEPT-4471 an hour ago, agent: everything KRAKEN''s relay mesh sent between 1800 and 0600 on the night the archive went dark.
+   'That photograph travelled over KRAKEN''s relay mesh, agent, and SHIELD''s listening posts have been recording the mesh all night. Signals handed us INTERCEPT-4471 an hour ago: everything the mesh sent between 1800 and 0600 on the night the archive went dark.
 
 It is not encrypted. The mesh packs its message bodies up for transmission and that is all it does to them, so most of this opens the moment you unpack it — dock chatter, weather, complaints about batteries. Seventy-two messages of people talking about their night shift.
 
@@ -345,11 +345,12 @@ Reassemble the six pieces in the order command gives, and submit the phrase they
   -- collecting the shares. The flag is the stand-down phrase at the end of the
   -- decrypted order.
   --
-  -- ⚠ Solvable only once every share is planted. At the time of writing only
-  -- stage 5's (EXIF in `safehouse.img`) is; the other six are listed in
-  -- `future project work.md`. `npm run keystone:verify` is the reference
-  -- solver: it checks the shares against the capsule and this row's digest,
-  -- and must pass before the event runs. See `challeng08.md`.
+  -- Shares 2-7 are planted in this repository's artifacts. Share 1 lives in
+  -- the git history of the external `stormsignalny/weather-dashboard`
+  -- repository (see `stage1-keystone.md`), so the finale depends on that
+  -- repository too. `npm run keystone:verify` is the reference solver: it
+  -- checks the shares against the capsule and this row's digest, and must
+  -- pass before the event runs. See `challeng08.md`.
   --
   -- One of two stages whose gate is load-bearing rather than provisional:
   -- `requires_stage = 7` is what makes the onward button appear on the stage-07
