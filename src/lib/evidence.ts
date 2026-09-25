@@ -48,6 +48,19 @@ const ARTIFACTS_BY_SLUG: Record<string, Artifact> = {
     label: "ZIP ARCHIVE // CASE FILE KRAKEN-0017",
     note: "case record · recovered photograph · recovered note",
   },
+  // Stage 05 is a disk image like stage 04's, but it is handed over whole
+  // instead of walked through a simulated shell. Stage 04 is read from the
+  // live file tree; this one is about what is no longer in it — deleted
+  // directory entries, freed inodes, unallocated blocks — and only the raw
+  // image carries those. It is a bare ext4 filesystem, for Autopsy or The
+  // Sleuth Kit.
+  "stage-05": {
+    file: "stage-05/safehouse.img",
+    name: "safehouse.img",
+    contentType: "application/octet-stream",
+    label: "RAW DISK IMAGE // KRAKEN SAFEHOUSE, WASHINGTON",
+    note: "ext4 · 16 MiB · bit-for-bit acquisition · open it read-only",
+  },
   "stage-06": {
     file: "stage-06/raven_recovered.png",
     name: "raven_recovered.png",

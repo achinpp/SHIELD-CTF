@@ -1,13 +1,9 @@
 -- S.H.I.E.L.D. CTF — challenge board.
 --
 -- ─────────────────────────────────────────────────────────────────────────
---  EVERY STAGE IS REAL EXCEPT STAGE 5, WHICH IS STILL A PLACEHOLDER.
---
---  The placeholder exists so the board and its page render and the solve
---  mechanics can be tested. Every text field says so on its face, so nothing
---  there can be mistaken for real content. Its flag digest is already the real
---  one from the master report. A finished row carries a comment saying where
---  its artifact lives.
+--  EVERY STAGE IS REAL. Stage 8 is still the old design and is being
+--  replaced — see its row. Each row carries a comment saying where its
+--  artifact lives.
 -- ─────────────────────────────────────────────────────────────────────────
 
 CREATE TABLE challenges (
@@ -79,13 +75,9 @@ CREATE INDEX flag_attempts_user_idx ON flag_attempts (user_id, attempted_at);
 -- The master report's eight stages: 1-3 Easy, 4-7 Moderate, 8 Hard, and a
 -- sequential unlock chain. Stage 8 is the operation's finale.
 --
--- Stage 5 is still structure-only: it carries the report's title, domain,
--- points and flag digest, but its text is a placeholder. Every other row is a
--- finished stage and says on its face where its artifact lives.
+-- Every row is a finished stage and says on its face where its artifact lives.
 --
--- Gates: stages 2, 3, 4 and 8 are gated on the stage before them. Stages 5, 6
--- and 7 are NULL only because the chain still runs through the stage-5
--- placeholder — see the per-row comments. Restore them once stage 5 lands.
+-- Gates: every stage after the first is gated on the stage before it.
 --
 -- `digest(...,'sha256')` needs pgcrypto; it is only used here, at seed time.
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
@@ -242,27 +234,53 @@ Work out which account held the standing permission to act as you, and recover w
    'Start with `ls -la` in the home directory: the two things worth reading are both hidden, and one of them is a directory. `.shield/.trace` gives you the time of the intrusion and the address it came from. Take that address to `/var/log/auth.log` and read the lines *around* it instead of only the ones that match — about three minutes before the SSH login, a sudo entry shows a different account running a command as agent006 and appending to that account''s authorized_keys file. `/etc/passwd` tells you what that account is, and `/etc/sudoers.d/` tells you why it was allowed to. Then look in its home directory, with `-a`.',
    25, 3),
 
-  -- Stage 5 is the master report's new forensics stage and is not built yet:
-  -- the `safehouse.img` it hands over does not exist, so it has no evidence
-  -- entry and its text is a placeholder. The title, domain, points, hint
-  -- penalty and flag digest are the report's. Ungated until it is built.
+  -- Stage 5 is complete: the artifact lives at
+  -- `data/challenges/stage-05/safehouse.img`, a bare 16 MiB ext4 filesystem
+  -- handed over by the same gated route as stages 1, 6 and 7. It is a disk
+  -- image like stage 4's, but not mounted behind a simulated shell: the stage
+  -- is about deleted entries, freed inodes and unallocated blocks, and only
+  -- the raw image carries those, so agents open it in Autopsy or The Sleuth
+  -- Kit.
+  --
+  -- The flag is in `Downloads/travel_confirmation.txt`, one of the two files
+  -- removed with `rm`, as a Base64 booking reference — so a `strings` over
+  -- the image does not turn up `SHIELD{`. The third file was `shred -u`'d and
+  -- is gone for good. `Pictures/harbor.jpg` carries the KEYSTONE share in its
+  -- EXIF UserComment. The image's generator is in `challeng05.md`.
+  --
+  -- Gated on stage 4: the intruder's address there is what leads to this
+  -- safehouse.
   (5, 'stage-05', 'OPERATION COLD STORAGE', 'Digital Forensics', 'Moderate', 250,
-   'Placeholder summary for stage five. Replace with a one-line teaser.',
-   'Placeholder briefing. The scenario for this stage has not been written yet — this text exists so the page renders while the platform is built.',
-   'Placeholder objective. Describe here what the participant has to discover or achieve.',
-   NULL,
+   'An empty safehouse, a warm machine, and a man who left in a hurry. He cleaned up on the way out. Not well enough.',
+   'The address in the workstation logs led somewhere, agent.
+
+10.13.37.91 resolved to a rented apartment in Washington — a KRAKEN safehouse, and the one Evan Storm has been working out of. SHIELD had a team at the door within the hour. It was empty. The kettle was still warm.
+
+Storm left at speed, and not on his own schedule. Somebody told him we were coming, and told him in time for him to book a way out and to start destroying things before he went.
+
+He did not take the machine. Forensics pulled a bit-for-bit image of its disk before anybody touched it, and that image is below. It is the last thing Storm did before he disappeared, and he spent the final few minutes of it trying to make sure there would be nothing on it for you to read.
+
+He was in a hurry. People in a hurry use whatever they already know, and whatever they already know is not always as permanent as they think.
+
+Work out what he was doing, what he tried to destroy, and where he went.',
+   'Recover safehouse.img from the evidence locker below and open it as evidence, read-only — do not mount it and write to it.
+Find the suspect''s home directory and reconstruct his last night from what the machine recorded about it.
+Work out what he tried to destroy, and how he destroyed each thing.
+Recover whatever can still be recovered, and establish where he was going. The flag travels with him.',
+   'A man who deletes his tracks at four in the morning has already told you he had tracks worth deleting.',
    -- The flag from the master report, as a digest rather than digest('...')
    -- over the plaintext so it is not greppable in this file.
    decode('9bd909dcac8fd7a1c497562f1194acd8301ba86e9a43859e15b272ac0df4973e', 'hex'),
-   'Placeholder hint.', 25, NULL),
+   'The suspect tried to cover their tracks, but not every deletion is permanent. Check how each file was removed.',
+   25, 4),
 
   -- Stage 6 is complete: the artifact lives at
   -- `data/challenges/stage-06/raven_recovered.png`. Off the web root like the
   -- stage-03 log, but for a different reason — steganography *is* the file, so
   -- it has to be handed over. The gated route at `/challenges/[slug]/evidence`
   -- is what hands it over, after re-checking the session and the unlock.
-  -- Ungated for now (requires_stage NULL) so the card stays reachable while
-  -- stage 5 is still a placeholder. Restore the gate to 5 once it is written.
+  --
+  -- Gated on stage 5, whose recovered notes name RAVEN for the first time.
   (6, 'stage-06', 'OPERATION RAVEN', 'Steganography', 'Moderate', 300,
    'A photograph recovered minutes before the archive went dark. It opens cleanly — and that is the problem.',
    'Forensics pulled a single image off SHIELD-WKS-006, written four minutes before the archive server stopped answering.
@@ -284,14 +302,12 @@ Recover the marker hidden in the pixel data and read what it carries.',
    -- would be greppable.
    decode('36079f894e1c187f77af8aa99a6fd65f7bc813eb66389c4900046abfe8c9706e', 'hex'),
    'The photograph you can see is only the top six bits of every colour channel. Throw those away, keep the two lowest bits of each channel and rescale them — a bit-plane viewer, or four lines of Pillow, will show you what the low bits were really drawing.',
-   40, NULL),
+   40, 5),
 
   -- Stage 7 is complete: the artifact lives at
   -- `data/challenges/stage-07/lockstep_intercept.json`, handed over by the same
   -- gated route as stage 06 — the intercepted traffic is the puzzle, so there
-  -- is nothing to withhold. Ungated for now (requires_stage NULL), like stages
-  -- 3 and 6, so the stage is open to everyone while it is being played and
-  -- tested. Restore the gate to 6 before the event runs for real.
+  -- is nothing to withhold. Gated on stage 6.
   --
   -- Deliberately long rather than deep: 72 packed message bodies, six of which
   -- are a shifted broadcast carrying one phrase in six pieces. Every step is a
@@ -317,7 +333,7 @@ Reassemble the six pieces in the order command gives, and submit the phrase they
    -- here would be greppable.
    decode('109e8a1811474b0ff0d74a5a976114771ec5114f16773fd8b6345f5001525043', 'hex'),
    'The bodies are Base64. Decode all seventy-two and sixty-six of them read as ordinary English. The other six are the same message shifted a fixed number of letters along the alphabet — try all twenty-five shifts on any one of them and the rest open with the same shift. Each one then spells its piece of the phrase in the NATO phonetic alphabet, with digits read out as spoken numbers, so DELTA FOUR ROMEO KILO reads d4rk. Six pieces, joined in number order with underscores between them, all in lower case.',
-   30, NULL),
+   30, 6),
 
   -- Stage 8 is the operation's finale and its meta stage: OPERATION KEYSTONE.
   --
