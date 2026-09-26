@@ -55,6 +55,14 @@ next-env.d.ts
 /challeng07.md
 /challeng08.md
 /stage1-keystone.md
+# The story design document (every flag and KEYSTONE share) and the
+# architecture image prompt. Local only.
+/story.md
+/image.md
 # Retired: the VM crackme the finale used to be. Kept because its generator
 # rebuilds the artifact byte for byte if the design is ever wanted back.
 /challeng08-deadhand-retired.md
+
+# graphify knowledge graph output. Built partly from story.md, so it
+# describes how the stages are solved. Local only.
+/graphify-out/
